@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Head, Link } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
 import { animals, catanddog, charleroi, croixbleue, dashboard, lalouviere, mouscron, sanscollier, veeweyde } from '../assets/img';
+import SearchAnimals from '@/components/petshelter/search-animals';
 
 function ScrollButton() {
     const [isVisible, setIsVisible] = useState(false);
@@ -98,22 +99,22 @@ export default function Welcome() {
                             <h2 className={'py-8 text-center text-3xl font-bold text-black'}>Nos partenaires</h2>
                             <div className={'flex items-center gap-20 overflow-x-auto whitespace-nowrap max-md:gap-10 md:justify-center'}>
                                 <Link href={'https://www.sanscollier.be/'} title={'Vers www.sanscollier.be'} target={'_blank'}>
-                                    <img src={sanscollier} alt={''} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
+                                    <img src={sanscollier} alt={'logo sanscollier'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </Link>
                                 <Link href={'https://www.spalalouviere.be/'} title={'Vers www.spalalouviere.be'} target={'_blank'}>
-                                    <img src={lalouviere} alt={''} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
+                                    <img src={lalouviere} alt={'logo spa la louvière'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </Link>
                                 <Link href={'https://www.spa-charleroi.be/'} title={'Vers www.spa-charleroi.be'} target={'_blank'}>
-                                    <img src={charleroi} alt={''} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
+                                    <img src={charleroi} alt={'logo spa charleroi'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </Link>
                                 <Link href={'https://www.croixbleue.be/'} title={'Vers www.croixbleue.be'} target={'_blank'}>
-                                    <img src={croixbleue} alt={''} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
+                                    <img src={croixbleue} alt={'logo croix bleue'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </Link>
                                 <Link href={'https://www.spa-mouscron.be/'} title={'Vers www.spa-mouscron.be'} target={'_blank'}>
-                                    <img src={mouscron} alt={''} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
+                                    <img src={mouscron} alt={'logo spa mouscron'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </Link>
                                 <Link href={'https://www.veeweyde.be/'} title={'Vers www.veeweyde.be'} target={'_blank'}>
-                                    <img src={veeweyde} alt={''} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
+                                    <img src={veeweyde} alt={'logo veeweyde'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </Link>
                             </div>
                         </section>
@@ -148,6 +149,7 @@ export default function Welcome() {
                                 </p>
                             </div>
                             <div className={'m-auto h-[400px] w-[50%] min-w-[350px] rounded-2xl shadow-2xl'}></div>
+                            <SearchAnimals/>
                             {/* Composant */}
                         </section>
                     </div>
