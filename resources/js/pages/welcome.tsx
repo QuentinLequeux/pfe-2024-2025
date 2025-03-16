@@ -148,9 +148,7 @@ export default function Welcome() {
                                     ses besoins et rejoignez l’aventure du parrainage pour lui donner une seconde chance.
                                 </p>
                             </div>
-                            <div className={'m-auto h-[400px] w-[50%] min-w-[350px] rounded-2xl shadow-2xl'}></div>
                             <SearchAnimals/>
-                            {/* Composant */}
                         </section>
                     </div>
                     <div className={'bg-main py-20'}>
