@@ -12,13 +12,13 @@ class AnimalsFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'age' => $this->faker->numberBetween(1, 20),
-            'gender' => $this->faker->randomElement(['male', 'female']),
-            'weight' => $this->faker->randomFloat(1, 1, 100),
-            'description' => $this->faker->text(),
-            'arrival_date' => $this->faker->date(),
-            'adoption_status' => $this->faker->randomElement(['available', 'adopted', 'pending']),
+            'name' => $this->faker->firstName(), // Génère un nom aléatoire.
+            'age' => $this->faker->numberBetween(1, 20), // Génère un nombre entre 1 et 20.
+            'gender' => $this->faker->randomElement(['male', 'female']), // Génère un sexe aléatoire.
+            'weight' => $this->faker->randomFloat(1, 1, 100), // Génère un poids entre 1 et 100 kg.
+            'description' => $this->faker->text(), // Génère une description aléatoire.
+            'arrival_date' => $this->faker->dateTimeThisDecade(), // Génère une date dans la dernière décennie.
+            'adoption_status' => $this->faker->randomElement(['available', 'adopted', 'pending']), // Génère un statut aléatoire.
         ];
     }
 }

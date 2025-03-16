@@ -12,12 +12,11 @@ class SearchController extends Controller
         $query = $request->get('query');
 
         if ($query) {
-            $animals = Animals::search($query)->take(3)->get();
+            $animals = Animals::search($query)->take(3)->get(); // Récupère jusqu'à trois résultats de recherche.
         } else {
-            $animals = Animals::take(3)->get();
+            $animals = Animals::take(3)->get(); // Récupère trois animaux à afficher par défaut.
         }
 
         return response()->json($animals);
-        //return Animals::search($request->get('query'))->get();
     }
 }
