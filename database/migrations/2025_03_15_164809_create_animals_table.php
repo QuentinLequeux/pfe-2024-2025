@@ -21,7 +21,10 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']); // Sexe de l'animal
             $table->enum('adoption_status', ['available', 'pending', 'adopted'])->default('available'); // Statut de l'animal
 //            $table->string('photo'); // Photo de l'animal
-//            $table->foreignId('breed_id')->constrained(); // Clé étrangère vers la table "espèce"
+
+            // Clés étrangères
+
+            $table->foreignId('breed_id')->constrained(); // Clé étrangère vers la table "races"
 //            $table->foreignId('organization_id')->constrained(); // Clé étrangère vets la table "organization"
             $table->timestamps(); // created_at - updated_at
         });

@@ -1,16 +1,32 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from '@inertiajs/react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { ENDPOINTS } from '@/config/endpoints';
 
-interface Animal {
+interface IAnimal {
     id: number;
     name: string;
+    //breed: { breed: string };
 }
 
 const SearchAnimals = () => {
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState<Animal[]>([]);
+    const [results, setResults] = useState<IAnimal[]>([]);
+
+    useEffect(() => {
+        const fetchDefaultAnimals = async (): Promise<void> => {
+            try {
+                const res: Response = await fetch(ENDPOINTS.SEARCH_URL); // Récupérer les trois premiers animaux
+                const data: IAnimal[] = await res.json();
+                setResults(data);
+            } catch (error) {
+                console.log('Erreur lors du chargement par défaut :', error);
+            }
+        };
+
+        fetchDefaultAnimals();
+    }, []);
 
     const handleSearch = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
         const value = e.currentTarget.value;
@@ -18,11 +34,11 @@ const SearchAnimals = () => {
 
         let url = `http://pfe.test/search?query=${value}`;
         if (value.length === 0) {
-            url = `http://pfe.test/search`; // Récupérer les trois premiers animaux par défaut
+            url = ENDPOINTS.SEARCH_URL; // Récupérer les trois premiers animaux par défaut
         }
 
         const res: Response = await fetch(url);
-        const data: Animal[] = await res.json();
+        const data: IAnimal[] = await res.json();
         setResults(data);
     };
 
@@ -43,7 +59,7 @@ const SearchAnimals = () => {
                     value={query}
                     onChange={handleSearch}
                     placeholder="Rechercher un animal..."
-                    className="caret-main border-gray-500 py-5 pl-10 text-black"
+                    className="caret-main border-gray-500 py-5 pl-10 text-black bg-[#fff]"
                 />
             </div>
 
@@ -56,7 +72,6 @@ const SearchAnimals = () => {
                                     <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}></div>
                                     <div className={'flex flex-col overflow-hidden'}>
                                         <p className="font-bold text-black">{animal.name}</p>
-                                        <p className={'text-gray-500'}>Race</p>
                                     </div>
                                 </div>
                                 <Button asChild className={'bg-main hover:bg-hover ml-auto font-bold'}>

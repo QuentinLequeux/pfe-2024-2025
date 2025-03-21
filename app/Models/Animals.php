@@ -25,9 +25,16 @@ class Animals extends Model
 
             'id' => (string)$this->id,
 
+            'name' => (string)$this->name,
+
             'created_at' => $this->created_at->timestamp,
 
         ]);
 
+    }
+
+    public function breed()
+    {
+        return $this->belongsTo(Breeds::class, 'breed_id'); // Un animal a une race.
     }
 }

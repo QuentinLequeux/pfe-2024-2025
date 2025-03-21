@@ -26,14 +26,12 @@ function ScrollButton() {
     };
 
     return (
-        <div
-            className={`bg-main fixed right-10 bottom-10 rounded-[50%] p-2 shadow-xl transition-opacity duration-500 max-md:right-5 ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
-        >
-            <Link href={'#'} onClick={scrollToTop}>
+        <div>
+            <Button onClick={scrollToTop} className={`bg-main hover:bg-hover !p-2.5 fixed right-5 bottom-5 rounded-full shadow-xl transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M1 8L8 1M8 1L15 8M8 1V15" stroke="#09090B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-            </Link>
+            </Button>
         </div>
     );
 }
@@ -47,7 +45,7 @@ export default function Welcome() {
         <>
             <Head title="Accueil"></Head>
             <div className={'bg-[#eee]'}>
-                <header className={'fixed w-screen bg-[#fff] shadow-sm'}>
+                <header className={'fixed w-screen bg-[#fff] shadow-sm z-10'}>
                     <h1 className={'sr-only'}>PetShelter</h1>
                     {/* Logo */}
                     <nav className={'m-auto flex w-[80%] items-center justify-between'} aria-label={'main-navigation'}>

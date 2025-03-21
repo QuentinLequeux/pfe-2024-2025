@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Animals;
+use App\Models\Breeds;
+use App\Models\Species;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -18,6 +20,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'quentin.lequeux@student.hepl.be',
         ]); // Génère un utilisateur.
 
-        Animals::factory(10)->create(); //Génère 10 animaux aléatoires.
+        Species::factory(5)->create(); // Génère 5 espèces aléatoires.
+
+        Breeds::factory(5)->create(); // Génère 5 races aléatoires.
+
+        Animals::factory(10)->create(); // Génère 10 animaux aléatoires.
     }
 }
