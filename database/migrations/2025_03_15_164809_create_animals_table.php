@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('animals', function (Blueprint $table) {
+            $table->id(); // identifiant de l'animal
+            $table->string('name'); // Nom de l'animal
+            $table->integer('age'); // Age de l'animal
+            $table->integer('weight'); // Poids de l'animal
+            $table->text('description'); // Description de l'animal
+            $table->date('arrival_date'); // Date d'arrivée de l'animal
+            $table->enum('gender', ['male', 'female']); // Sexe de l'animal
+            $table->enum('adoption_status', ['available', 'pending', 'adopted'])->default('available'); // Statut de l'animal
+//            $table->string('photo'); // Photo de l'animal
+
+            // Clés étrangères
+
+            $table->foreignId('breed_id')->constrained(); // Clé étrangère vers la table "races"
+//            $table->foreignId('organization_id')->constrained(); // Clé étrangère vets la table "organization"
+            $table->timestamps(); // created_at - updated_at
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('animals');
+    }
+};

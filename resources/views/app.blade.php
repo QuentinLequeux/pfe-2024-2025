@@ -32,6 +32,7 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="stylesheet" href="https://use.typekit.net/xcu5nly.css">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
@@ -40,7 +41,7 @@
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-nunito antialiased scroll">
         @inertia
     </body>
 </html>
