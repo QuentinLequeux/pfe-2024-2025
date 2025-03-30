@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 const ScrollButton: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const viewportHeight = 600;
+    const viewportHeight: number = 600;
 
     useEffect(() => {
         const handleScroll = () => {

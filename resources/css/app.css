@@ -254,5 +254,6 @@
 
 @theme main {
     --color-main: #E8A87C;
+    --color-opacity: rgba(232,168,124,0.5);
     --color-hover: #F0C58A;
 }

@@ -20,7 +20,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Animaux',
-        url: '#',
+        url: '/animals',
         icon: PawPrintIcon,
     },
     {
