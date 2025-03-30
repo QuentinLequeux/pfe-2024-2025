@@ -13,8 +13,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
     Route::get('/animals', function () {
-        return Inertia::render('animals', ['animals' => Animals::all()]);
+        return Inertia::render('animals', ['animals' => Animals::orderBy('id', 'desc')->paginate(10)]);
     })->name('animals');
+    Route::get('/animals/{id}', function ($id) {
+        return Inertia::render('show', ['animal' => Animals::findOrFail($id)]);
+    })->name('animals.show');
 });
 
 require __DIR__ . '/settings.php';
