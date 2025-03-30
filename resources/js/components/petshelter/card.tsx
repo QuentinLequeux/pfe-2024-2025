@@ -1,5 +1,5 @@
 //import { animals } from '../../assets/img';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 /* TODO : créer un fichier pour l'interface. */
 
@@ -12,9 +12,9 @@ const Card = () => {
     const { animals } = usePage().props;
 
     return (
-        <div className={'flex gap-8 flex-wrap'}>
-            {animals.map((animal) => (
-                <div key={animal.id} className={'h-[400px] w-[250px] rounded-lg shadow-lg'}>
+        <div className={'flex flex-wrap gap-8'}>
+            {animals.data.map((animal) => (
+                <Link href={route('animals.show', { id: animal.id })} key={animal.id} className={'h-[400px] w-[250px] rounded-lg shadow-lg'}>
                     <img className={'rounded-t-lg'} src={animals} alt={''} />
                     <p className={'p-6 text-center text-2xl font-bold'}>{animal.name}</p>
                     <div className={'bg-opacity m-auto mb-2 flex w-[80%] justify-center rounded-md p-1'}>
@@ -95,8 +95,19 @@ const Card = () => {
                         </svg>
                         Localisation
                     </div>
-                </div>
+                </Link>
             ))}
+            <div className="mt-4 flex gap-2">
+                {animals.links.map((link, index) => (
+                    <Link
+                        key={index}
+                        href={link.url || '#'}
+                        className={`rounded border px-4 py-2 ${link.active ? 'bg-gray-200 text-black' : 'text-gray-400'}`}
+                    >
+                        {link.label}
+                    </Link>
+                ))}
+            </div>
         </div>
     );
 };

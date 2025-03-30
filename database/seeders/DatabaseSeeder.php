@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         Breeds::factory(5)->create(); // Génère 5 races aléatoires.
 
-        Animals::factory(10)->create(); // Génère 10 animaux aléatoires.
+        Animals::factory(15)->create(); // Génère 10 animaux aléatoires.
 
         Organizations::factory(5)->create(); // Génère 5 refuges aléatoires.
     }

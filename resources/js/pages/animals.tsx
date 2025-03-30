@@ -13,6 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Animals() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
+            {/* TODO : Màj du HEAD */}
             <Head title={'Animaux'} />
             <div className={'p-6'}>
                 <Card/>
