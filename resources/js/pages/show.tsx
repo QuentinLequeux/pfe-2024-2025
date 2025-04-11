@@ -19,8 +19,8 @@ const Show: React.FC = () => {
                 </div>
                 <div className={'mt-8 flex flex-wrap justify-center gap-6'}>
                     <div className={'h-fit max-w-[90%] rounded-2xl bg-[#fff] p-6 shadow-md'}>
-                        <div className={'flex gap-8'}>
-                            <div className={'flex h-[300px] w-[60%] flex-col rounded-2xl bg-[#eee]'}>
+                        <div className={'flex flex-wrap gap-8'}>
+                            <div className={'flex h-[300px] sm:w-[60%] w-full flex-col rounded-2xl bg-[#eee]'}>
                                 <div
                                     className={`mt-auto w-full justify-end rounded-b-2xl ${
                                         animal.adoption_status?.toLowerCase() === 'pending'
@@ -35,7 +35,7 @@ const Show: React.FC = () => {
                                     <p className={'text-center'}>{animal.adoption_status}</p>
                                 </div>
                             </div>
-                            <div>
+                            <div className={'m-auto'}>
                                 <p className={'mb-2 rounded-md border p-2 text-center font-bold'}>
                                     Nom&nbsp;: <span className={'font-light'}>{animal.name}</span>
                                 </p>
