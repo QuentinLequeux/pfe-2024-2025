@@ -12,11 +12,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
     Route::get('/animals', function () {
-        return Inertia::render('animals', ['animals' => Animals::orderBy('id', 'desc')->paginate(10)]);
+        return Inertia::render('animals', ['animals' => Animals::with('breed')->orderBy('id', 'desc')->paginate(10)]);
     })->name('animals');
+
+    Route::get('/animals/create', function () {
+        return Inertia::render('create');
+    })->name('animals.create');
+
     Route::get('/animals/{id}', function ($id) {
-        return Inertia::render('show', ['animal' => Animals::with('organization')->findOrFail($id)]);
+        $animal = Animals::with('organization', 'breed')->findOrFail($id);
+        $animals = Animals::where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
+        return Inertia::render('show', ['animal' => $animal, 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
 });
 
