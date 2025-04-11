@@ -20,6 +20,7 @@ class AnimalsFactory extends Factory
             'arrival_date' => $this->faker->dateTimeThisDecade(), // Génère une date dans la dernière décennie.
             'adoption_status' => $this->faker->randomElement(['available', 'adopted', 'pending']), // Génère un statut aléatoire.
             'breed_id' => $this->faker->numberBetween(1, 5), // Génère un identifiant aléatoire entre 1 et 5.
+            'organization_id' => $this->faker->numberBetween(1, 5), // Génère un identifiant aléatoire entre 1 et 5.
         ];
     }
 }

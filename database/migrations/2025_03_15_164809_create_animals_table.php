@@ -25,7 +25,7 @@ return new class extends Migration
             // Clés étrangères
 
             $table->foreignId('breed_id')->constrained(); // Clé étrangère vers la table "races"
-//            $table->foreignId('organization_id')->constrained(); // Clé étrangère vets la table "organization"
+            $table->foreignId('organization_id')->constrained(); // Clé étrangère vers la table "organization"
             $table->timestamps(); // created_at - updated_at
         });
     }
