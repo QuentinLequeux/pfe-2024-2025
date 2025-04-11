@@ -35,7 +35,7 @@ class Animals extends Model
 
     public function breed()
     {
-        return $this->belongsTo(Breeds::class, 'breed_id'); // Un animal a une race.
+        return $this->belongsTo(Breeds::class); // Un animal a une race.
     }
 
     public function organization()

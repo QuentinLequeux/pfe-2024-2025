@@ -1,21 +1,20 @@
 //import { animals } from '../../assets/img';
 import { Link, usePage } from '@inertiajs/react';
+import { IAnimal } from '@/types/IAnimal';
 
-/* TODO : créer un fichier pour l'interface. */
-
-interface IAnimal {
-    id: number;
-    name: string;
+interface IPaginateResults<T> {
+    data: T;
+    //links: Array;
 }
 
 const Card = () => {
-    const { animals } = usePage().props;
+    const { animals } = usePage<{animals: IPaginateResults<IAnimal[]>}>().props;
 
     return (
-        <div className={'flex flex-wrap gap-8'}>
-            {animals.data.map((animal) => (
+        <div className={'flex flex-wrap gap-8 m-2 justify-center'}>
+            {animals.data.map((animal:IAnimal) => (
                 <Link href={route('animals.show', { id: animal.id })} key={animal.id} className={'h-[400px] w-[250px] rounded-lg shadow-lg'}>
-                    <img className={'rounded-t-lg'} src={animals} alt={''} />
+                    <img className={'rounded-t-lg'} src={''} alt={''} />
                     <p className={'p-6 text-center text-2xl font-bold'}>{animal.name}</p>
                     <div className={'bg-opacity m-auto mb-2 flex w-[80%] justify-center rounded-md p-1'}>
                         <svg
@@ -69,7 +68,7 @@ const Card = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                        {animal.breed_id}
+                        {animal.breed?.breed}
                     </div>
                     <div className={'bg-opacity m-auto mb-2 flex w-[80%] justify-center rounded-md p-1'}>
                         <svg className={'mr-2'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -97,8 +96,8 @@ const Card = () => {
                     </div>
                 </Link>
             ))}
-            <div className="mt-4 flex gap-2">
-                {animals.links.map((link, index) => (
+            <div className="mt-4 flex gap-2 w-full justify-center">
+                {animals.links.map((link, index: number) => (
                     <Link
                         key={index}
                         href={link.url || '#'}
