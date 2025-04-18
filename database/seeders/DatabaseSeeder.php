@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Organizations::factory(5)->create(); // Génère 5 refuges aléatoires.
+
         User::factory()->create([
             'name' => 'Quentin',
             'email' => 'quentin.lequeux@student.hepl.be',
@@ -24,8 +26,6 @@ class DatabaseSeeder extends Seeder
         Species::factory(5)->create(); // Génère 5 espèces aléatoires.
 
         Breeds::factory(5)->create(); // Génère 5 races aléatoires.
-
-        Organizations::factory(5)->create(); // Génère 5 refuges aléatoires.
 
         Animals::factory(15)->create(); // Génère 10 animaux aléatoires.
     }
