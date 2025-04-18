@@ -1,16 +1,183 @@
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
+import { cn } from '@/lib/utils';
+import { IOrganization } from '@/types/IOrganization';
+import { Head, useForm } from '@inertiajs/react';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import { CalendarIcon } from 'lucide-react';
+import React, { FormEventHandler } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
-const Create = () => {
+type Props = {
+    organization: IOrganization;
+    statuses: string[];
+};
 
-    return(
+const Create = ({ organization, statuses }: Props ) => {
+    const { post } = useForm({
+        age: ''
+    });
+
+    const [date, setDate] = React.useState<Date>();
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route(''));
+    };
+
+    return (
         <AppLayout>
-            <Head/>
+            <Head />
             <div>
-                <h2>Hello</h2>
+                <div className={'m-8'}>
+                    <h2 aria-level={2} role={'heading'} className={'mb-2 text-2xl font-bold'}>
+                        Ajouter un animal
+                    </h2>
+                    <p>
+                        <span className={'text-orange-500'}>*</span> Champs obligatoires
+                    </p>
+                </div>
+                <div className={'m-8'}>
+                    <form className={'flex flex-col gap-4'} onSubmit={submit}>
+                        <div className={'w-[40%] min-w-[300px]'}>
+                            <Label>
+                                Organisation&nbsp;<span className={'text-orange-500'}>*</span>
+                            </Label>
+                            <Select required>
+                                <SelectTrigger>
+                                    <SelectValue placeholder={'Choisir une organisation'} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value={organization.name}>{organization.name}</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                            <div className={'w-full min-w-[200px]'}>
+                                <Label htmlFor={'name'}>
+                                    Nom&nbsp;<span className={'text-orange-500'}>*</span>
+                                </Label>
+                                <Input type={'text'} id={'name'} placeholder={'Nom'} required value={''} />
+                            </div>
+                            <div className={'w-full min-w-[200px]'}>
+                                <Label htmlFor={'age'}>
+                                    Age&nbsp;<span className={'text-orange-500'}>*</span>
+                                </Label>
+                                <Input type={'number'} id={'age'} placeholder={'Age'} required value={''} />
+                            </div>
+                        </div>
+                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                            <div className={'w-full min-w-[200px]'}>
+                                <Label htmlFor={'weight'}>Poids</Label>
+                                <Input type={'number'} id={'weight'} placeholder={'Poids'} value={''} />
+                            </div>
+                            <div className={'w-full'}>
+                                <Label htmlFor={''}>
+                                    Date d'arriv&eacute;e&nbsp;<span className={'text-orange-500'}>*</span>
+                                </Label>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant={'outline'}
+                                            className={cn('w-full min-w-[200px] justify-start font-normal', !date && 'text-muted-foreground')}
+                                        >
+                                            <CalendarIcon className={'mr-2 h-4 w-4'} />
+                                            {date ? format(date, 'PPP', { locale: fr }) : <span>Choisir une date</span>}
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                        <Calendar mode={'single'} selected={date} onSelect={setDate} initialFocus
+                                                  locale={fr} />
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
+                        </div>
+                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                            <div className={'w-full'}>
+                                <Label>
+                                    Race&nbsp;<span className={'text-orange-500'}>*</span>
+                                </Label>
+                                <Select required>
+                                    <SelectTrigger className={'min-w-[200px]'}>
+                                        <SelectValue placeholder={'Choisir une race'} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value={'1'}>1</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className={'w-full'}>
+                                <Label>
+                                    Esp&egrave;ce&nbsp;<span className={'text-orange-500'}>*</span>
+                                </Label>
+                                <Select required>
+                                    <SelectTrigger className={'min-w-[200px]'}>
+                                        <SelectValue placeholder={'Choisir une espèce'} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value={'1'}>1</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                            <div className={'w-full'}>
+                                <Label>
+                                    Sexe&nbsp;<span className={'text-orange-500'}>*</span>
+                                </Label>
+                                <Select required>
+                                    <SelectTrigger className={'min-w-[200px]'}>
+                                        <SelectValue placeholder={'Choisir un sexe'} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value={'1'}>1</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className={'w-full'}>
+                                <Label>
+                                    Statut&nbsp;<span className={'text-orange-500'}>*</span>
+                                </Label>
+                                <Select required>
+                                    <SelectTrigger className={'min-w-[200px]'}>
+                                        <SelectValue placeholder={'Choisir un statut'} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {statuses.map((status) => (
+                                            <SelectItem key={status} value={status}>
+                                                {status}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+                        <div className={'w-[40%] min-w-[300px]'}>
+                            <Label htmlFor={'photo'}>
+                                Photo&nbsp;<span className={'text-orange-500'}>*</span>
+                            </Label>
+                            <Input type={'file'} id={'photo'} placeholder={'Photo'} required value={''} />
+                        </div>
+                        <div className={'w-[40%] min-w-[300px]'}>
+                            <Label htmlFor={'description'}>
+                                Description
+                            </Label>
+                            <Textarea id={'description'} placeholder={'Ajoutez une description'} rows={4} className={'max-h-[300px]'} />
+                        </div>
+                        <Button type={'submit'} className={'w-[40%] bg-main hover:bg-hover font-bold'}>
+                            Ajouter
+                        </Button>
+                    </form>
+                </div>
             </div>
         </AppLayout>
-    )
-}
+    );
+};
 
 export default Create;

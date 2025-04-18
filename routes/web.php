@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AnimalStatus;
 use App\Models\Animals;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,7 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('animals');
 
     Route::get('/animals/create', function () {
-        return Inertia::render('create');
+        $user = auth()->user();
+        return Inertia::render('create', ['organization' => $user->organization, 'statuses' => AnimalStatus::cases()]);
     })->name('animals.create');
 
     Route::get('/animals/{id}', function ($id) {
