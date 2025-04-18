@@ -3,6 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Quentin Lequeux">
+        <meta name="description" content="PetShelter - Une application de parrainage pour les animaux en refuge.">
+        <meta name="keywords" content="PetShelter, petshelter, parrainage, animaux, refuge, dons, don, chien, chat, aide">
+
+        <!--TODO : Ajouter Open Graph -->
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
@@ -30,11 +35,18 @@
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>{{ config('app.name', 'PetShelter') }}</title>
+
+        <!-- Adobe font -->
 
         <link rel="stylesheet" href="https://use.typekit.net/xcu5nly.css">
+
+        <!--TODO : Ajouter favicon -->
+
+        <!--
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        -->
 
         @routes
         @viteReactRefresh
