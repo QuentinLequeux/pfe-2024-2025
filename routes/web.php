@@ -34,6 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/animals/create', [AnimalRegistrationController::class, 'store'])
     ->name('animals.store');
 
+    Route::delete('/animals/{animal}', [AnimalRegistrationController::class, 'destroy'])
+        ->name('animals.destroy');
+
     Route::get('/animals/{id}', function ($id) {
         $animal = Animals::with('organization', 'breed')->findOrFail($id);
         $animals = Animals::where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
