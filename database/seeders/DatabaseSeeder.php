@@ -23,7 +23,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'quentin.lequeux@student.hepl.be',
         ]); // Génère un utilisateur.
 
-        Species::factory(5)->create(); // Génère 5 espèces aléatoires.
+        $species = ['Chien', 'Chat', 'Cheval', 'Lapin', 'Chèvre'];
+
+        foreach ($species as $specie) {
+            Species::factory()->create(['specie' => $specie]);
+        }
+
+        //Species::factory(5)->create(); // Génère 5 espèces aléatoires.
 
         Breeds::factory(5)->create(); // Génère 5 races aléatoires.
 

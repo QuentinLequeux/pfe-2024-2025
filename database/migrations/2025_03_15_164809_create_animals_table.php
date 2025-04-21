@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('name'); // Nom de l'animal
             $table->integer('age'); // Age de l'animal
             $table->integer('weight'); // Poids de l'animal
-            $table->text('description'); // Description de l'animal
+            $table->text('description')->nullable(); // Description de l'animal
             $table->date('arrival_date'); // Date d'arrivée de l'animal
-            $table->enum('gender', ['male', 'female']); // Sexe de l'animal
-            $table->enum('adoption_status', ['available', 'pending', 'adopted'])->default('available'); // Statut de l'animal
+            $table->string('gender'); // Sexe de l'animal
+            $table->string('adoption_status'); // Statut de l'animal
 //            $table->string('photo'); // Photo de l'animal
 
             // Clés étrangères

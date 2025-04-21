@@ -12,7 +12,7 @@ class SpeciesFactory extends Factory
     public function definition(): array
     {
         return [
-            'specie' => $this->faker->firstName(), // Génère une espèce aléatoire
+            //'specie' => $this->faker->firstName(), // Génère une espèce aléatoire
         ];
     }
 }
