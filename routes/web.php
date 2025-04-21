@@ -1,7 +1,10 @@
 <?php
 
 use App\Enums\AnimalStatus;
+use App\Enums\Gender;
+use App\Http\Controllers\AnimalRegistrationController;
 use App\Models\Animals;
+use App\Models\Breeds;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,8 +23,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/animals/create', function () {
         $user = auth()->user();
-        return Inertia::render('create', ['organization' => $user->organization, 'statuses' => AnimalStatus::cases()]);
+        return Inertia::render('create', [
+            'organization' => $user->organization,
+            'statuses' => AnimalStatus::cases(),
+            'breeds' => Breeds::all(),
+            'gender' => Gender::cases()
+        ]);
     })->name('animals.create');
+
+    Route::post('/animals/create', [AnimalRegistrationController::class, 'store'])
+    ->name('animals.store');
 
     Route::get('/animals/{id}', function ($id) {
         $animal = Animals::with('organization', 'breed')->findOrFail($id);
