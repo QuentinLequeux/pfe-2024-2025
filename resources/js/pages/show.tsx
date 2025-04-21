@@ -2,8 +2,9 @@ import Card from '@/components/petshelter/card';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { IAnimal } from '@/types/IAnimal';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import React from 'react';
+import { Pencil, Trash2 } from 'lucide-react';
 
 const Show: React.FC = () => {
     const { animal } = usePage<{ animal: IAnimal }>().props;
@@ -106,6 +107,12 @@ const Show: React.FC = () => {
                             Parrainer
                         </Link>
                     </Button>
+                </div>
+                <div className={'fixed z-10 bottom-40 right-5 h-[50px] w-[50px] bg-main rounded-full flex items-center justify-center cursor-pointer'}>
+                    <Pencil color={'#fff'} size={'24px'} onClick={() => router.put(route('animals.edit', animal.id))} />
+                </div>
+                <div className={'fixed z-10 bottom-25 right-5 h-[50px] w-[50px] bg-red-500 rounded-full flex items-center justify-center cursor-pointer'}>
+                    <Trash2 color={'#fff'} size={'24px'} onClick={() => { if (confirm('Voulez-vous vraiment supprimer cet animal ?'))  router.delete(route('animals.destroy', animal.id)) }} />
                 </div>
                 <div className={'shadow-fixed sticky bottom-0 flex h-[70px] items-center justify-around rounded-b-2xl bg-[#fff]'}>
                     <div className={'flex gap-4 items-center'}>
