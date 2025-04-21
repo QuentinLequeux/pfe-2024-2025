@@ -17,6 +17,18 @@ class Animals extends Model
      * @return array<string, mixed>
      */
 
+    protected $fillable = [
+        'organization_id',
+        'name',
+        'age',
+        'weight',
+        'arrival_date',
+        'breed_id',
+        'gender',
+        'adoption_status',
+        'description'
+    ];
+
     public function toSearchableArray(): array
 
     {
