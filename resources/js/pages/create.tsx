@@ -4,31 +4,42 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
+import { IBreed } from '@/types/IBreed';
 import { IOrganization } from '@/types/IOrganization';
 import { Head, useForm } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import React, { FormEventHandler } from 'react';
-import { Textarea } from '@/components/ui/textarea';
 
 type Props = {
     organization: IOrganization;
     statuses: string[];
+    breeds: IBreed[];
+    gender: string[];
 };
 
-const Create = ({ organization, statuses }: Props ) => {
-    const { post } = useForm({
-        age: ''
+const Create = ({ organization, statuses, breeds, gender }: Props) => {
+    const { data, setData, post, errors } = useForm({
+        organization_id: '',
+        name: '',
+        age: '',
+        weight: '',
+        arrival_date: '',
+        breed_id: '',
+        gender: '',
+        adoption_status: '',
+        description: '',
     });
 
     const [date, setDate] = React.useState<Date>();
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route(''));
+        post(route('animals.store'));
     };
 
     return (
@@ -49,33 +60,56 @@ const Create = ({ organization, statuses }: Props ) => {
                             <Label>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
-                            <Select required>
+                            <Select required onValueChange={(value) => setData('organization_id', value)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder={'Choisir une organisation'} />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value={organization.name}>{organization.name}</SelectItem>
+                                    <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
-                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'name'}>
                                     Nom&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
-                                <Input type={'text'} id={'name'} placeholder={'Nom'} required value={''} />
+                                <Input
+                                    type={'text'}
+                                    id={'name'}
+                                    placeholder={'Nom'}
+                                    required
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
+                                />
+                                {errors.name && <p>{errors.name}</p>}
                             </div>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'age'}>
                                     Age&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
-                                <Input type={'number'} id={'age'} placeholder={'Age'} required value={''} />
+                                <Input
+                                    type={'number'}
+                                    id={'age'}
+                                    placeholder={'Age'}
+                                    required
+                                    value={data.age}
+                                    onChange={(e) => setData('age', e.target.value)}
+                                />
+                                {errors.name && <p>{errors.name}</p>}
                             </div>
                         </div>
-                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'weight'}>Poids</Label>
-                                <Input type={'number'} id={'weight'} placeholder={'Poids'} value={''} />
+                                <Input
+                                    type={'number'}
+                                    id={'weight'}
+                                    placeholder={'Poids'}
+                                    value={data.weight}
+                                    onChange={(e) => setData('weight', e.target.value)}
+                                />
+                                {errors.name && <p>{errors.name}</p>}
                             </div>
                             <div className={'w-full'}>
                                 <Label htmlFor={''}>
@@ -92,51 +126,75 @@ const Create = ({ organization, statuses }: Props ) => {
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent>
-                                        <Calendar mode={'single'} selected={date} onSelect={setDate} initialFocus
-                                                  locale={fr} />
+                                        <Calendar
+                                            mode={'single'}
+                                            selected={date}
+                                            onSelect={(selectedDate) => {
+                                                setDate(selectedDate);
+                                                if (selectedDate) {
+                                                    setData('arrival_date', format(selectedDate, 'yyyy-MM-dd'));
+                                                }
+                                            }}
+                                            initialFocus
+                                            locale={fr}
+                                        />
                                     </PopoverContent>
                                 </Popover>
                             </div>
                         </div>
-                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full'}>
                                 <Label>
                                     Race&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
-                                <Select required>
+                                <Select required onValueChange={(value) => setData('breed_id', value)}>
                                     <SelectTrigger className={'min-w-[200px]'}>
                                         <SelectValue placeholder={'Choisir une race'} />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value={'1'}>1</SelectItem>
+                                        {breeds.map((breed) => (
+                                            <SelectItem key={breed.id} value={breed.id.toString()}>
+                                                {breed.breed}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </div>
+                            {/*
                             <div className={'w-full'}>
                                 <Label>
                                     Esp&egrave;ce&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
-                                <Select required>
+                                <Select required onValueChange={(value) => setData('specie_id', value)}>
                                     <SelectTrigger className={'min-w-[200px]'}>
                                         <SelectValue placeholder={'Choisir une espèce'} />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value={'1'}>1</SelectItem>
+                                        {species.map((specie) => (
+                                            <SelectItem key={specie.id} value={specie.id.toString()}>
+                                                {specie.specie}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </div>
+                            */}
                         </div>
-                        <div className={'flex flex-col w-[40%] gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full'}>
                                 <Label>
                                     Sexe&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
-                                <Select required>
+                                <Select required onValueChange={(value) => setData('gender', value)}>
                                     <SelectTrigger className={'min-w-[200px]'}>
                                         <SelectValue placeholder={'Choisir un sexe'} />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value={'1'}>1</SelectItem>
+                                        {gender.map((gender) => (
+                                            <SelectItem key={gender} value={gender}>
+                                                {gender}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -144,7 +202,7 @@ const Create = ({ organization, statuses }: Props ) => {
                                 <Label>
                                     Statut&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
-                                <Select required>
+                                <Select required onValueChange={(value) => setData('adoption_status', value)}>
                                     <SelectTrigger className={'min-w-[200px]'}>
                                         <SelectValue placeholder={'Choisir un statut'} />
                                     </SelectTrigger>
@@ -158,19 +216,27 @@ const Create = ({ organization, statuses }: Props ) => {
                                 </Select>
                             </div>
                         </div>
+                        {/*
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label htmlFor={'photo'}>
                                 Photo&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
-                            <Input type={'file'} id={'photo'} placeholder={'Photo'} required value={''} />
+                            <Input type={'file'} id={'photo'} placeholder={'Photo'} value={''} />
                         </div>
+                        */}
                         <div className={'w-[40%] min-w-[300px]'}>
-                            <Label htmlFor={'description'}>
-                                Description
-                            </Label>
-                            <Textarea id={'description'} placeholder={'Ajoutez une description'} rows={4} className={'max-h-[300px]'} />
+                            <Label htmlFor={'description'}>Description</Label>
+                            <Textarea
+                                id={'description'}
+                                placeholder={'Ajoutez une description'}
+                                rows={4}
+                                className={'max-h-[300px]'}
+                                value={data.description}
+                                onChange={(e) => setData('description', e.target.value)}
+                            />
+                            {errors.name && <p>{errors.name}</p>}
                         </div>
-                        <Button type={'submit'} className={'w-[40%] bg-main hover:bg-hover font-bold'}>
+                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold'}>
                             Ajouter
                         </Button>
                     </form>
