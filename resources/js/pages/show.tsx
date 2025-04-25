@@ -18,10 +18,10 @@ const Show: React.FC = () => {
                         Hello, moi c'est&nbsp;<span className={'text-main'}>{animal.name}</span>
                     </h2>
                 </div>
-                <div className={'mt-8 flex flex-wrap justify-center gap-6'}>
-                    <div className={'h-fit max-w-[90%] rounded-2xl bg-[#fff] p-6 shadow-md'}>
+                <div className={'mt-8 mx-4 flex flex-wrap justify-center gap-6'}>
+                    <div className={'h-fit max-sm:w-[90%] rounded-2xl bg-[#fff] p-6 shadow-md'}>
                         <div className={'flex flex-wrap gap-8'}>
-                            <div className={'flex h-[300px] sm:w-[60%] w-full flex-col rounded-2xl bg-[#eee]'}>
+                            <div className={'flex h-[300px] lg:w-[60%] w-full min-w-[300px] flex-col rounded-2xl bg-[#eee]'}>
                                 <div
                                     className={`mt-auto w-full justify-end rounded-b-2xl ${
                                         animal.adoption_status === 'En attente'
@@ -54,7 +54,7 @@ const Show: React.FC = () => {
                                 </p>
                             </div>
                         </div>
-                        <div>
+                        <div className={'w-full lg:w-2xl md:w-md sm:w-md'}>
                             <h3 aria-level={3} role={'heading'} className={'mb-4 mt-8 font-bold text-xl'}>
                                 Description&nbsp;:
                             </h3>

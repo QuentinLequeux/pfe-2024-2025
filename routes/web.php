@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('animals.create');
 
-    Route::post('/animals/create', [AnimalController::class, 'store'])
+    Route::post('/animals', [AnimalController::class, 'store'])
     ->name('animals.store');
 
     Route::delete('/animals/{animal}', [AnimalController::class, 'destroy'])
