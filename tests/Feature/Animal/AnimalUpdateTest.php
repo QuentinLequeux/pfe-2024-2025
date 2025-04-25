@@ -1,14 +1,12 @@
 <?php
 
+use App\Models\Animals;
 use App\Models\Breeds;
 use App\Models\Organizations;
 use App\Models\Species;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(RefreshDatabase::class);
-
-test('animal can be added', function () {
+test('animal can be updated', function () {
     $organization = Organizations::factory()->create();
     Species::factory()->create();
     $breed = Breeds::factory()->create();
@@ -18,18 +16,24 @@ test('animal can be added', function () {
 
     $this->actingAs($user);
 
-    $response = $this->post('/animals/create', [
+    $animal = Animals::factory()->create([
+        'organization_id' => $organization->id,
+        'breed_id' => $breed->id,
+    ]);
+
+    $response = $this->patch("/animals/$animal->id", [
         'name' => 'test',
-        'age' => '10',
-        'weight' => '33',
+        'age' => '11',
+        'weight' => '32',
         'description' => '',
-        'arrival_date' => '2025-04-25',
-        'gender' => 'Mâle',
-        'adoption_status' => 'Disponible',
+        'arrival_date' => '2025-04-24',
+        'gender' => 'Femelle',
+        'adoption_status' => 'Adopté',
         'breed_id' => $breed->id,
         'organization_id' => $organization->id,
     ]);
 
     $this->assertAuthenticated();
     $response->assertRedirect(route('animals', absolute: false));
+    $response->assertStatus(302);
 });
