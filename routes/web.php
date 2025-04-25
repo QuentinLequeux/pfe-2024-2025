@@ -2,7 +2,7 @@
 
 use App\Enums\AnimalStatus;
 use App\Enums\Gender;
-use App\Http\Controllers\AnimalRegistrationController;
+use App\Http\Controllers\AnimalController;
 use App\Models\Animals;
 use App\Models\Breeds;
 use Illuminate\Support\Facades\Route;
@@ -31,11 +31,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('animals.create');
 
-    Route::post('/animals/create', [AnimalRegistrationController::class, 'store'])
+    Route::post('/animals/create', [AnimalController::class, 'store'])
     ->name('animals.store');
 
-    Route::delete('/animals/{animal}', [AnimalRegistrationController::class, 'destroy'])
+    Route::delete('/animals/{animal}', [AnimalController::class, 'destroy'])
         ->name('animals.destroy');
+
+    Route::get('/animals/{animal}/edit', function (Animals $animal) {
+        $user = auth()->user();
+        return Inertia::render('edit', [
+            'animal' => $animal,
+            'organization' => $user->organization,
+            'statuses' => AnimalStatus::cases(),
+            'breeds' => Breeds::all(),
+            'gender' => Gender::cases()
+        ]);
+    })->name('animals.edit');
+
+    Route::patch('/animals/{animal}', [AnimalController::class, 'update'])
+        ->name('animals.update');
 
     Route::get('/animals/{id}', function ($id) {
         $animal = Animals::with('organization', 'breed')->findOrFail($id);

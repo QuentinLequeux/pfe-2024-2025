@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Animals;
 use Illuminate\Http\Request;
 
-class AnimalRegistrationController extends Controller
+class AnimalController extends Controller
 {
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'organization_id' => 'required',
-            'name' => 'required|string|max:255|min:3',
+            'organization_id' => 'required|exists:organizations,id',
+            'name' => 'required|string|max:100|min:3',
             'age' => 'required|integer|min:0|max:20',
-            'weight' => 'nullable|integer|min:0|max:100',
-            'arrival_date' => 'required',
-            'breed_id' => 'required',
-            'gender' => 'required',
-            'adoption_status' => 'required',
-            //'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'weight' => 'nullable|integer|min:1|max:100',
+            'arrival_date' => 'required|date',
+            'breed_id' => 'required|exists:breeds,id',
+            'gender' => 'required|in:Mâle,Femelle',
+            'adoption_status' => 'required|in:Disponible,En attente,Adopté',
+            //'photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:1024',
             'description' => 'nullable|string|max:255'
         ]);
 
@@ -33,7 +33,24 @@ class AnimalRegistrationController extends Controller
 
         return redirect()->route('animals');
     }
-}
 
-// TODO: Changer le nom de la classe ? (AnimalController)
-// TODO: Vérifier les validations
+    public function update(Request $request, Animals $animal)
+    {
+        $validated = $request->validate([
+            'organization_id' => 'required|exists:organizations,id',
+            'name' => 'required|string|max:100|min:3',
+            'age' => 'required|integer|min:0|max:20',
+            'weight' => 'nullable|integer|min:1|max:100',
+            'arrival_date' => 'required|date',
+            'breed_id' => 'required|exists:breeds,id',
+            'gender' => 'required|in:Mâle,Femelle',
+            'adoption_status' => 'required|in:Disponible,En attente,Adopté',
+            //'photo' => 'required|image|mimes:jpeg,png,jpg,svg|max:1024',
+            'description' => 'nullable|string|max:255'
+        ]);
+
+        $animal->update($validated);
+
+        return redirect()->route('animals');
+    }
+}
