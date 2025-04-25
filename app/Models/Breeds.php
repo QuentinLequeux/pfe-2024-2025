@@ -11,7 +11,7 @@ class Breeds extends Model
 
     public function animals()
     {
-        return $this->hasMany(Animals::class, 'breed_id'); // Une race peut avoir plusieurs animaux.
+        return $this->hasMany(Animals::class); // Une race peut avoir plusieurs animaux.
     }
 
     public function specie() {

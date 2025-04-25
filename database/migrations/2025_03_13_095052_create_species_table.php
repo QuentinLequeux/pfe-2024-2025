@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('species', function (Blueprint $table) {
             $table->id(); // Identifiant
-            $table->string('specie'); // Espèce
+            $table->string('specie')->unique(); // Espèce
             $table->timestamps(); // created_at - updated_at
         });
     }

@@ -3,12 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Link } from '@inertiajs/react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { ENDPOINTS } from '@/config/endpoints';
-
-interface IAnimal {
-    id: number;
-    name: string;
-    //breed: { breed: string };
-}
+import { IAnimal } from '@/types/IAnimal';
 
 const SearchAnimals = () => {
     const [query, setQuery] = useState('');
