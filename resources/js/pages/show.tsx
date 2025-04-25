@@ -24,11 +24,11 @@ const Show: React.FC = () => {
                             <div className={'flex h-[300px] sm:w-[60%] w-full flex-col rounded-2xl bg-[#eee]'}>
                                 <div
                                     className={`mt-auto w-full justify-end rounded-b-2xl ${
-                                        animal.adoption_status?.toLowerCase() === 'pending'
+                                        animal.adoption_status === 'En attente'
                                             ? 'bg-orange-500'
-                                            : animal.adoption_status?.toLowerCase() === 'available'
+                                            : animal.adoption_status === 'Disponible'
                                                 ? 'bg-green-500'
-                                                : animal.adoption_status?.toLowerCase() === 'adopted'
+                                                : animal.adoption_status === 'Adopté'
                                                     ? 'bg-red-500'
                                                     : 'bg-[#fff]'
                                     }`}
@@ -109,9 +109,9 @@ const Show: React.FC = () => {
                     </Button>
                 </div>
                 <div className={'fixed z-10 bottom-40 right-5 h-[50px] w-[50px] bg-main rounded-full flex items-center justify-center cursor-pointer'}>
-                    <Pencil color={'#fff'} size={'24px'} onClick={() => router.put(route('animals.edit', animal.id))} />
+                    <Pencil color={'#fff'} size={'24px'} onClick={() => router.get(route('animals.edit', animal.id))} />
                 </div>
-                <div className={'fixed z-10 bottom-25 right-5 h-[50px] w-[50px] bg-red-500 rounded-full flex items-center justify-center cursor-pointer'}>
+                <div className={'fixed z-10 bottom-25 right-5 h-[50px] w-[50px] bg-[#B74553] rounded-full flex items-center justify-center cursor-pointer'}>
                     <Trash2 color={'#fff'} size={'24px'} onClick={() => { if (confirm('Voulez-vous vraiment supprimer cet animal ?'))  router.delete(route('animals.destroy', animal.id)) }} />
                 </div>
                 <div className={'shadow-fixed sticky bottom-0 flex h-[70px] items-center justify-around rounded-b-2xl bg-[#fff]'}>

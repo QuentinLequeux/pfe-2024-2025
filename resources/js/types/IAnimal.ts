@@ -10,6 +10,7 @@ export interface IAnimal {
     weight: number;
     description: string;
     adoption_status: string;
+    arrival_date: string;
     organization: IOrganization
     breed: IBreed
 }

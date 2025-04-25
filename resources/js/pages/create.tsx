@@ -82,7 +82,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                 />
-                                {errors.name && <p>{errors.name}</p>}
+                                {errors.name && <p className={'text-[#B74553] font-medium'}>{errors.name}</p>}
                             </div>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'age'}>
@@ -96,7 +96,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     value={data.age}
                                     onChange={(e) => setData('age', e.target.value)}
                                 />
-                                {errors.name && <p>{errors.name}</p>}
+                                {errors.age && <p className={'text-[#B74553] font-medium'}>{errors.age}</p>}
                             </div>
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
@@ -109,7 +109,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     value={data.weight}
                                     onChange={(e) => setData('weight', e.target.value)}
                                 />
-                                {errors.name && <p>{errors.name}</p>}
+                                {errors.weight && <p className={'text-[#B74553] font-medium'}>{errors.weight}</p>}
                             </div>
                             <div className={'w-full'}>
                                 <Label htmlFor={''}>
@@ -135,7 +135,6 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                                     setData('arrival_date', format(selectedDate, 'yyyy-MM-dd'));
                                                 }
                                             }}
-                                            initialFocus
                                             locale={fr}
                                         />
                                     </PopoverContent>
@@ -234,7 +233,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 value={data.description}
                                 onChange={(e) => setData('description', e.target.value)}
                             />
-                            {errors.name && <p>{errors.name}</p>}
+                            {errors.description && <p className={'text-[#B74553] font-medium'}>{errors.description}</p>}
                         </div>
                         <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold'}>
                             Ajouter
