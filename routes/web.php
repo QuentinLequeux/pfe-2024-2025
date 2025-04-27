@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::get('/animals', function () {
-        return Inertia::render('animals', ['animals' => Animals::with('breed')->orderBy('id', 'desc')->paginate(10)]);
+        return Inertia::render('animals', ['success' => session('success'), 'animals' => Animals::with('breed')->orderBy('id', 'desc')->paginate(10)]);
     })->name('animals');
 
     Route::get('/animals/create', function () {
@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('animals.create');
 
     Route::post('/animals', [AnimalController::class, 'store'])
-    ->name('animals.store');
+        ->name('animals.store');
 
     Route::delete('/animals/{animal}', [AnimalController::class, 'destroy'])
         ->name('animals.destroy');

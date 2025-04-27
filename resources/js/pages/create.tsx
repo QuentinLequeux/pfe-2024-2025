@@ -14,6 +14,7 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import React, { FormEventHandler } from 'react';
+import { toast } from 'sonner';
 
 type Props = {
     organization: IOrganization;
@@ -37,9 +38,13 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
 
     const [date, setDate] = React.useState<Date>();
 
-    const submit: FormEventHandler = (e) => {
+    const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('animals.store'));
+        post(route('animals.store'), {
+            onError: () => {
+                toast.warning('Vérifiez bien les champs !');
+            }
+        });
     };
 
     return (

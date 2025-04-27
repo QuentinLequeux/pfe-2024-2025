@@ -24,14 +24,14 @@ class AnimalController extends Controller
 
         Animals::create($validated);
 
-        return redirect()->route('animals');
+        return redirect()->route('animals')->with('success', 'Animal ajouté avec succès !');
     }
 
     public function destroy(Animals $animal)
     {
         $animal->delete();
 
-        return redirect()->route('animals');
+        return redirect()->route('animals')->with('success', 'Animal supprimé avec succès !');
     }
 
     public function update(Request $request, Animals $animal)
@@ -51,6 +51,6 @@ class AnimalController extends Controller
 
         $animal->update($validated);
 
-        return redirect()->route('animals');
+        return redirect()->route('animals')->with('success', 'Animal modifié avec succès !');
     }
 }
