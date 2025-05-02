@@ -36,4 +36,13 @@ test('animal can be updated', function () {
     $this->assertAuthenticated();
     $response->assertRedirect(route('animals', absolute: false));
     $response->assertStatus(302);
+
+    $this->assertDatabaseHas('animals', [
+        'id' => $animal->id,
+        'age' => '11',
+        'weight' => '32',
+        'arrival_date' => '2025-04-24',
+        'gender' => 'Femelle',
+        'adoption_status' => 'Adopté',
+    ]);
 });

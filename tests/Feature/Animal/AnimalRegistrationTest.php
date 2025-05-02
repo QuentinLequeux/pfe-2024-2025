@@ -30,4 +30,6 @@ test('animal can be added', function () {
     $this->assertAuthenticated();
     $response->assertRedirect(route('animals', absolute: false));
     $response->assertStatus(302);
+
+    $this->assertDatabaseCount('animals', 1);
 });
