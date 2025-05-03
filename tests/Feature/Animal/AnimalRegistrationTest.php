@@ -4,8 +4,11 @@ use App\Models\Breeds;
 use App\Models\Organizations;
 use App\Models\Species;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 
 test('animal can be added', function () {
+    Storage::fake('public');
+
     $organization = Organizations::factory()->create();
     Species::factory()->create();
     $breed = Breeds::factory()->create();
@@ -15,6 +18,8 @@ test('animal can be added', function () {
 
     $this->actingAs($user);
 
+    $fakePhoto = UploadedFile::fake()->image('test.jpg');
+
     $response = $this->post('/animals', [
         'name' => 'test',
         'age' => '10',
@@ -23,6 +28,7 @@ test('animal can be added', function () {
         'arrival_date' => '2025-04-25',
         'gender' => 'Mâle',
         'adoption_status' => 'Disponible',
+        'photo' => $fakePhoto,
         'breed_id' => $breed->id,
         'organization_id' => $organization->id,
     ]);
@@ -32,4 +38,6 @@ test('animal can be added', function () {
     $response->assertStatus(302);
 
     $this->assertDatabaseCount('animals', 1);
+
+    Storage::disk('public')->assertExists($fakePhoto->hashName());
 });

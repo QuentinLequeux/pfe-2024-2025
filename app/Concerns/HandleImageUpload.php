@@ -3,6 +3,7 @@
 namespace App\Concerns;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -22,7 +23,7 @@ trait HandleImageUpload
 
         $imageResized = Image::read($file)->cover($width, $height);
 
-        $imageResized->save(storage_path('app/' . $path));
+        $imageResized->save(Storage::disk('public')->path(basename($path)));
 
         return Str::afterLast($path, '/');
     }

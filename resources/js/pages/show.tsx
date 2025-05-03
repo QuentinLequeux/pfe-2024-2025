@@ -5,12 +5,20 @@ import { IAnimal } from '@/types/IAnimal';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import React from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
+import { BreadcrumbItem } from '@/types';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Fiche animal',
+        href: '/animals',
+    },
+];
 
 const Show: React.FC = () => {
     const { animal } = usePage<{ animal: IAnimal }>().props;
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Animal'} />
             <div className={'h-full'}>
                 <div className={'h-fit w-full rounded-b-full shadow-md'}>

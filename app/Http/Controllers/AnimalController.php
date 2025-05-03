@@ -37,6 +37,10 @@ class AnimalController extends Controller
 
     public function destroy(Animals $animal)
     {
+        if ($animal->photo) {
+            Storage::disk('public')->delete($animal->photo);
+        }
+
         $animal->delete();
 
         return redirect()->route('animals')->with('success', 'Animal supprimé avec succès !');
