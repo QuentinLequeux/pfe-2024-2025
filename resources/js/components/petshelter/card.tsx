@@ -13,8 +13,8 @@ const Card = () => {
     return (
         <div className={'flex flex-wrap gap-8 m-2 justify-center'}>
             {animals.data.map((animal:IAnimal) => (
-                <Link href={route('animals.show', { id: animal.id })} key={animal.id} className={'h-[400px] w-[250px] rounded-lg shadow-lg'}>
-                    <img className={'rounded-t-lg'} src={''} alt={''} />
+                <Link href={route('animals.show', { id: animal.id })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg'}>
+                    <img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />
                     <p className={'p-6 text-center text-2xl font-bold'}>{animal.name}</p>
                     <div className={'bg-opacity m-auto mb-2 flex w-[80%] justify-center rounded-md p-1'}>
                         <svg
@@ -82,7 +82,7 @@ const Card = () => {
                         </svg>
                         {animal.age}
                     </div>
-                    <div className={'bg-opacity m-auto mb-2 flex w-[80%] justify-center rounded-md p-1'}>
+                    <div className={'bg-opacity m-auto mb-4 flex w-[80%] justify-center rounded-md p-1'}>
                         <svg className={'mr-2'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M2 12H5M5 12C5 15.866 8.13401 19 12 19M5 12C5 8.13401 8.13401 5 12 5M19 12H22M19 12C19 15.866 15.866 19 12 19M19 12C19 8.13401 15.866 5 12 5M12 2V5M12 19V22M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"

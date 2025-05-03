@@ -33,18 +33,36 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
         breed_id: '',
         gender: '',
         adoption_status: '',
+        photo: null,
         description: '',
     });
 
     const [date, setDate] = React.useState<Date>();
+    const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
 
     const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
         post(route('animals.store'), {
+            forceFormData: true,
             onError: () => {
                 toast.warning('Vérifiez bien les champs !');
             }
         });
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setData('photo', file);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewUrl(null);
+        }
     };
 
     return (
@@ -60,7 +78,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                     </p>
                 </div>
                 <div className={'m-8'}>
-                    <form className={'flex flex-col gap-4'} onSubmit={submit}>
+                    <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
@@ -220,14 +238,29 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 </Select>
                             </div>
                         </div>
-                        {/*
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label htmlFor={'photo'}>
                                 Photo&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
-                            <Input type={'file'} id={'photo'} placeholder={'Photo'} value={''} />
+                            <Input
+                                className={'py-2'}
+                                type={'file'}
+                                id={'photo'}
+                                onChange={handleFileChange}
+                                accept={'.png, .jpg, .jpeg, .svg, .webp'}
+                            />
+                            {errors.photo && <p className={'text-[#B74553] font-medium'}>{errors.photo}</p>}
+                            {previewUrl && (
+                                <div className="mt-2">
+                                    <p>Pr&eacute;visualisation&nbsp;:</p>
+                                    <img
+                                        src={previewUrl}
+                                        alt="Prévisualisation"
+                                        className="max-w-[300px] h-auto rounded-lg"
+                                    />
+                                </div>
+                            )}
                         </div>
-                        */}
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label htmlFor={'description'}>Description</Label>
                             <Textarea

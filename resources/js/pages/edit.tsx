@@ -15,6 +15,7 @@ import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import React, { FormEventHandler } from 'react';
 import { IAnimal } from '@/types/IAnimal';
+import { toast } from 'sonner';
 
 type Props = {
     organization: IOrganization;
@@ -27,7 +28,7 @@ type Props = {
 const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
     const selectedBreed = breeds.find(breed => breed.id === animal.breed_id);
 
-    const { data, setData, patch, errors } = useForm({
+    const { data, setData, post, errors } = useForm({
         organization_id: organization.id.toString() || '',
         name: animal.name || '',
         age: animal.age || '',
@@ -36,14 +37,36 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
         breed_id: selectedBreed ? selectedBreed.id.toString() : '',
         gender: animal.gender || '',
         adoption_status: animal.adoption_status || '',
+        photo: null,
         description: animal.description || '',
     });
 
     const [date, setDate] = React.useState<Date | undefined>(animal.arrival_date ? new Date(animal.arrival_date) : undefined);
+    const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        patch(route('animals.update', { animal: animal.id }));
+        post(route('animals.update', animal.id), {
+            forceFormData: true,
+            onError: () => {
+                toast.warning('Vérifiez bien les champs !');
+            },
+        });
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        setData('photo', file);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewUrl(null);
+        }
     };
 
     return (
@@ -59,7 +82,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                     </p>
                 </div>
                 <div className={'m-8'}>
-                    <form className={'flex flex-col gap-4'} onSubmit={submit}>
+                    <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
@@ -219,14 +242,39 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 </Select>
                             </div>
                         </div>
-                        {/*
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label htmlFor={'photo'}>
                                 Photo&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
-                            <Input type={'file'} id={'photo'} placeholder={'Photo'} value={''} />
+                            <Input
+                                className={'py-2'}
+                                type={'file'}
+                                id={'photo'}
+                                onChange={handleFileChange}
+                                accept={'.png, .jpg, .jpeg, .svg, .webp'}
+                            />
+                            {errors.photo && <p className={'text-[#B74553] font-medium'}>{errors.photo}</p>}
+                            {animal.photo && (
+                                <div className="mt-2">
+                                    <p>Photo actuelle&nbsp;:</p>
+                                    <img
+                                        src={`/storage/${animal.photo}`}
+                                        alt="Photo actuelle"
+                                        className="max-w-[300px] h-auto rounded-lg"
+                                    />
+                                </div>
+                            )}
+                            {previewUrl && (
+                                <div className="mt-2">
+                                    <p>Nouvelle photo&nbsp;:</p>
+                                    <img
+                                        src={previewUrl}
+                                        alt="Prévisualisation"
+                                        className="max-w-[300px] h-auto rounded-lg"
+                                    />
+                                </div>
+                            )}
                         </div>
-                        */}
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label htmlFor={'description'}>Description</Label>
                             <Textarea
