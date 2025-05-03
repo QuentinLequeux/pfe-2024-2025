@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
+/**
+ * @property string|null $photo
+ */
+
 class Animals extends Model
 {
     use HasFactory;
@@ -26,6 +30,7 @@ class Animals extends Model
         'breed_id',
         'gender',
         'adoption_status',
+        'photo',
         'description'
     ];
 
