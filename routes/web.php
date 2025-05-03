@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('animals.edit');
 
-    Route::patch('/animals/{animal}', [AnimalController::class, 'update'])
+    Route::post('/animals/{animal}', [AnimalController::class, 'update'])
         ->name('animals.update');
 
     Route::get('/animals/{id}', function ($id) {
