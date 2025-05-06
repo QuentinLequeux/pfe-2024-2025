@@ -15,6 +15,7 @@ import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import React, { FormEventHandler } from 'react';
 import { toast } from 'sonner';
+import { BreadcrumbItem } from '@/types';
 
 type Props = {
     organization: IOrganization;
@@ -22,6 +23,13 @@ type Props = {
     breeds: IBreed[];
     gender: string[];
 };
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Ajouter',
+        href: '#',
+    },
+];
 
 const Create = ({ organization, statuses, breeds, gender }: Props) => {
     const { data, setData, post, errors } = useForm({
@@ -66,7 +74,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
     };
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
             <div>
                 <div className={'m-8'}>

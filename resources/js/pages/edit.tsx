@@ -16,6 +16,7 @@ import { CalendarIcon } from 'lucide-react';
 import React, { FormEventHandler } from 'react';
 import { IAnimal } from '@/types/IAnimal';
 import { toast } from 'sonner';
+import { BreadcrumbItem } from '@/types';
 
 type Props = {
     organization: IOrganization;
@@ -24,6 +25,13 @@ type Props = {
     gender: string[];
     animal: IAnimal;
 };
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Modifier',
+        href: '#',
+    },
+];
 
 const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
     const selectedBreed = breeds.find(breed => breed.id === animal.breed_id);
@@ -70,7 +78,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
     };
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head />
             <div>
                 <div className={'m-8'}>

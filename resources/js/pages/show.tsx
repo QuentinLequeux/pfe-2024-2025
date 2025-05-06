@@ -78,7 +78,7 @@ const Show: React.FC = () => {
                                 Lui venir en aide&nbsp;?
                             </p>
                             <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                                <Link href={'#'} title={'Parrainer'}>
+                                <Link href={route('donation')} title={'Parrainer'}>
                                     Parrainer
                                 </Link>
                             </Button>
