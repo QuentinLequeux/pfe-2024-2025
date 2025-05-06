@@ -6,6 +6,7 @@
         <meta name="author" content="Quentin Lequeux">
         <meta name="description" content="PetShelter - Une application de parrainage pour les animaux en refuge.">
         <meta name="keywords" content="PetShelter, petshelter, parrainage, animaux, refuge, dons, don, chien, chat, aide">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!--TODO : Ajouter Open Graph -->
 
