@@ -3,7 +3,15 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
@@ -75,7 +83,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head />
+            <Head title={'Ajouter un animal'} />
             <div>
                 <div className={'m-8'}>
                     <h2 aria-level={2} role={'heading'} className={'mb-2 text-2xl font-bold'}>
@@ -182,11 +190,22 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                         <SelectValue placeholder={'Choisir une race'} />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {breeds.map((breed) => (
-                                            <SelectItem key={breed.id} value={breed.id.toString()}>
-                                                {breed.breed}
-                                            </SelectItem>
-                                        ))}
+                                        <SelectGroup>
+                                            <SelectLabel className={'font-bold'}>Chien</SelectLabel>
+                                            {breeds.filter((breed) => breed.specie_id === 1).map((breed) => (
+                                                <SelectItem key={breed.id} value={breed.id.toString()}>
+                                                    {breed.breed}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                        <SelectGroup>
+                                            <SelectLabel className={'font-bold'}>Chat</SelectLabel>
+                                            {breeds.filter((breed) => breed.specie_id === 2).map((breed) => (
+                                                <SelectItem key={breed.id} value={breed.id.toString()}>
+                                                    {breed.breed}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
                                     </SelectContent>
                                 </Select>
                             </div>

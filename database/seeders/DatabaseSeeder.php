@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Animals;
-use App\Models\Breeds;
 use App\Models\Organizations;
 use App\Models\Species;
 use App\Models\User;
@@ -16,22 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Organizations::factory(5)->create(); // Génère 5 refuges aléatoires.
+        Organizations::factory(5)->create(); // Génère cinq refuges aléatoires.
 
         User::factory()->create([
             'name' => 'Quentin',
             'email' => 'quentin.lequeux@student.hepl.be',
         ]); // Génère un utilisateur.
 
-        $species = ['Chien', 'Chat', 'Cheval', 'Lapin', 'Chèvre'];
+        $species = ['Chien', 'Chat'];
 
         foreach ($species as $specie) {
             Species::factory()->create(['specie' => $specie]);
         }
 
-        //Species::factory(5)->create(); // Génère 5 espèces aléatoires.
-
-        Breeds::factory(5)->create(); // Génère 5 races aléatoires.
+        $this->call([
+           BreedSeeder::class,
+        ]);
 
         Animals::factory(15)->create(); // Génère 10 animaux aléatoires.
     }
