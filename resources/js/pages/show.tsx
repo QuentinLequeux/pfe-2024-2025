@@ -112,7 +112,7 @@ const Show: React.FC = () => {
                 </div>
                 <div className={'m-auto my-20 flex h-[300px] w-[80%] items-center justify-center rounded-2xl bg-[#eee]'}>
                     <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                        <Link href={'#'} title={'Parrainer'}>
+                        <Link href={route('donation')} title={'Parrainer'}>
                             Parrainer
                         </Link>
                     </Button>
@@ -133,7 +133,7 @@ const Show: React.FC = () => {
                     </div>
                     <div>
                         <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                            <Link href={'#'} title={'Parrainer'}>
+                            <Link href={route('donation')} title={'Parrainer'}>
                                 Parrainer
                             </Link>
                         </Button>

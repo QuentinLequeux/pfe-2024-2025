@@ -14,11 +14,6 @@ const mainNavItems: NavItem[] = [
         icon: HouseIcon,
     },
     {
-        title: 'Refuges',
-        url: '#',
-        icon: BuildingIcon,
-    },
-    {
         title: 'Animaux',
         url: '/animals',
         icon: PawPrintIcon,
@@ -27,7 +22,13 @@ const mainNavItems: NavItem[] = [
         title: 'Parrainage',
         url: '#',
         icon: HeartHandshakeIcon,
-    }
+    },
+    {
+        title: 'Refuges',
+        url: '',
+        icon: BuildingIcon,
+        soon: true,
+    },
 ];
 
 const footerNavItems: NavItem[] = [];
