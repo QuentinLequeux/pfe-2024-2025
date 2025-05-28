@@ -36,7 +36,7 @@ class DonationController extends Controller
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => route('animals'),
+            'success_url' => route('success'),
             'cancel_url' => route('animals'),
         ]);
 

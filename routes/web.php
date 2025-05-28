@@ -3,7 +3,6 @@
 use App\Enums\AnimalStatus;
 use App\Enums\Gender;
 use App\Http\Controllers\AnimalController;
-use App\Http\Controllers\DonationController;
 use App\Models\Animals;
 use App\Models\Breeds;
 use Illuminate\Support\Facades\Route;
@@ -57,16 +56,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $animals = Animals::where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
         return Inertia::render('show', ['animal' => $animal, 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
-
-    Route::get('/donation', function () {
-        return Inertia::render('checkout', ['stripeKey' => config('services.stripe.key')]);
-    })->name('donation');
-
-    Route::post('/donation', [DonationController::class, 'process'])->name('donation.process');
 });
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
-
-// TODO : fichiers dédiés aux routes (ex : donations)
+require __DIR__ . '/donation.php';
