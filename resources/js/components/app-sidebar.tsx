@@ -20,7 +20,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Parrainage',
-        url: '#',
+        url: '/sponsorship',
         icon: HeartHandshakeIcon,
     },
     {
