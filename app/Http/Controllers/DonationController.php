@@ -43,3 +43,5 @@ class DonationController extends Controller
         return Inertia::location($session->url);
     }
 }
+
+// TODO : Autres moyen de paiement ?

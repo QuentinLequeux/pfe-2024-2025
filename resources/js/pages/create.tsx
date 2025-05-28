@@ -105,8 +105,10 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
+                                    <SelectItem value={'HEPL'}>HEPL</SelectItem>
                                 </SelectContent>
                             </Select>
+                            {errors.organization_id && <p className={'text-[#B74553] font-medium'}>{errors.organization_id}</p>}
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full min-w-[200px]'}>
