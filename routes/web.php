@@ -58,7 +58,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('animals.show');
 
     Route::get('/sponsorship', function () {
-        return Inertia::render('sponsorship/sponsorship');
+        $user = auth()->user();
+        $animals = $user->sponsoredAnimals()->with('breed')->paginate(10);
+        return Inertia::render('sponsorship/sponsorship', [
+            'animals' => $animals
+        ]);
     })->name('sponsorship');
 });
 

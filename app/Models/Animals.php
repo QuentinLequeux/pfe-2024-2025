@@ -59,4 +59,9 @@ class Animals extends Model
     {
         return $this->belongsTo(Organizations::class); // Un animal a une organisation.
     }
+
+    public function sponsors()
+    {
+        return $this->belongsToMany(User::class, 'sponsorships', 'animal_id', 'user_id');
+    }
 }
