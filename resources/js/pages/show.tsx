@@ -1,11 +1,12 @@
+import React from 'react';
+import { animals } from '../assets/img';
+import { BreadcrumbItem } from '@/types';
+import { IAnimal } from '@/types/IAnimal';
+import AppLayout from '@/layouts/app-layout';
+import { Pencil, Trash2 } from 'lucide-react';
 import Card from '@/components/petshelter/card';
 import { Button } from '@/components/ui/button';
-import AppLayout from '@/layouts/app-layout';
-import { IAnimal } from '@/types/IAnimal';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import React from 'react';
-import { Pencil, Trash2 } from 'lucide-react';
-import { BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -77,7 +78,7 @@ const Show: React.FC = () => {
                             <p className={'font-bold'}>
                                 Lui venir en aide&nbsp;?
                             </p>
-                            <Button className={'bg-main hover:bg-hover font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                            <Button className={'bg-main hover:bg-hover text-black font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
                                 Parrainer
                             </Button>
                         </div>
@@ -94,7 +95,7 @@ const Show: React.FC = () => {
                             <a href={`mailto:${animal.organization.email}?Subject=Informations&body=Bonjour`} title={'Envoyer un email'} className={'mb-2'}>
                                 {animal.organization.email}
                             </a>
-                            <Button asChild className={'bg-main hover:bg-hover font-bold'}>
+                            <Button asChild className={'bg-main hover:bg-hover text-black font-bold'}>
                                 <Link href={'#'} title={'En savoir plus'}>
                                     En savoir plus
                                 </Link>
@@ -108,8 +109,9 @@ const Show: React.FC = () => {
                     </h3>
                     <Card />
                 </div>
-                <div className={'m-auto my-20 flex h-[300px] w-[80%] items-center justify-center rounded-2xl bg-[#eee]'}>
-                    <Button className={'bg-main hover:bg-hover font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                <div className={'m-auto my-20 w-[80%] flex items-center justify-center'}>
+                    <img src={animals} alt={'Image de chien et chat'} loading={'lazy'} className={'w-full h-[300px] object-cover rounded-2xl'} />
+                    <Button className={'bg-main hover:bg-hover text-black font-bold absolute'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
                         Parrainer
                     </Button>
                 </div>
@@ -128,7 +130,7 @@ const Show: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <Button className={'bg-main hover:bg-hover font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                        <Button className={'bg-main hover:bg-hover text-black font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
                             Parrainer
                         </Button>
                     </div>

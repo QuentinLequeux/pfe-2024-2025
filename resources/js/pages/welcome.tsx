@@ -1,9 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { Head, Link } from '@inertiajs/react';
-import { animals, catanddog, charleroi, croixbleue, dashboard, lalouviere, mouscron, sanscollier, veeweyde } from '../assets/img';
-import SearchAnimals from '@/components/petshelter/search-animals';
-import ScrollButton from '@/components/petshelter/scroll-button';
 import React from 'react';
+import { PawPrint } from 'lucide-react';
+import { Head, Link } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import ScrollButton from '@/components/petshelter/scroll-button';
+import SearchAnimals from '@/components/petshelter/search-animals';
+import { animals, catanddog, charleroi, croixbleue, dashboard, lalouviere, mouscron, sanscollier, veeweyde } from '../assets/img';
 
 export default function Welcome() {
     return (
@@ -12,23 +13,25 @@ export default function Welcome() {
             <div className={'bg-[#eee]'}>
                 <header className={'fixed w-screen bg-[#fff] shadow-sm z-10'}>
                     <h1 className={'sr-only'}>PetShelter</h1>
-                    {/* Logo */}
                     <nav className={'m-auto flex w-[80%] items-center justify-between'} aria-label={'main-navigation'}>
                         <h2 className={'sr-only'}>Navigation principale</h2>
-                        <Link href={'#'} title={"Vers la page d'accueil"} className={'h-fit font-bold text-[#000]'} aria-label={'home'}>
-                            PetShelter
-                        </Link>
+                        <div className={'flex gap-2 items-center'}>
+                            <PawPrint />
+                            <Link href={'#'} title={"Vers la page d'accueil"} className={'h-[20px] font-bold text-black'} aria-label={'home'}>
+                                PetShelter
+                            </Link>
+                        </div>
                         <div className={'m-3 flex justify-end'}>
                             <Button
                                 asChild
                                 variant={'outline'}
-                                className={'hover:border-main hover:text-main mr-2 bg-[#fff] font-bold text-[#000] hover:bg-[#fff]'}
+                                className={'hover:border-main hover:text-main mr-2 bg-[#fff] font-bold text-black hover:bg-[#fff]'}
                             >
                                 <Link title={'Se connecter'} href={route('login')}>
                                     Connexion
                                 </Link>
                             </Button>
-                            <Button asChild className={'bg-main hover:bg-hover font-bold'}>
+                            <Button asChild className={'bg-main hover:bg-hover text-black font-bold'}>
                                 <Link title={"S'inscrire"} href={route('register')}>
                                     S&rsquo;inscrire
                                 </Link>
@@ -46,14 +49,14 @@ export default function Welcome() {
                                 Offrez-leur une seconde chance grâce au parrainage. Déjà de nombreux animaux soutenus… et si vous faisiez la
                                 différence&nbsp;?
                             </p>
-                            <Button asChild className={'bg-main hover:bg-hover mb-16 font-bold'}>
+                            <Button asChild className={'bg-main hover:bg-hover text-black mb-16 font-bold'}>
                                 <Link title={"S'inscrire"} href={route('register')}>
                                     S&rsquo;inscrire
                                 </Link>
                             </Button>
                             <div className={'w-[100%]'}>
                                 <img src={dashboard} alt={''} className={'rounded-2xl shadow-2xl'} loading={'lazy'} />
-                                {/* Changer image */}
+                                {/* TODO : Changer image */}
                             </div>
                         </section>
                     </div>
@@ -124,13 +127,13 @@ export default function Welcome() {
                                     S&rsquo;inscrire, c&rsquo;est simple et rapide&nbsp;! Rejoignez notre communaut&eacute; et commencez &agrave;
                                     soutenir un animal en quelques clics.
                                 </p>
-                                <Button asChild className={'bg-main hover:bg-hover font-bold'}>
+                                <Button asChild className={'bg-main hover:bg-hover text-black font-bold'}>
                                     <Link title={"S'inscrire"} href={route('register')}>
                                         S&rsquo;inscrire
                                     </Link>
                                 </Button>
                             </div>
-                            <img src={catanddog} alt={''} loading={'lazy'} className={'h-fit'} />
+                            <img src={catanddog} alt={'Image de chien et chat'} loading={'lazy'} className={'h-fit'} />
                         </section>
                     </div>
                 </main>
@@ -138,10 +141,12 @@ export default function Welcome() {
                     <ScrollButton />
                     <div className={'m-auto flex w-[80%] justify-between py-8'}>
                         <div>
-                            <Link href={'#'} title={"Vers la page d'accueil"} className={'font-bold text-black'}>
-                                PetShelter
-                            </Link>
-                            {/* Logo */}
+                            <div className={'flex gap-2 items-center'}>
+                                <PawPrint />
+                                <Link href={'#'} title={"Vers la page d'accueil"} className={'h-[20px] font-bold text-black'}>
+                                    PetShelter
+                                </Link>
+                            </div>
                         </div>
                         <div className={'flex'}>
                             <Link
