@@ -10,7 +10,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/donation', [DonationController::class, 'process'])->name('donation.process');
 
-    Route::get('/success', function() {
-        return Inertia::render('donation/success');
-    })->name('success');
+    Route::get('/success', [DonationController::class, 'success'])->name('donation.success');
 });

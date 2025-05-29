@@ -77,10 +77,8 @@ const Show: React.FC = () => {
                             <p className={'font-bold'}>
                                 Lui venir en aide&nbsp;?
                             </p>
-                            <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                                <Link href={route('donation')} title={'Parrainer'}>
-                                    Parrainer
-                                </Link>
+                            <Button className={'bg-main hover:bg-hover font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                                Parrainer
                             </Button>
                         </div>
                         <div className={'h-fit w-[300px] flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md'}>
@@ -111,10 +109,8 @@ const Show: React.FC = () => {
                     <Card />
                 </div>
                 <div className={'m-auto my-20 flex h-[300px] w-[80%] items-center justify-center rounded-2xl bg-[#eee]'}>
-                    <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                        <Link href={route('donation')} title={'Parrainer'}>
-                            Parrainer
-                        </Link>
+                    <Button className={'bg-main hover:bg-hover font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                        Parrainer
                     </Button>
                 </div>
                 <div className={'fixed z-10 bottom-40 right-5 h-[50px] w-[50px] bg-main rounded-full flex items-center justify-center cursor-pointer'}>
@@ -132,10 +128,8 @@ const Show: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                            <Link href={route('donation')} title={'Parrainer'}>
-                                Parrainer
-                            </Link>
+                        <Button className={'bg-main hover:bg-hover font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                            Parrainer
                         </Button>
                     </div>
                 </div>
