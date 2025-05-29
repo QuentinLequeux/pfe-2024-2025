@@ -56,9 +56,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $animals = Animals::where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
         return Inertia::render('show', ['animal' => $animal, 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
+
+    Route::get('/sponsorship', function () {
+        return Inertia::render('sponsorship/sponsorship');
+    })->name('sponsorship');
 });
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
 require __DIR__ . '/donation.php';
+require __DIR__ . '/animals.php';
