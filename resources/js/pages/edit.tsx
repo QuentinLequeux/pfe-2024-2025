@@ -45,7 +45,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
         breed_id: selectedBreed ? selectedBreed.id.toString() : '',
         gender: animal.gender || '',
         adoption_status: animal.adoption_status || '',
-        photo: null,
+        photo: null as File | null,
         description: animal.description || '',
     });
 
@@ -63,7 +63,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
+        const file: File | null = e.target.files?.[0] ?? null;
         setData('photo', file);
 
         if (file) {

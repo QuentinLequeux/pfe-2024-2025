@@ -36,7 +36,7 @@ const Animals = () => {
                     Ajouter un animal
                 </Link>
             </Button>
-            <div className={'p-6'}>
+            <div className={'p-6 h-full'}>
                 <Card />
             </div>
         </AppLayout>

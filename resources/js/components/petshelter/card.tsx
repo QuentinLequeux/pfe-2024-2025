@@ -1,17 +1,22 @@
 //import { animals } from '../../assets/img';
 import { Link, usePage } from '@inertiajs/react';
 import { IAnimal } from '@/types/IAnimal';
+import { Ban } from 'lucide-react';
 
 interface IPaginateResults<T> {
     data: T;
-    //links: Array;
+    links: {
+        label: string;
+        url: string | null;
+        active: boolean;
+    }[];
 }
 
 const Card = () => {
     const { animals } = usePage<{animals: IPaginateResults<IAnimal[]>}>().props;
 
     return (
-        <div className={'flex flex-wrap gap-8 m-2 justify-center'}>
+        <div className={'flex flex-wrap gap-8 m-2 justify-center h-fit'}>
             {animals.data.map((animal:IAnimal) => (
                 <Link href={route('animals.show', { id: animal.id })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg'}>
                     <img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />
@@ -70,7 +75,7 @@ const Card = () => {
                         </svg>
                         {animal.breed?.breed}
                     </div>
-                    <div className={'bg-opacity m-auto mb-2 flex w-[80%] justify-center rounded-md p-1'}>
+                    <div className={'bg-opacity m-auto mb-4 flex w-[80%] justify-center rounded-md p-1'}>
                         <svg className={'mr-2'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M20 21V13C20 12.4696 19.7893 11.9609 19.4142 11.5858C19.0391 11.2107 18.5304 11 18 11H6C5.46957 11 4.96086 11.2107 4.58579 11.5858C4.21071 11.9609 4 12.4696 4 13V21M4 16C4 16 4.5 15 6 15C7.5 15 8.5 17 10 17C11.5 17 12.5 15 14 15C15.5 15 16.5 17 18 17C19.5 17 20 16 20 16M2 21H22M7 8V11M12 8V11M17 8V11M7 4H7.01M12 4H12.01M17 4H17.01"
@@ -82,6 +87,7 @@ const Card = () => {
                         </svg>
                         {animal.age}
                     </div>
+                    {/*
                     <div className={'bg-opacity m-auto mb-4 flex w-[80%] justify-center rounded-md p-1'}>
                         <svg className={'mr-2'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
@@ -94,10 +100,12 @@ const Card = () => {
                         </svg>
                         Localisation
                     </div>
+                    */}
                 </Link>
             ))}
-            <div className="mt-4 flex gap-2 w-full justify-center">
-                {animals.links.map((link, index: number) => (
+            <div className="mt-4 flex gap-2 w-full justify-center h-fit">
+                {animals.data.length > 0 ? (
+                animals.links.map((link, index: number) => (
                     <Link
                         key={index}
                         href={link.url || '#'}
@@ -105,10 +113,17 @@ const Card = () => {
                     >
                         {link.label}
                     </Link>
-                ))}
+                ))) : (
+                    <div className={'flex flex-col items-center justify-center gap-2 h-full'}>
+                        <Ban/>
+                        <p>Aucun animal pour le moment.</p>
+                    </div>
+                )}
             </div>
         </div>
     );
 };
 
 export default Card;
+
+// TODO : condition -> bouton ajouter/parrainer si la liste est vide.
