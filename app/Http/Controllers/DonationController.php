@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
+use Stripe\Stripe;
 use Inertia\Inertia;
+use App\Models\Sponsorship;
+use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
 use Stripe\Exception\ApiErrorException;
-use Stripe\Stripe;
 
 class DonationController extends Controller
 {
@@ -17,6 +19,7 @@ class DonationController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric|min:1|decimal:0,2',
+            'animal_id' => 'required|numeric|exists:animals,id',
         ]);
 
         Stripe::setApiKey(config('services.stripe.secret'));
@@ -36,11 +39,48 @@ class DonationController extends Controller
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => route('success'),
+            'metadata' => [
+                'user_id' => Auth::id(),
+                'animal_id' => $request->animal_id,
+                'amount' => $request->amount,
+            ],
+            'success_url' => route('donation.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('animals'),
         ]);
 
         return Inertia::location($session->url);
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function success(Request $request)
+    {
+        $sessionId = $request->get('session_id');
+
+        if (!$sessionId) {
+            abort(400, 'No session ID provided');
+        }
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $session = Session::retrieve($sessionId);
+
+        $metadata = $session->metadata;
+
+        if ($session->payment_status == 'paid') {
+            if (!Sponsorship::where('stripe_session_id', $session->id)->exists()) {
+                Sponsorship::create([
+                    'stripe_session_id' => $session->id,
+                    'user_id' => $metadata->user_id,
+                    'animal_id' => $metadata->animal_id,
+                    'amount' => $metadata->amount,
+                    'sponsored_at' => now()
+                ]);
+            }
+            return Inertia::render('donation/success');
+        }
+        return redirect()->route('animals');
     }
 }
 

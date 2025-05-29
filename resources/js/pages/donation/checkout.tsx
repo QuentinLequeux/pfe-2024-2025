@@ -2,9 +2,10 @@ import AppLayout from '@/layouts/app-layout';
 import { Head, router, useForm } from '@inertiajs/react';
 import { BreadcrumbItem } from '@/types';
 import { Input } from '@/components/ui/input';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import InputError from '@/components/input-error';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -14,9 +15,20 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const Checkout = () => {
+    const [animalId, setAnimalId] = useState<number | null>(null);
     const { errors, post, data, setData } = useForm({
         amount: '',
+        animal_id: '',
     });
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('animal');
+        if (id) {
+            setAnimalId(Number(id));
+            setData('animal_id', id);
+        }
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,6 +43,10 @@ const Checkout = () => {
     };
 
     const quickDonate = (amount: number) => {
+        setData({
+            amount: String(amount),
+            animal_id: animalId?.toString() ?? '',
+        });
         router.post('/donation', { amount }, {
             onSuccess: (page) => {
                 if (page.props.url) {
@@ -85,7 +101,8 @@ const Checkout = () => {
                             €
                         </div>
                     </div>
-                    {errors.amount && <p className={'text-sm text-[#B74553]'}>{errors.amount}</p>}
+                    <InputError message={errors.amount} />
+                    <InputError message={errors.animal_id} />
                     <p className={'text-sm'}>
                         Vous allez être redirig&eacute; vers une page de paiement
                     </p>
@@ -111,5 +128,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-
-// TODO : Ajouter une page de succès/annulation.
