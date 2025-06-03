@@ -3,7 +3,15 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
@@ -14,6 +22,8 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import React, { FormEventHandler } from 'react';
+import { toast } from 'sonner';
+import { BreadcrumbItem } from '@/types';
 
 type Props = {
     organization: IOrganization;
@@ -21,6 +31,13 @@ type Props = {
     breeds: IBreed[];
     gender: string[];
 };
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Ajouter',
+        href: '#',
+    },
+];
 
 const Create = ({ organization, statuses, breeds, gender }: Props) => {
     const { data, setData, post, errors } = useForm({
@@ -32,19 +49,41 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
         breed_id: '',
         gender: '',
         adoption_status: '',
+        photo: null as File | null,
         description: '',
     });
 
     const [date, setDate] = React.useState<Date>();
+    const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
 
-    const submit: FormEventHandler = (e) => {
+    const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('animals.store'));
+        post(route('animals.store'), {
+            forceFormData: true,
+            onError: () => {
+                toast.warning('Vérifiez bien les champs !');
+            }
+        });
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file: File | null = e.target.files?.[0] ?? null;
+        setData('photo', file);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreviewUrl(null);
+        }
     };
 
     return (
-        <AppLayout>
-            <Head />
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title={'Ajouter un animal'} />
             <div>
                 <div className={'m-8'}>
                     <h2 aria-level={2} role={'heading'} className={'mb-2 text-2xl font-bold'}>
@@ -55,7 +94,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                     </p>
                 </div>
                 <div className={'m-8'}>
-                    <form className={'flex flex-col gap-4'} onSubmit={submit}>
+                    <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
@@ -66,8 +105,10 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
+                                    <SelectItem value={'HEPL'}>HEPL</SelectItem>
                                 </SelectContent>
                             </Select>
+                            {errors.organization_id && <p className={'text-[#B74553] font-medium'}>{errors.organization_id}</p>}
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full min-w-[200px]'}>
@@ -151,11 +192,22 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                         <SelectValue placeholder={'Choisir une race'} />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {breeds.map((breed) => (
-                                            <SelectItem key={breed.id} value={breed.id.toString()}>
-                                                {breed.breed}
-                                            </SelectItem>
-                                        ))}
+                                        <SelectGroup>
+                                            <SelectLabel className={'font-bold'}>Chien</SelectLabel>
+                                            {breeds.filter((breed) => breed.specie_id === 1).map((breed) => (
+                                                <SelectItem key={breed.id} value={breed.id.toString()}>
+                                                    {breed.breed}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                        <SelectGroup>
+                                            <SelectLabel className={'font-bold'}>Chat</SelectLabel>
+                                            {breeds.filter((breed) => breed.specie_id === 2).map((breed) => (
+                                                <SelectItem key={breed.id} value={breed.id.toString()}>
+                                                    {breed.breed}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -215,14 +267,29 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 </Select>
                             </div>
                         </div>
-                        {/*
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label htmlFor={'photo'}>
                                 Photo&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
-                            <Input type={'file'} id={'photo'} placeholder={'Photo'} value={''} />
+                            <Input
+                                className={'py-2'}
+                                type={'file'}
+                                id={'photo'}
+                                onChange={handleFileChange}
+                                accept={'.png, .jpg, .jpeg, .svg, .webp'}
+                            />
+                            {errors.photo && <p className={'text-[#B74553] font-medium'}>{errors.photo}</p>}
+                            {previewUrl && (
+                                <div className="mt-2">
+                                    <p>Pr&eacute;visualisation&nbsp;:</p>
+                                    <img
+                                        src={previewUrl}
+                                        alt="Prévisualisation"
+                                        className="max-w-[300px] h-auto rounded-lg"
+                                    />
+                                </div>
+                            )}
                         </div>
-                        */}
                         <div className={'w-[40%] min-w-[300px]'}>
                             <Label htmlFor={'description'}>Description</Label>
                             <Textarea
@@ -246,3 +313,5 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
 };
 
 export default Create;
+
+// TODO : <InputError /> & Layout formulaire

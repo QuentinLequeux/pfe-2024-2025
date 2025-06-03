@@ -6,6 +6,7 @@
         <meta name="author" content="Quentin Lequeux">
         <meta name="description" content="PetShelter - Une application de parrainage pour les animaux en refuge.">
         <meta name="keywords" content="PetShelter, petshelter, parrainage, animaux, refuge, dons, don, chien, chat, aide">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!--TODO : Ajouter Open Graph -->
 
@@ -41,7 +42,11 @@
 
         <link rel="stylesheet" href="https://use.typekit.net/xcu5nly.css">
 
-        <!--TODO : Ajouter favicon -->
+        <!-- Favicon -->
+
+        <link rel="icon" type="image/svg" href="{{ asset('favicon.svg') }}">
+        <link rel="apple-touch-icon" type="image/svg" href="{{ asset('favicon.svg') }}">
+        <link rel="apple-touch-icon-precomposed" type="image/svg" href="{{ asset('favicon.svg') }}">
 
         <!--
         <link rel="preconnect" href="https://fonts.bunny.net">

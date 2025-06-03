@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Animals;
+use App\Models\Breeds;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AnimalsFactory extends Factory
@@ -19,7 +20,7 @@ class AnimalsFactory extends Factory
             'description' => $this->faker->text(), // Génère une description aléatoire.
             'arrival_date' => $this->faker->dateTimeThisDecade(), // Génère une date dans la dernière décennie.
             'adoption_status' => $this->faker->randomElement(['Disponible', 'En attente', 'Adopté']), // Génère un statut aléatoire.
-            'breed_id' => $this->faker->numberBetween(1, 5), // Génère un identifiant aléatoire entre 1 et 5.
+            'breed_id' => Breeds::inRandomOrder()->first()?->id ?? 1, // Récupère un identifiant aléatoire valide ou 1 par défaut
             'organization_id' => $this->faker->numberBetween(1, 5), // Génère un identifiant aléatoire entre 1 et 5.
         ];
     }

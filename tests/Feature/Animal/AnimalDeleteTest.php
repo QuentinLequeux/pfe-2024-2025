@@ -21,19 +21,13 @@ test('animal can be deleted', function () {
         'breed_id' => $breed->id,
     ]);
 
-    $response = $this->delete("/animals/$animal->id", [
-        'name' => 'test',
-        'age' => '10',
-        'weight' => '33',
-        'description' => '',
-        'arrival_date' => '2025-04-25',
-        'gender' => 'Mâle',
-        'adoption_status' => 'Disponible',
-        'breed_id' => $breed->id,
-        'organization_id' => $organization->id,
-    ]);
+    $response = $this->delete("/animals/$animal->id");
 
     $this->assertAuthenticated();
     $response->assertRedirect(route('animals', absolute: false));
     $response->assertStatus(302);
+
+    $this->assertDatabaseMissing('animals', [
+        'id' => $animal->id,
+    ]);
 });

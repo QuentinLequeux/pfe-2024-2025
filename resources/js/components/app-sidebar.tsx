@@ -14,20 +14,21 @@ const mainNavItems: NavItem[] = [
         icon: HouseIcon,
     },
     {
-        title: 'Refuges',
-        url: '#',
-        icon: BuildingIcon,
-    },
-    {
         title: 'Animaux',
         url: '/animals',
         icon: PawPrintIcon,
     },
     {
         title: 'Parrainage',
-        url: '#',
+        url: '/sponsorship',
         icon: HeartHandshakeIcon,
-    }
+    },
+    {
+        title: 'Refuges',
+        url: '',
+        icon: BuildingIcon,
+        soon: true,
+    },
 ];
 
 const footerNavItems: NavItem[] = [];

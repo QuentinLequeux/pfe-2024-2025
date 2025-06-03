@@ -1,16 +1,25 @@
+import React from 'react';
+import { animals } from '../assets/img';
+import { BreadcrumbItem } from '@/types';
+import { IAnimal } from '@/types/IAnimal';
+import AppLayout from '@/layouts/app-layout';
+import { Pencil, Trash2 } from 'lucide-react';
 import Card from '@/components/petshelter/card';
 import { Button } from '@/components/ui/button';
-import AppLayout from '@/layouts/app-layout';
-import { IAnimal } from '@/types/IAnimal';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import React from 'react';
-import { Pencil, Trash2 } from 'lucide-react';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Fiche animal',
+        href: '/animals',
+    },
+];
 
 const Show: React.FC = () => {
     const { animal } = usePage<{ animal: IAnimal }>().props;
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Animal'} />
             <div className={'h-full'}>
                 <div className={'h-fit w-full rounded-b-full shadow-md'}>
@@ -21,15 +30,16 @@ const Show: React.FC = () => {
                 <div className={'mt-8 mx-4 flex flex-wrap justify-center gap-6'}>
                     <div className={'h-fit max-sm:w-[90%] rounded-2xl bg-[#fff] p-6 shadow-md'}>
                         <div className={'flex flex-wrap gap-8'}>
-                            <div className={'flex h-[300px] lg:w-[60%] w-full min-w-[300px] flex-col rounded-2xl bg-[#eee]'}>
+                            <div className={'relative max-h-[300px] lg:w-[60%] w-full min-w-[300px] rounded-2xl bg-[#eee] overflow-hidden'}>
+                                <img src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} className={'w-full h-auto'} loading={'lazy'} />
                                 <div
-                                    className={`mt-auto w-full justify-end rounded-b-2xl ${
+                                    className={`mt-auto w-full rounded-b-2xl absolute bottom-0 ${
                                         animal.adoption_status === 'En attente'
-                                            ? 'bg-orange-500'
+                                            ? 'bg-main'
                                             : animal.adoption_status === 'Disponible'
-                                                ? 'bg-green-500'
+                                                ? 'bg-[#A7DE98]'
                                                 : animal.adoption_status === 'Adopté'
-                                                    ? 'bg-red-500'
+                                                    ? 'bg-[#B74553] text-[#fff]'
                                                     : 'bg-[#fff]'
                                     }`}
                                 >
@@ -68,10 +78,8 @@ const Show: React.FC = () => {
                             <p className={'font-bold'}>
                                 Lui venir en aide&nbsp;?
                             </p>
-                            <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                                <Link href={'#'} title={'Parrainer'}>
-                                    Parrainer
-                                </Link>
+                            <Button className={'bg-main hover:bg-hover text-black font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                                Parrainer
                             </Button>
                         </div>
                         <div className={'h-fit w-[300px] flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md'}>
@@ -87,7 +95,7 @@ const Show: React.FC = () => {
                             <a href={`mailto:${animal.organization.email}?Subject=Informations&body=Bonjour`} title={'Envoyer un email'} className={'mb-2'}>
                                 {animal.organization.email}
                             </a>
-                            <Button asChild className={'bg-main hover:bg-hover font-bold'}>
+                            <Button asChild className={'bg-main hover:bg-hover text-black font-bold'}>
                                 <Link href={'#'} title={'En savoir plus'}>
                                     En savoir plus
                                 </Link>
@@ -101,11 +109,10 @@ const Show: React.FC = () => {
                     </h3>
                     <Card />
                 </div>
-                <div className={'m-auto my-20 flex h-[300px] w-[80%] items-center justify-center rounded-2xl bg-[#eee]'}>
-                    <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                        <Link href={'#'} title={'Parrainer'}>
-                            Parrainer
-                        </Link>
+                <div className={'m-auto my-20 w-[80%] flex items-center justify-center'}>
+                    <img src={animals} alt={'Image de chien et chat'} loading={'lazy'} className={'w-full h-[300px] object-cover rounded-2xl'} />
+                    <Button className={'bg-main hover:bg-hover text-black font-bold absolute'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                        Parrainer
                     </Button>
                 </div>
                 <div className={'fixed z-10 bottom-40 right-5 h-[50px] w-[50px] bg-main rounded-full flex items-center justify-center cursor-pointer'}>
@@ -123,10 +130,8 @@ const Show: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <Button asChild className={'bg-main hover:bg-hover font-bold'}>
-                            <Link href={'#'} title={'Parrainer'}>
-                                Parrainer
-                            </Link>
+                        <Button className={'bg-main hover:bg-hover text-black font-bold'} onClick={() => router.visit(`/donation?animal=${animal.id}`)}>
+                            Parrainer
                         </Button>
                     </div>
                 </div>

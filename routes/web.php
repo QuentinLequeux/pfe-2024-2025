@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::get('/animals', function () {
-        return Inertia::render('animals', ['animals' => Animals::with('breed')->orderBy('id', 'desc')->paginate(10)]);
+        return Inertia::render('animals', ['success' => session('success'), 'animals' => Animals::with('breed')->orderBy('id', 'desc')->paginate(10)]);
     })->name('animals');
 
     Route::get('/animals/create', function () {
@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('animals.create');
 
     Route::post('/animals', [AnimalController::class, 'store'])
-    ->name('animals.store');
+        ->name('animals.store');
 
     Route::delete('/animals/{animal}', [AnimalController::class, 'destroy'])
         ->name('animals.destroy');
@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('animals.edit');
 
-    Route::patch('/animals/{animal}', [AnimalController::class, 'update'])
+    Route::post('/animals/{animal}', [AnimalController::class, 'update'])
         ->name('animals.update');
 
     Route::get('/animals/{id}', function ($id) {
@@ -56,8 +56,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $animals = Animals::where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
         return Inertia::render('show', ['animal' => $animal, 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
+
+    Route::get('/sponsorship', function () {
+        $user = auth()->user();
+        $animals = $user->sponsoredAnimals()->with('breed')->paginate(10);
+        return Inertia::render('sponsorship/sponsorship', [
+            'animals' => $animals
+        ]);
+    })->name('sponsorship');
 });
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
+require __DIR__ . '/donation.php';
+require __DIR__ . '/animals.php';

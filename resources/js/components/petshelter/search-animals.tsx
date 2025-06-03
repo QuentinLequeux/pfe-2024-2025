@@ -69,7 +69,7 @@ const SearchAnimals = () => {
                                         <p className="font-bold text-black">{animal.name}</p>
                                     </div>
                                 </div>
-                                <Button asChild className={'bg-main hover:bg-hover ml-auto font-bold'}>
+                                <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'}>
                                     <Link href={route('register')}>Parrainer</Link>
                                 </Button>
                             </div>

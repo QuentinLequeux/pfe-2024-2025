@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
+/**
+ * @property string|null $photo
+ */
+
 class Animals extends Model
 {
     use HasFactory;
@@ -26,6 +30,7 @@ class Animals extends Model
         'breed_id',
         'gender',
         'adoption_status',
+        'photo',
         'description'
     ];
 
@@ -53,5 +58,10 @@ class Animals extends Model
     public function organization()
     {
         return $this->belongsTo(Organizations::class); // Un animal a une organisation.
+    }
+
+    public function sponsors()
+    {
+        return $this->belongsToMany(User::class, 'sponsorships', 'animal_id', 'user_id');
     }
 }
