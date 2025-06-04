@@ -20,7 +20,7 @@ const Show: React.FC = () => {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={'Animal'} />
+            <Head title={`Fiche de ${animal.name}`} />
             <div className={'h-full'}>
                 <div className={'h-fit w-full rounded-b-full shadow-md dark:bg-[#1c1e21]'}>
                     <h2 aria-level={2} role={'heading'} className={'py-8 text-center text-3xl font-bold'}>

@@ -29,7 +29,6 @@ const Animals = () => {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            {/* TODO : Màj du HEAD */}
             <Head title={'Animaux'} />
             <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'}>
                 <Link href={'/animals/create'} title={'Ajouter un animal'}>
