@@ -22,13 +22,13 @@ const Show: React.FC = () => {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Animal'} />
             <div className={'h-full'}>
-                <div className={'h-fit w-full rounded-b-full shadow-md'}>
+                <div className={'h-fit w-full rounded-b-full shadow-md dark:bg-[#1c1e21]'}>
                     <h2 aria-level={2} role={'heading'} className={'py-8 text-center text-3xl font-bold'}>
                         Hello, moi c'est&nbsp;<span className={'text-main'}>{animal.name}</span>
                     </h2>
                 </div>
                 <div className={'mt-8 mx-4 flex flex-wrap justify-center gap-6'}>
-                    <div className={'h-fit max-sm:w-[90%] rounded-2xl bg-[#fff] p-6 shadow-md'}>
+                    <div className={'h-fit max-sm:w-[90%] rounded-2xl bg-[#fff] dark:bg-[#1c1e21] p-6 shadow-md'}>
                         <div className={'flex flex-wrap gap-8'}>
                             <div className={'relative max-h-[300px] lg:w-[60%] w-full min-w-[300px] rounded-2xl bg-[#eee] overflow-hidden'}>
                                 <img src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} className={'w-full h-auto'} loading={'lazy'} />
@@ -46,7 +46,7 @@ const Show: React.FC = () => {
                                     <p className={'text-center'}>{animal.adoption_status}</p>
                                 </div>
                             </div>
-                            <div className={'m-auto'}>
+                            <div className={'m-auto max-w-[200px]'}>
                                 <p className={'mb-2 rounded-md border p-2 text-center font-bold'}>
                                     Nom&nbsp;: <span className={'font-light'}>{animal.name}</span>
                                 </p>
@@ -74,7 +74,7 @@ const Show: React.FC = () => {
                         </div>
                     </div>
                     <div className={'flex flex-col gap-8'}>
-                        <div className={'flex flex-col p-6 h-fit w-[300px] items-center justify-center gap-2 rounded-2xl bg-[#fff] shadow-md'}>
+                        <div className={'flex flex-col p-6 h-fit w-[300px] items-center justify-center gap-2 rounded-2xl bg-[#fff] dark:bg-[#1c1e21] shadow-md'}>
                             <p className={'font-bold'}>
                                 Lui venir en aide&nbsp;?
                             </p>
@@ -82,7 +82,7 @@ const Show: React.FC = () => {
                                 Parrainer
                             </Button>
                         </div>
-                        <div className={'h-fit w-[300px] flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md'}>
+                        <div className={'h-fit w-[300px] flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] dark:bg-[#1c1e21] p-6 shadow-md'}>
                             <p className={'mb-2'}>
                                 {animal.organization.name}
                             </p>
@@ -121,11 +121,13 @@ const Show: React.FC = () => {
                 <div className={'fixed z-10 bottom-25 right-5 h-[50px] w-[50px] bg-[#B74553] rounded-full flex items-center justify-center cursor-pointer'}>
                     <Trash2 color={'#fff'} size={'24px'} onClick={() => { if (confirm('Voulez-vous vraiment supprimer cet animal ?'))  router.delete(route('animals.destroy', animal.id)) }} />
                 </div>
-                <div className={'shadow-fixed sticky bottom-0 flex h-[70px] items-center justify-around rounded-b-2xl bg-[#fff]'}>
+                <div className={'shadow-fixed sticky bottom-0 flex h-[70px] items-center justify-around rounded-b-2xl bg-[#fff] dark:bg-[#1c1e21]'}>
                     <div className={'flex gap-4 items-center'}>
-                        <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}></div>
+                        <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>
+                            <img className={'rounded-full h-full'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                        </div>
                         <div>
-                            <p>{animal.name}</p>
+                            <p className={'font-bold'}>{animal.name}</p>
                             <p>{animal.breed.breed}</p>
                         </div>
                     </div>
