@@ -1,8 +1,9 @@
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import { IUser } from '@/types/IUser';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
+import { Head, Link, usePage } from '@inertiajs/react';
+import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -10,10 +11,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
 ];
-
-interface IUser {
-    name: string;
-}
 
 type PageProps = {
     user: IUser;
