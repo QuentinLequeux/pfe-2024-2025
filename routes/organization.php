@@ -10,6 +10,10 @@ Route::middleware(['auth'])->group(function () {
         ]);
     })->name('organization.show');
 
+    Route::get('/organizations/create', function () {
+       return Inertia::render('organization/create');
+    })->name('organization.create');
+
     Route::get('/organization/admin', [OrganizationController::class, 'show'])
         ->name('organization.admin');
 
