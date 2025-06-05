@@ -1,8 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { toast } from 'sonner';
 import {
     Select,
     SelectContent,
@@ -12,19 +8,23 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
-import { IBreed } from '@/types/IBreed';
-import { IOrganization } from '@/types/IOrganization';
-import { Head, useForm } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { CalendarIcon } from 'lucide-react';
-import React, { FormEventHandler } from 'react';
-import { toast } from 'sonner';
+import { IBreed } from '@/types/IBreed';
 import { BreadcrumbItem } from '@/types';
+import { CalendarIcon } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import React, { FormEventHandler } from 'react';
+import { Head, useForm } from '@inertiajs/react';
 import InputError from '@/components/input-error';
+import { Calendar } from '@/components/ui/calendar';
+import { Textarea } from '@/components/ui/textarea';
+import { IOrganization } from '@/types/IOrganization';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 type Props = {
     organization: IOrganization;
@@ -307,7 +307,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                             />
                             <InputError message={errors.description} />
                         </div>
-                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold'}>
+                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black'}>
                             Ajouter
                         </Button>
                     </form>

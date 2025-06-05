@@ -11,7 +11,7 @@ class OrganizationController extends Controller
 {
     public function show()
     {
-        return Inertia::render('organization/user-organization', [
+        return Inertia::render('organization/admin', [
             'users' => User::select('id','email')->orderBy('email')->get(),
             'organizations' => Organizations::select('id','name')->orderBy('name')->get(),
         ]);

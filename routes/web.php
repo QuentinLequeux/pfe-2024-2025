@@ -15,8 +15,10 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         $user = auth()->user();
+        $sponsoredAnimals = $user->sponsoredAnimals()->count();
         return Inertia::render('dashboard', [
             'user' => $user,
+            'sponsoredAnimals' => $sponsoredAnimals,
         ]);
     })->name('dashboard');
 
