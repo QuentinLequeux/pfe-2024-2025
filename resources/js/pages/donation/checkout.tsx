@@ -56,7 +56,7 @@ const Checkout = () => {
         });
     };
 
-    const presetAmounts = [5, 10, 15, 20];
+    const presetAmounts = [5, 20, 40, 100];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

@@ -30,12 +30,12 @@ const Animals = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Animaux'} />
-            <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'}>
-                <Link href={'/animals/create'} title={'Ajouter un animal'}>
-                    Ajouter un animal
-                </Link>
-            </Button>
-            <div className={'p-6 h-full'}>
+            <div className={'p-6 h-full flex flex-col'}>
+                <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold mb-4'}>
+                    <Link href={'/animals/create'} title={'Ajouter un animal'}>
+                        Ajouter un animal
+                    </Link>
+                </Button>
                 <Card />
             </div>
         </AppLayout>

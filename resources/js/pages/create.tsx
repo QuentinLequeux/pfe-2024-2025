@@ -35,8 +35,8 @@ type Props = {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Ajouter',
-        href: '#',
+        title: 'Ajouter un animal',
+        href: '/animals/create',
     },
 ];
 

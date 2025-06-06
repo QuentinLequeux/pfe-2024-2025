@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Animals;
 use App\Models\Breeds;
+use App\Models\Animals;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AnimalsFactory extends Factory
@@ -16,7 +16,7 @@ class AnimalsFactory extends Factory
             'name' => $this->faker->firstName(), // Génère un nom aléatoire.
             'age' => $this->faker->numberBetween(1, 20), // Génère un nombre entre 1 et 20.
             'gender' => $this->faker->randomElement(['Mâle', 'Femelle']), // Génère un sexe aléatoire.
-            'weight' => $this->faker->randomFloat(1, 1, 100), // Génère un poids entre 1 et 100 kg.
+            'weight' => $this->faker->numberBetween(1, 100), // Génère un poids entre 1 et 100 kg.
             'description' => $this->faker->text(), // Génère une description aléatoire.
             'arrival_date' => $this->faker->dateTimeThisDecade(), // Génère une date dans la dernière décennie.
             'adoption_status' => $this->faker->randomElement(['Disponible', 'En attente', 'Adopté']), // Génère un statut aléatoire.

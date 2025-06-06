@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Animals;
-use App\Models\Organizations;
-use App\Models\Species;
 use App\Models\User;
+use App\Models\Animals;
+use App\Models\Species;
+use App\Models\Organizations;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -32,6 +32,6 @@ class DatabaseSeeder extends Seeder
            BreedSeeder::class,
         ]);
 
-        Animals::factory(15)->create(); // Génère 10 animaux aléatoires.
+        //Animals::factory(15)->create(); // Génère 10 animaux aléatoires.
     }
 }
