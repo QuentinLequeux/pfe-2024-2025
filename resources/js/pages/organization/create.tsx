@@ -1,6 +1,6 @@
-import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import { BreadcrumbItem } from '@/types';
+import AppLayout from '@/layouts/app-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

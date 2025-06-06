@@ -106,7 +106,6 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
-                                    <SelectItem value={'HEPL'}>HEPL</SelectItem>
                                 </SelectContent>
                             </Select>
                             <InputError message={errors.organization_id} />
