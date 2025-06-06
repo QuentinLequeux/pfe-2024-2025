@@ -27,7 +27,7 @@ const SearchAnimals = () => {
         const value = e.currentTarget.value;
         setQuery(value);
 
-        let url = `http://pfe.test/search?query=${value}`;
+        let url = `https://pfe.test/search?query=${value}`;
         if (value.length === 0) {
             url = ENDPOINTS.SEARCH_URL; // Récupérer les trois premiers animaux par défaut
         }
