@@ -25,9 +25,8 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Refuges',
-        url: '',
+        url: '/organizations',
         icon: BuildingIcon,
-        soon: true,
     },
 ];
 

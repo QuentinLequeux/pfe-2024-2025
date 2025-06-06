@@ -1,22 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import AppLayout from '@/layouts/app-layout';
+import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
-import { IBreed } from '@/types/IBreed';
-import { IOrganization } from '@/types/IOrganization';
-import { Head, useForm } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { CalendarIcon } from 'lucide-react';
-import React, { FormEventHandler } from 'react';
-import { IAnimal } from '@/types/IAnimal';
-import { toast } from 'sonner';
+import { IBreed } from '@/types/IBreed';
 import { BreadcrumbItem } from '@/types';
+import { IAnimal } from '@/types/IAnimal';
+import { CalendarIcon } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import React, { FormEventHandler } from 'react';
+import { Head, useForm } from '@inertiajs/react';
+import InputError from '@/components/input-error';
+import { Calendar } from '@/components/ui/calendar';
+import { Textarea } from '@/components/ui/textarea';
+import { IOrganization } from '@/types/IOrganization';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type Props = {
     organization: IOrganization;
@@ -103,6 +104,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
                                 </SelectContent>
                             </Select>
+                            <InputError message={errors.organization_id} />
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full min-w-[200px]'}>
@@ -117,7 +119,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                 />
-                                {errors.name && <p className={'text-[#B74553] font-medium'}>{errors.name}</p>}
+                                <InputError message={errors.name} />
                             </div>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'age'}>
@@ -131,7 +133,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     value={data.age}
                                     onChange={(e) => setData('age', e.target.value)}
                                 />
-                                {errors.age && <p className={'text-[#B74553] font-medium'}>{errors.age}</p>}
+                                <InputError message={errors.age} />
                             </div>
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
@@ -144,7 +146,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     value={data.weight}
                                     onChange={(e) => setData('weight', e.target.value)}
                                 />
-                                {errors.weight && <p className={'text-[#B74553] font-medium'}>{errors.weight}</p>}
+                                <InputError message={errors.weight} />
                             </div>
                             <div className={'w-full'}>
                                 <Label htmlFor={''}>
@@ -174,6 +176,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                         />
                                     </PopoverContent>
                                 </Popover>
+                                <InputError message={errors.arrival_date} />
                             </div>
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
@@ -193,6 +196,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                         ))}
                                     </SelectContent>
                                 </Select>
+                                <InputError message={errors.breed_id} />
                             </div>
                             {/*
                             <div className={'w-full'}>
@@ -231,6 +235,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                         ))}
                                     </SelectContent>
                                 </Select>
+                                <InputError message={errors.gender} />
                             </div>
                             <div className={'w-full'}>
                                 <Label>
@@ -248,6 +253,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                         ))}
                                     </SelectContent>
                                 </Select>
+                                <InputError message={errors.adoption_status} />
                             </div>
                         </div>
                         <div className={'w-[40%] min-w-[300px]'}>
@@ -261,7 +267,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 onChange={handleFileChange}
                                 accept={'.png, .jpg, .jpeg, .svg, .webp'}
                             />
-                            {errors.photo && <p className={'text-[#B74553] font-medium'}>{errors.photo}</p>}
+                            <InputError message={errors.photo} />
                             {animal.photo && (
                                 <div className="mt-2">
                                     <p>Photo actuelle&nbsp;:</p>
@@ -293,9 +299,9 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 value={data.description}
                                 onChange={(e) => setData('description', e.target.value)}
                             />
-                            {errors.description && <p className={'text-[#B74553] font-medium'}>{errors.description}</p>}
+                            <InputError message={errors.description} />
                         </div>
-                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold'}>
+                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black'}>
                             Modifier
                         </Button>
                     </form>

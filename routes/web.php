@@ -14,7 +14,12 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        $user = auth()->user();
+        $sponsoredAnimals = $user->sponsoredAnimals()->count();
+        return Inertia::render('dashboard', [
+            'user' => $user,
+            'sponsoredAnimals' => $sponsoredAnimals,
+        ]);
     })->name('dashboard');
 
     Route::get('/animals', function () {
@@ -71,3 +76,4 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
 require __DIR__ . '/donation.php';
 require __DIR__ . '/animals.php';
+require __DIR__ . '/organization.php';

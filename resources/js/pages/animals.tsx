@@ -1,11 +1,11 @@
-import Card from '@/components/petshelter/card';
-import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { useEffect } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { PageProps as InertiaPageProps } from '@inertiajs/core';
+import Card from '@/components/petshelter/card';
+import { Button } from '@/components/ui/button';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { useEffect } from 'react';
-import { toast } from 'sonner';
+import { PageProps as InertiaPageProps } from '@inertiajs/core';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,7 +29,6 @@ const Animals = () => {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            {/* TODO : Màj du HEAD */}
             <Head title={'Animaux'} />
             <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'}>
                 <Link href={'/animals/create'} title={'Ajouter un animal'}>

@@ -8,7 +8,14 @@
         <meta name="keywords" content="PetShelter, petshelter, parrainage, animaux, refuge, dons, don, chien, chat, aide">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!--TODO : Ajouter Open Graph -->
+        <!--Open Graph-->
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:site_name" content="PetShelter">
+        <meta property="og:description" content="PetShelter - Une application de parrainage pour les animaux en refuge.">
+        <meta property="og:locale" content="fr_BE">
+        <meta property="og:title" content="PetShelter">
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
@@ -38,11 +45,11 @@
 
         <title inertia>{{ config('app.name', 'PetShelter') }}</title>
 
-        <!-- Adobe font -->
+        <!--Adobe font-->
 
         <link rel="stylesheet" href="https://use.typekit.net/xcu5nly.css">
 
-        <!-- Favicon -->
+        <!--Favicon-->
 
         <link rel="icon" type="image/svg" href="{{ asset('favicon.svg') }}">
         <link rel="apple-touch-icon" type="image/svg" href="{{ asset('favicon.svg') }}">
