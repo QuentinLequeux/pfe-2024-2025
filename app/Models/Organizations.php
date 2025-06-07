@@ -17,4 +17,9 @@ class Organizations extends Model
         'iban',
         'website',
     ];
+
+    public function animals()
+    {
+        return $this->hasMany(Animals::class, 'organization_id');
+    }
 }

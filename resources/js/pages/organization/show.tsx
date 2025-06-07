@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { IOrganization } from '@/types/IOrganization';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
-import { AtSign, Building, Landmark, Mail, Phone } from 'lucide-react';
+import { AtSign, Ban, Building, Landmark, Mail, Phone } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -45,7 +45,7 @@ export default function Organizations() {
                 </Button>
             </div>
             <div className={'w-full flex flex-wrap gap-4 justify-center my-4'}>
-                {props.organizations.length === 0 && <p>Aucune organisation</p>}
+                {props.organizations.length === 0 && <div><p><Ban className={'mx-auto mb-2'}/>Aucune organisation.</p></div>}
                 {props.organizations.map(organization => (
                     <div key={organization.id} className={'border rounded-2xl p-6 flex flex-col gap-4 w-[30%] min-w-[400px] shadow-md'}>
                         <p className={'font-bold'}>{organization.name}</p>
@@ -55,7 +55,7 @@ export default function Organizations() {
                         <a className={'underline'} href={organization.website} title={`Vers ${organization.website}`} target={'_blank'}><AtSign className={'inline mr-2'}/>{organization.website}</a>
                         <p><Landmark className={'inline mr-2'}/>{organization.iban}</p>
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit m-auto'}>
-                            <Link href={'#'}>
+                            <Link href={route('organization.animals', organization.id)}>
                                 Voir les animaux
                             </Link>
                         </Button>
@@ -65,5 +65,3 @@ export default function Organizations() {
         </AppLayout>
     );
 }
-
-// TODO : Voir les animaux du refuge.
