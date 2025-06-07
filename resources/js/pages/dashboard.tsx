@@ -38,7 +38,7 @@ export default function Dashboard() {
                             </Link>
                         </Button>
                     </div>
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border rounded-xl border p-6 flex flex-col gap-4 min-w-[471px] max-md:w-full max-md:min-w-[100%]">
+                    <div className="border-sidebar-border/70 dark:border-sidebar-border rounded-xl border p-6 flex flex-col gap-4 w-[471px] max-md:w-full max-md:min-w-[100%]">
                         <h2 aria-level={2} role={'heading'} className={'font-bold text-xl'}>
                             Animaux parrain&eacute;s
                         </h2>
@@ -51,6 +51,19 @@ export default function Dashboard() {
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit'}>
                             <Link title={'Parrainer'} href={'/sponsorship'}>
                                 Parrainage
+                            </Link>
+                        </Button>
+                    </div>
+                    <div className={'border-sidebar-border/70 dark:border-sidebar-border rounded-xl border p-6 flex flex-col gap-4 w-[471px] max-md:w-full max-md:min-w-[100%'}>
+                        <h2 aria-level={2} role={'heading'} className={'font-bold text-xl'}>
+                            D&eacute;couvrez les refuges
+                        </h2>
+                        <p>
+                            Parcourez les refuges partenaires&nbsp;!
+                        </p>
+                        <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit'}>
+                            <Link href={route('organization.show')}>
+                                D&eacute;couvrir
                             </Link>
                         </Button>
                     </div>
