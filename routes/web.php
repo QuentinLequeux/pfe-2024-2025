@@ -23,7 +23,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::get('/animals', function () {
-        return Inertia::render('animals/animals', ['success' => session('success'), 'animals' => Animals::with('breed')->orderBy('id', 'desc')->paginate(10)]);
+        return Inertia::render('animals/animals', [
+            'success' => session('success'),
+            'animals' => Animals::with('breed')
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->through(function ($animal) {
+                $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+                return $animal;
+            })]);
     })->name('animals');
 
     Route::get('/animals/create', function () {
