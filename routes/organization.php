@@ -1,12 +1,15 @@
 <?php
 
 use Inertia\Inertia;
+use App\Models\Organizations;
 use App\Http\Controllers\OrganizationController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/organizations', function () {
+        $organizations = Organizations::all();
         return Inertia::render('organization/show', [
             'success' => session('success'),
+            'organizations' => $organizations,
         ]);
     })->name('organization.show');
 

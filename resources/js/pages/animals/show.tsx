@@ -1,7 +1,7 @@
 import React from 'react';
-import { animals } from '../assets/img';
 import { BreadcrumbItem } from '@/types';
 import { IAnimal } from '@/types/IAnimal';
+import { animals } from '../../assets/img';
 import AppLayout from '@/layouts/app-layout';
 import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
