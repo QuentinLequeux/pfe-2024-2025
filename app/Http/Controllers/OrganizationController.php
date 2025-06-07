@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Animals;
 use Illuminate\Http\Request;
 use App\Models\Organizations;
 
@@ -20,6 +21,15 @@ class OrganizationController extends Controller
     public function create()
     {
         return Inertia::render('organization/create');
+    }
+
+    public function byOrganization(Organizations $organization)
+    {
+        $animals = Animals::with('breed')->where('organization_id', $organization->id)->paginate(10);
+        return Inertia::render('organization/animals', [
+           'organization' => $organization,
+           'animals' => $animals,
+        ]);
     }
 
     public function store(Request $request)
