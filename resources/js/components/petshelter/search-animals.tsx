@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Link } from '@inertiajs/react';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { ENDPOINTS } from '@/config/endpoints';
 import { IAnimal } from '@/types/IAnimal';
+import { Input } from '@/components/ui/input';
+import { ENDPOINTS } from '@/config/endpoints';
+import { Button } from '@/components/ui/button';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 const SearchAnimals = () => {
     const [query, setQuery] = useState('');
@@ -27,7 +27,7 @@ const SearchAnimals = () => {
         const value = e.currentTarget.value;
         setQuery(value);
 
-        let url = `https://pfe.test/search?query=${value}`;
+        let url = `https://www.petshelter.be/search?query=${value}`;
         if (value.length === 0) {
             url = ENDPOINTS.SEARCH_URL; // Récupérer les trois premiers animaux par défaut
         }
