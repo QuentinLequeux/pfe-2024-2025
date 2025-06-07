@@ -1,7 +1,7 @@
-import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import { type BreadcrumbItem } from '@/types';
 import { type ReactNode } from 'react';
+import { type BreadcrumbItem } from '@/types';
 import { Toaster } from '@/components/ui/sonner';
+import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -16,5 +16,3 @@ export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
         <Toaster theme={'light'} closeButton={true} richColors position={'top-center'} duration={5000} />
     </>
 );
-
-// TODO: Détection du thème.

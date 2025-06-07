@@ -25,7 +25,7 @@ class DonationController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = Session::create([
-            'payment_method_types' => ['card'],
+            'payment_method_types' => ['card', 'bancontact'],
             'line_items' => [
                 [
                     'price_data' => [
@@ -84,5 +84,4 @@ class DonationController extends Controller
     }
 }
 
-// TODO : Autres moyen de paiement ?
 // TODO : Page d'erreur 400 ?
