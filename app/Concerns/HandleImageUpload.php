@@ -25,9 +25,9 @@ trait HandleImageUpload
 
         $imageData = (string) $imageResized->encode();
 
-        $fileName = basename($path);
+        //$fileName = basename($path);
 
-        Storage::disk('s3')->put($fileName, $imageData, 'public');
+        Storage::disk('s3')->put($path, $imageData, 'public');
 
         return Storage::disk('s3')->url($path);
 
