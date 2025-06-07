@@ -23,7 +23,13 @@ trait HandleImageUpload
 
         $imageResized = Image::read($file)->cover($width, $height);
 
-        $imageResized->save(Storage::disk('s3')->path(basename($path)));
+        $imageData = (string) $imageResized->encode();
+
+        $fileName = basename($path);
+
+        Storage::disk('s3')->put($fileName, $imageData);
+
+        //$imageResized->save(Storage::disk('s3')->path(basename($path)));
 
         return Str::afterLast($path, '/');
     }
