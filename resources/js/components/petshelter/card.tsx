@@ -1,7 +1,7 @@
-//import { animals } from '../../assets/img';
-import { Link, usePage } from '@inertiajs/react';
-import { IAnimal } from '@/types/IAnimal';
 import { Ban } from 'lucide-react';
+import { IAnimal } from '@/types/IAnimal';
+import { Link, usePage } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
 
 interface IPaginateResults<T> {
     data: T;
@@ -117,6 +117,7 @@ const Card = () => {
                     <div className={'flex flex-col items-center justify-center gap-2 h-full'}>
                         <Ban/>
                         <p>Aucun animal pour le moment.</p>
+                        {route().current('sponsorship') && (<Button asChild className={'bg-main hover:bg-hover font-bold text-black'}><Link href={'/animals'}>Parrainer un animal</Link></Button>)}
                     </div>
                 )}
             </div>
@@ -125,5 +126,3 @@ const Card = () => {
 };
 
 export default Card;
-
-// TODO : condition -> bouton ajouter/parrainer si la liste est vide.

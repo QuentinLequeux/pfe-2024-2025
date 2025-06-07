@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Breeds;
-use App\Models\Organizations;
-use App\Models\Species;
 use App\Models\User;
+use App\Models\Breeds;
+use App\Models\Species;
+use App\Models\Organizations;
 use Illuminate\Http\UploadedFile;
 
 test('animal can be added', function () {

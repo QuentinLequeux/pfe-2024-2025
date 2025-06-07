@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Animals;
 use App\Models\Species;
-use App\Models\Organizations;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,12 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Organizations::factory(5)->create(); // Génère cinq refuges aléatoires.
-
         User::factory()->create([
             'name' => 'Quentin',
             'email' => 'quentin.lequeux@student.hepl.be',
-        ]); // Génère un utilisateur.
+        ]);
 
         $species = ['Chien', 'Chat'];
 
@@ -31,7 +27,5 @@ class DatabaseSeeder extends Seeder
         $this->call([
            BreedSeeder::class,
         ]);
-
-        //Animals::factory(15)->create(); // Génère 10 animaux aléatoires.
     }
 }
