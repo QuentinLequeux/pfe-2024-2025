@@ -27,7 +27,7 @@ const SearchAnimals = () => {
         const value = e.currentTarget.value;
         setQuery(value);
 
-        let url = `https://www.petshelter.be/search?query=${value}`;
+        let url = `https://petshelter.be/search?query=${value}`;
         if (value.length === 0) {
             url = ENDPOINTS.SEARCH_URL; // Récupérer les trois premiers animaux par défaut
         }
