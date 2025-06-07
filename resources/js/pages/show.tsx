@@ -103,8 +103,11 @@ const Show: React.FC = () => {
                             >
                                 {animal.organization.email}
                             </a>
+                            <a href={animal.organization.website} title={'Vers le site web de l\'organisation'} className={'mb-2'}>
+                                {animal.organization.website}
+                            </a>
                             <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
-                                <Link href={'#'} title={'En savoir plus'}>
+                                <Link href={route('organization.show')} title={'En savoir plus'}>
                                     En savoir plus
                                 </Link>
                             </Button>

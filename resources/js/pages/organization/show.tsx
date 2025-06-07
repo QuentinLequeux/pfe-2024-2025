@@ -32,7 +32,7 @@ export default function Organizations() {
             <div className={'p-6 w-full flex justify-end gap-2'}>
                 <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
                     <Link href={route('organization.admin')} >
-                        Associer un membre
+                        Associer un utilisateur
                     </Link>
                 </Button>
                 <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>

@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Admin',
+        title: 'Associer un utilisateur',
         href: '/organization/admin'
     }
 ];
@@ -34,7 +34,7 @@ export default function Admin({ users, organizations }: Props) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={'Admin'} />
+            <Head title={'Associer un utilisateur'} />
             <div className={'flex w-fit flex-col gap-4 p-6'}>
                 <h2 aria-level={2} role={'heading'} className={'text-xl font-bold'}>
                     Associer un utilisateur &agrave; une organisation
