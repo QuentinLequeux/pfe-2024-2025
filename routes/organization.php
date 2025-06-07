@@ -13,6 +13,9 @@ Route::middleware(['auth'])->group(function () {
         ]);
     })->name('organization.show');
 
+    Route::get('/organizations/{organization}/animals', [OrganizationController::class, 'byOrganization'])
+        ->name('organization.animals');
+
     Route::get('/organization/create', [OrganizationController::class, 'create'])
         ->name('organization.create');
 
