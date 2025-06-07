@@ -17,6 +17,27 @@ class OrganizationController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return Inertia::render('organization/create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:organizations,name',
+            'address' => 'required|string|max:255',
+            'phone' => 'required|string|max:30|unique:organizations,phone',
+            'email' => 'required|string|email|max:255|unique:organizations,email',
+            'iban' => 'required|string|max:255|unique:organizations,iban|regex:/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/',
+            'website' => 'required|string|max:255|unique:organizations,website|url',
+        ]);
+
+        Organizations::create($validated);
+
+        return redirect()->route('organization.show')->with('success', 'Organisation ajoutée avec succès !');
+    }
+
     public function updateUserOrganization(Request $request)
     {
         $data = $request->validate([

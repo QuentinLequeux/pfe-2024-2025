@@ -74,7 +74,7 @@ const Show: React.FC = () => {
                     <div className={'flex flex-col gap-8'}>
                         <div
                             className={
-                                'flex h-fit w-[300px] flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md dark:bg-[#1c1e21]'
+                                'flex h-fit w-[300px] flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md dark:bg-[#1c1e21] max-md:w-full'
                             }
                         >
                             <p className={'font-bold'}>Lui venir en aide&nbsp;?</p>
@@ -88,22 +88,22 @@ const Show: React.FC = () => {
                         </div>
                         <div
                             className={
-                                'flex h-fit w-[300px] flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md dark:bg-[#1c1e21]'
+                                'flex h-fit w-[300px] flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md dark:bg-[#1c1e21] max-md:w-full'
                             }
                         >
                             <p className={'mb-2'}>{animal.organization.name}</p>
                             <p className={'mb-2 text-center'}>{animal.organization.address}</p>
-                            <a href={`tel:${animal.organization.phone}`} title={'Appeler ce numéro'} className={'mb-2'}>
+                            <a href={`tel:${animal.organization.phone}`} title={'Appeler ce numéro'} className={'mb-2 underline'}>
                                 {animal.organization.phone}
                             </a>
                             <a
                                 href={`mailto:${animal.organization.email}?Subject=Informations&body=Bonjour`}
                                 title={'Envoyer un email'}
-                                className={'mb-2'}
+                                className={'mb-2 underline'}
                             >
                                 {animal.organization.email}
                             </a>
-                            <a href={animal.organization.website} title={'Vers le site web de l\'organisation'} className={'mb-2'}>
+                            <a href={animal.organization.website} title={'Vers le site web de l\'organisation'} className={'mb-2 underline'}>
                                 {animal.organization.website}
                             </a>
                             <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
