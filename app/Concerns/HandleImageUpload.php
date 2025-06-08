@@ -2,9 +2,9 @@
 
 namespace App\Concerns;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
 
 trait HandleImageUpload
@@ -19,20 +19,18 @@ trait HandleImageUpload
      */
     public function storeAndResizeImage(UploadedFile $file, int $width = 400, int $height = 300): string
     {
-        $fileName = uniqid() . '.' . $file->getClientOriginalName();
-
-        //$path = $file->store( '', 's3');
+        $path = $file->store( '', 's3');
 
         $imageResized = Image::read($file)->cover($width, $height);
 
         $imageData = (string) $imageResized->encode();
 
-        Storage::disk('s3')->put($fileName, $imageData, 'public');
+        $fileName = basename($path);
 
-        return $fileName;
+        Storage::disk('s3')->put($fileName, $imageData, ['visibility' => 'public']);
 
         //$imageResized->save(Storage::disk('s3')->path(basename($path)));
 
-        //return Str::afterLast($path, '/');
+        return Str::afterLast($path, '/');
     }
 }
