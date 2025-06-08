@@ -33,8 +33,6 @@ trait HandleImageUpload
 
         //$imageResized->save(Storage::disk('s3')->path(basename($path)));
 
-        $publicBase = 'https://petshelter.367be3a2035528943240074d0096e0cd.r2.dev';
-
-        return "{$publicBase}/{$fileName}";
+        return $fileName;
     }
 }
