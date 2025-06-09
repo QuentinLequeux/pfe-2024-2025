@@ -45,7 +45,7 @@ export default function Admin({ users, organizations }: Props) {
                 <form className={'flex flex-col gap-4'} onSubmit={handleSubmit}>
                     <div>
                         <Label>
-                            Utilisateurs&nbsp;<span className={'text-orange-500'}>*</span>
+                            Utilisateur&nbsp;<span className={'text-orange-500'}>*</span>
                         </Label>
                         <Select required onValueChange={(value) => setData('user_id', value)} value={data.user_id}>
                             <SelectTrigger>
@@ -63,7 +63,7 @@ export default function Admin({ users, organizations }: Props) {
                     </div>
                     <div>
                         <Label>
-                            Organisations&nbsp;<span className={'text-orange-500'}>*</span>
+                            Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                         </Label>
                         <Select
                             required

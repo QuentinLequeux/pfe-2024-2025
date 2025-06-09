@@ -16,6 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface PageProps extends InertiaPageProps {
     success?: string;
+    access?: string;
 }
 
 const Animals = () => {
@@ -25,7 +26,11 @@ const Animals = () => {
         if (props.success) {
             toast.success(props.success);
         }
-    }, [props.success]);
+
+        if (props.access) {
+            toast.warning(props.access);
+        }
+    }, [props.success, props.access]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
