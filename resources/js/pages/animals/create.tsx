@@ -96,7 +96,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                 </div>
                 <div className={'m-8'}>
                     <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
-                        <div className={'w-[40%] min-w-[300px]'}>
+                        <div className={'w-[40%] max-md:w-[100%]'}>
                             <Label>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
@@ -110,8 +110,8 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                             </Select>
                             <InputError message={errors.organization_id} />
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
-                            <div className={'w-full min-w-[200px]'}>
+                        <div className={'flex w-[40%] max-md:w-[100%] flex-col gap-8 max-md:gap-4 lg:flex-row'}>
+                            <div className={'w-full min-w-[200px] '}>
                                 <Label htmlFor={'name'}>
                                     Nom&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
@@ -140,7 +140,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 <InputError message={errors.age} />
                             </div>
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] max-md:w-[100%] flex-col gap-8 max-md:gap-4 lg:flex-row'}>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'weight'}>Poids</Label>
                                 <Input
@@ -183,7 +183,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 <InputError message={errors.arrival_date} />
                             </div>
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] max-md:w-[100%] flex-col gap-8 lg:flex-row'}>
                             <div className={'w-full'}>
                                 <Label>
                                     Race&nbsp;<span className={'text-orange-500'}>*</span>
@@ -233,7 +233,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                             </div>
                             */}
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] max-md:w-[100%] flex-col gap-8 max-md:gap-4 lg:flex-row'}>
                             <div className={'w-full'}>
                                 <Label>
                                     Sexe&nbsp;<span className={'text-orange-500'}>*</span>
@@ -271,7 +271,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 <InputError message={errors.adoption_status} />
                             </div>
                         </div>
-                        <div className={'w-[40%] min-w-[300px]'}>
+                        <div className={'w-[40%] max-md:w-[100%]'}>
                             <Label htmlFor={'photo'}>
                                 Photo&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
@@ -294,7 +294,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 </div>
                             )}
                         </div>
-                        <div className={'w-[40%] min-w-[300px]'}>
+                        <div className={'w-[40%] max-md:w-[100%]'}>
                             <Label htmlFor={'description'}>Description</Label>
                             <Textarea
                                 id={'description'}
@@ -306,7 +306,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                             />
                             <InputError message={errors.description} />
                         </div>
-                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black'}>
+                        <Button type={'submit'} className={'bg-main hover:bg-hover font-bold text-black w-[40%] max-md:w-full'}>
                             Ajouter
                         </Button>
                     </form>

@@ -27,6 +27,7 @@ const SearchAnimals = () => {
         const value = e.currentTarget.value;
         setQuery(value);
 
+        //let url = `http://pfe.test/search?query=${value}`;
         let url = `https://petshelter.be/search?query=${value}`;
         if (value.length === 0) {
             url = ENDPOINTS.SEARCH_URL; // Récupérer les trois premiers animaux par défaut
@@ -57,18 +58,19 @@ const SearchAnimals = () => {
                     className="caret-main border-gray-500 py-5 pl-10 text-black bg-[#fff]"
                 />
             </div>
-
             {results.length > 0 ? (
                 <ul className={'mt-8'}>
                     {results.map((animal) => (
-                        <li key={animal.id} className="flex items-center p-2">
-                            <div className="flex min-w-[320px] items-center rounded-2xl bg-[#fff] p-4 shadow-lg hover:bg-gray-100">
+                        <li key={animal.id} className="flex items-center my-4">
+                            <div className="flex min-w-[320px] w-full items-center rounded-2xl bg-[#fff] p-4 shadow-lg hover:bg-gray-100">
                                 <div className={'flex gap-3'}>
                                     <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>
                                         <img className={'rounded-full h-full'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                                        {/*<img className={'rounded-full h-full'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
                                     </div>
                                     <div className={'flex flex-col overflow-hidden'}>
                                         <p className="font-bold text-black">{animal.name}</p>
+                                        <p className="text-black max-w-[150px]">{animal.breed.breed}</p>
                                     </div>
                                 </div>
                                 <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'}>

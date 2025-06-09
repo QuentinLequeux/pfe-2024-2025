@@ -32,7 +32,7 @@ export default function Organizations() {
     return(
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Refuges'} />
-            <div className={'p-6 w-full flex justify-end gap-2'}>
+            <div className={'pt-6 pr-4 pb-6 w-full flex flex-wrap justify-end gap-2'}>
                 <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
                     <Link href={route('organization.admin')} >
                         Associer un utilisateur
@@ -47,7 +47,7 @@ export default function Organizations() {
             <div className={'w-full flex flex-wrap gap-4 justify-center my-4'}>
                 {props.organizations.length === 0 && <div><p><Ban className={'mx-auto mb-2'}/>Aucune organisation.</p></div>}
                 {props.organizations.map(organization => (
-                    <div key={organization.id} className={'border rounded-2xl p-6 flex flex-col gap-4 w-[30%] min-w-[400px] shadow-md'}>
+                    <div key={organization.id} className={'border rounded-2xl p-6 flex flex-col gap-4 w-[30%] max-md:min-w-[90%] min-w-[400px] shadow-md'}>
                         <p className={'font-bold'}>{organization.name}</p>
                         <p><Building className={'inline mr-2'}/>{organization.address}</p>
                         <a className={'underline'} href={`tel:${organization.phone}`} title={'Appeler ce numéro'}><Phone className={'inline mr-2'}/>{organization.phone}</a>

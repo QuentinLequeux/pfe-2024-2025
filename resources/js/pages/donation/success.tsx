@@ -1,10 +1,18 @@
-import { Button } from '@/components/ui/button';
+import { BreadcrumbItem } from '@/types';
+import ReactConfetti from 'react-confetti';
+import { useEffect, useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-import { useWindowSize } from '@react-hook/window-size';
 import { CircleCheckBig } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import ReactConfetti from 'react-confetti';
+import { Button } from '@/components/ui/button';
+import { useWindowSize } from '@react-hook/window-size';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Paiement validé',
+        href: '#',
+    }
+];
 
 export default function Success() {
     const [showConfetti, setShowConfetti] = useState(true);
@@ -16,8 +24,8 @@ export default function Success() {
     }, []);
 
     return (
-        <AppLayout>
-            <Head title={'Succès'} />
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title={'Paiement validé'} />
             {showConfetti && (
                 <ReactConfetti
                     width={width}
