@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property string|null $photo
  */
 
-class Animals extends Model
+class Animal extends Model
 {
     use HasFactory;
     use Searchable;
@@ -57,7 +57,7 @@ class Animals extends Model
 
     public function organization()
     {
-        return $this->belongsTo(Organizations::class); // Un animal a une organisation.
+        return $this->belongsTo(Organization::class); // Un animal a une organisation.
     }
 
     public function sponsors()

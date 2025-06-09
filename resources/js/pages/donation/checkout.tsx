@@ -113,7 +113,7 @@ const Checkout = () => {
                         <p className={'text-neutral-500 text-xs'}>
                             Propuls&eacute; par
                         </p>
-                        <svg focusable="false" width="33"
+                        <svg className={'dark:fill-white'} focusable="false" width="33"
                              height="15" role="img" aria-labelledby="stripe-title"><title id="stripe-title">Stripe</title>
                             <g fillRule="evenodd">
                                 <path

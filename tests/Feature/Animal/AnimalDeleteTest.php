@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\Animals;
-use App\Models\Breeds;
-use App\Models\Organizations;
-use App\Models\Species;
 use App\Models\User;
+use App\Models\Animal;
+use App\Models\Breeds;
+use App\Models\Species;
+use App\Models\Organization;
 
 test('animal can be deleted', function () {
-    $organization = Organizations::factory()->create();
+    $organization = Organization::factory()->create();
     Species::factory()->create();
     $breed = Breeds::factory()->create();
     $user = User::factory()->create([
@@ -16,7 +16,7 @@ test('animal can be deleted', function () {
 
     $this->actingAs($user);
 
-    $animal = Animals::factory()->create([
+    $animal = Animal::factory()->create([
         'organization_id' => $organization->id,
         'breed_id' => $breed->id,
     ]);

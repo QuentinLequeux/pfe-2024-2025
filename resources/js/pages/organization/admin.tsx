@@ -19,12 +19,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 type Props = {
     organizations: IOrganization[];
     users: IUser[];
+    roles: { id: number; name: string; }[];
 };
 
-export default function Admin({ users, organizations }: Props) {
-    const { data, setData, post, errors } = useForm<{ user_id: string; organization_id: string | null }>({
+export default function Admin({ users, organizations, roles }: Props) {
+    const { data, setData, post, errors } = useForm<{ user_id: string; organization_id: string | null, role: string; }>({
         user_id: '',
         organization_id: null,
+        role: '',
     });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,9 +47,12 @@ export default function Admin({ users, organizations }: Props) {
                 <form className={'flex flex-col gap-4'} onSubmit={handleSubmit}>
                     <div>
                         <Label>
-                            Utilisateurs&nbsp;<span className={'text-orange-500'}>*</span>
+                            Utilisateur&nbsp;<span className={'text-orange-500'}>*</span>
                         </Label>
-                        <Select required onValueChange={(value) => setData('user_id', value)} value={data.user_id}>
+                        <Select
+                            required
+                            onValueChange={(value) => setData('user_id', value)}
+                            value={data.user_id}>
                             <SelectTrigger>
                                 <SelectValue placeholder={'Choisir un utilisateur'} />
                             </SelectTrigger>
@@ -63,7 +68,7 @@ export default function Admin({ users, organizations }: Props) {
                     </div>
                     <div>
                         <Label>
-                            Organisations&nbsp;<span className={'text-orange-500'}>*</span>
+                            Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                         </Label>
                         <Select
                             required
@@ -83,6 +88,26 @@ export default function Admin({ users, organizations }: Props) {
                             </SelectContent>
                         </Select>
                         <InputError message={errors.organization_id} />
+                    </div>
+                    <div>
+                        <Label>
+                            Rôles&nbsp;<span className={'text-orange-500'}>*</span>
+                        </Label>
+                        <Select required
+                                onValueChange={(value) => setData('role', value)}
+                                value={data.role}>
+                            <SelectTrigger>
+                                <SelectValue placeholder={'Choisir un rôle'}></SelectValue>
+                            </SelectTrigger>
+                            <SelectContent>
+                                {roles.map((role) => (
+                                    <SelectItem key={role.id} value={role.name}>
+                                        {role.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <InputError message={errors.role} />
                     </div>
                     <Button type={'submit'} className={'bg-main hover:bg-hover font-bold text-black'}>
                         Associer

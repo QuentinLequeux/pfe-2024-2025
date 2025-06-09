@@ -19,20 +19,20 @@ trait HandleImageUpload
      */
     public function storeAndResizeImage(UploadedFile $file, int $width = 400, int $height = 300): string
     {
-        //$path = $file->store( '', 's3');
+        //$path = $file->store('public');
 
-        $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+        $fileName = uniqid() . '.' . $file->getClientOriginalExtension(); // 1
 
         $imageResized = Image::read($file)->cover($width, $height);
 
-        $imageData = (string) $imageResized->encode();
+        $imageData = (string) $imageResized->encode(); // 2
 
-        //$fileName = basename($path);
+        //$imageResized->save(Storage::disk('public')->path(basename($path)));
 
-        Storage::disk('s3')->put($fileName, $imageData, 'public');
+        Storage::disk('s3')->put($fileName, $imageData, 'public'); // 3
 
-        //$imageResized->save(Storage::disk('s3')->path(basename($path)));
+        //return Str::afterLast($path, '/');
 
-        return $fileName;
+        return $fileName; // 4
     }
 }

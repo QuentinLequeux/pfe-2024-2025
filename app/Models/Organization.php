@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Organizations extends Model
+class Organization extends Model
 {
     use HasFactory;
 
@@ -20,6 +20,6 @@ class Organizations extends Model
 
     public function animals()
     {
-        return $this->hasMany(Animals::class, 'organization_id');
+        return $this->hasMany(Animal::class, 'organization_id');
     }
 }

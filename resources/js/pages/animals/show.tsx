@@ -1,4 +1,5 @@
-import React from 'react';
+import { toast } from 'sonner';
+import React, { useEffect } from 'react';
 import { BreadcrumbItem } from '@/types';
 import { IAnimal } from '@/types/IAnimal';
 import { animals } from '../../assets/img';
@@ -7,6 +8,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Card from '@/components/petshelter/card';
 import { Head, Link, router, usePage } from '@inertiajs/react';
+import { PageProps as InertiaPageProps } from '@inertiajs/core';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -15,8 +17,20 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+interface PageProps extends InertiaPageProps {
+    access?: string;
+    userRole: string;
+}
+
 const Show: React.FC = () => {
     const { animal } = usePage<{ animal: IAnimal }>().props;
+    const { props } = usePage<PageProps>();
+
+    useEffect(() => {
+        if (props.access) {
+            toast.warning(props.access);
+        }
+    }, [props.access]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -28,10 +42,11 @@ const Show: React.FC = () => {
                     </h2>
                 </div>
                 <div className={'mx-4 mt-8 flex flex-wrap justify-center gap-6'}>
-                    <div className={'h-fit rounded-2xl bg-[#fff] p-6 shadow-md max-sm:w-[90%] dark:bg-[#1c1e21]'}>
+                    <div className={'h-fit rounded-2xl bg-[#fff] p-6 shadow-md max-sm:w-[100%] dark:bg-[#1c1e21]'}>
                         <div className={'flex flex-wrap gap-8'}>
                             <div className={'relative max-h-[300px] w-full min-w-[300px] overflow-hidden rounded-2xl bg-[#eee] lg:w-[60%]'}>
-                                <img src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} loading={'lazy'} />
+                                {/*<img src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} loading={'lazy'} />*/}
+                                <img src={animal.photo_url} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} loading={'lazy'} />
                                 <div
                                     className={`absolute bottom-0 mt-auto w-full rounded-b-2xl ${
                                         animal.adoption_status === 'En attente'
@@ -47,19 +62,19 @@ const Show: React.FC = () => {
                                 </div>
                             </div>
                             <div className={'m-auto max-w-[200px]'}>
-                                <p className={'mb-2 rounded-md border p-2 text-center font-bold'}>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
                                     Nom&nbsp;: <span className={'font-light'}>{animal.name}</span>
                                 </p>
-                                <p className={'mb-2 rounded-md border p-2 text-center font-bold'}>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
                                     Race&nbsp;: <span className={'font-light'}>{animal.breed.breed}</span>
                                 </p>
-                                <p className={'mb-2 rounded-md border p-2 text-center font-bold'}>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
                                     Sexe&nbsp;: <span className={'font-light'}>{animal.gender}</span>
                                 </p>
-                                <p className={'mb-2 rounded-md border p-2 text-center font-bold'}>
-                                    Age&nbsp;: <span className={'font-light'}>{animal.age}</span>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
+                                    Age&nbsp;: <span className={'font-light'}>{animal.age}&nbsp;ans</span>
                                 </p>
-                                <p className={'mb-2 rounded-md border p-2 text-center font-bold'}>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
                                     Poids&nbsp;: <span className={'font-light'}>{animal.weight}&nbsp;kg</span>
                                 </p>
                             </div>
@@ -91,7 +106,7 @@ const Show: React.FC = () => {
                                 'flex h-fit w-[300px] flex-col items-center justify-center gap-2 rounded-2xl bg-[#fff] p-6 shadow-md dark:bg-[#1c1e21] max-md:w-full'
                             }
                         >
-                            <p className={'mb-2'}>{animal.organization.name}</p>
+                            <p className={'mb-2 font-bold'}>{animal.organization.name}</p>
                             <p className={'mb-2 text-center'}>{animal.organization.address}</p>
                             <a href={`tel:${animal.organization.phone}`} title={'Appeler ce numéro'} className={'mb-2 underline'}>
                                 {animal.organization.phone}
@@ -130,30 +145,40 @@ const Show: React.FC = () => {
                         Parrainer
                     </Button>
                 </div>
-                <div
-                    className={'bg-main fixed right-5 bottom-40 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full'}
-                >
-                    <Pencil color={'#fff'} size={'24px'} onClick={() => router.get(route('animals.edit', animal.id))} />
-                </div>
-                <div
-                    className={
-                        'fixed right-5 bottom-25 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-[#B74553]'
-                    }
-                >
-                    <Trash2
-                        color={'#fff'}
-                        size={'24px'}
+                {props.userRole.includes('Administrateur') && (
+                    <div
+                        className={'bg-main hover:scale-115 fixed right-5 bottom-40 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full'}
+                        title={'Modifier l\'animal'}
+                        onClick={() => router.get(route('animals.edit', animal.id))}
+                    >
+                        <Pencil color={'#fff'} size={'24px'} />
+                    </div>
+                )}
+                {props.userRole.includes('Administrateur') && (
+                    <div
+                        className={
+                            'fixed right-5 bottom-25 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-[#B74553] hover:scale-115'
+                        }
                         onClick={() => {
                             if (confirm('Voulez-vous vraiment supprimer cet animal ?')) router.delete(route('animals.destroy', animal.id));
                         }}
-                    />
-                </div>
+                        title={'Supprimer l\'animal'}
+                    >
+                        <Trash2 color={'#fff'} size={'24px'} />
+                    </div>
+                )}
                 <div className={'shadow-fixed sticky bottom-0 flex h-[70px] items-center justify-around rounded-b-2xl bg-[#fff] dark:bg-[#1c1e21]'}>
                     <div className={'flex items-center gap-4'}>
                         <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>
-                            <img
+                            {/*<img
                                 className={'h-full rounded-full'}
                                 src={`/storage/${animal.photo}`}
+                                alt={`Photo de ${animal.name}`}
+                                loading={'lazy'}
+                            />*/}
+                            <img
+                                className={'h-full rounded-full'}
+                                src={animal.photo_url}
                                 alt={`Photo de ${animal.name}`}
                                 loading={'lazy'}
                             />

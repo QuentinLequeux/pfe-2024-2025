@@ -3,13 +3,13 @@
 use App\Models\User;
 use App\Models\Breeds;
 use App\Models\Species;
-use App\Models\Organizations;
+use App\Models\Organization;
 use Illuminate\Http\UploadedFile;
 
 test('animal can be added', function () {
     Storage::fake('public');
 
-    $organization = Organizations::factory()->create();
+    $organization = Organization::factory()->create();
     Species::factory()->create();
     $breed = Breeds::factory()->create();
     $user = User::factory()->create([

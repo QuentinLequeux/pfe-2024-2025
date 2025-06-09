@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Species;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,10 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        Role::create(['name' => 'Utilisateur']);
+        Role::create(['name' => 'Administrateur']);
+
+        $user = User::factory()->create([
             'name' => 'Quentin',
             'email' => 'quentin.lequeux@student.hepl.be',
         ]);
+
+        $user->assignRole('Administrateur');
 
         $species = ['Chien', 'Chat'];
 

@@ -29,7 +29,7 @@ type Props = {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Modifier',
+        title: 'Modifier un animal',
         href: '#',
     },
 ];
@@ -80,7 +80,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head />
+            <Head title={'Modifier un animal'} />
             <div>
                 <div className={'m-8'}>
                     <h2 aria-level={2} role={'heading'} className={'mb-2 text-2xl font-bold'}>
@@ -92,7 +92,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                 </div>
                 <div className={'m-8'}>
                     <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
-                        <div className={'w-[40%] min-w-[300px]'}>
+                        <div className={'w-[40%] min-w-[300px] max-md:w-full'}>
                             <Label>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
@@ -106,7 +106,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                             </Select>
                             <InputError message={errors.organization_id} />
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 max-md:gap-4 lg:flex-row max-md:w-full'}>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'name'}>
                                     Nom&nbsp;<span className={'text-orange-500'}>*</span>
@@ -136,7 +136,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 <InputError message={errors.age} />
                             </div>
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 max-md:gap-4 lg:flex-row max-md:w-full'}>
                             <div className={'w-full min-w-[200px]'}>
                                 <Label htmlFor={'weight'}>Poids</Label>
                                 <Input
@@ -179,7 +179,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 <InputError message={errors.arrival_date} />
                             </div>
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row max-md:w-full'}>
                             <div className={'w-full'}>
                                 <Label>
                                     Race&nbsp;<span className={'text-orange-500'}>*</span>
@@ -218,7 +218,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                             </div>
                             */}
                         </div>
-                        <div className={'flex w-[40%] flex-col gap-8 lg:flex-row'}>
+                        <div className={'flex w-[40%] flex-col gap-8 max-md:gap-4 lg:flex-row max-md:w-full'}>
                             <div className={'w-full'}>
                                 <Label>
                                     Sexe&nbsp;<span className={'text-orange-500'}>*</span>
@@ -256,9 +256,9 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 <InputError message={errors.adoption_status} />
                             </div>
                         </div>
-                        <div className={'w-[40%] min-w-[300px]'}>
+                        <div className={'w-[40%] min-w-[300px] max-md:w-full'}>
                             <Label htmlFor={'photo'}>
-                                Photo&nbsp;<span className={'text-orange-500'}>*</span>
+                                Photo
                             </Label>
                             <Input
                                 className={'py-2'}
@@ -271,8 +271,13 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                             {animal.photo && (
                                 <div className="mt-2">
                                     <p>Photo actuelle&nbsp;:</p>
-                                    <img
+                                    {/*<img
                                         src={`/storage/${animal.photo}`}
+                                        alt="Photo actuelle"
+                                        className="max-w-[300px] h-auto rounded-lg"
+                                    />*/}
+                                     <img
+                                        src={animal.photo_url}
                                         alt="Photo actuelle"
                                         className="max-w-[300px] h-auto rounded-lg"
                                     />
@@ -289,7 +294,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 </div>
                             )}
                         </div>
-                        <div className={'w-[40%] min-w-[300px]'}>
+                        <div className={'w-[40%] min-w-[300px] max-md:w-full'}>
                             <Label htmlFor={'description'}>Description</Label>
                             <Textarea
                                 id={'description'}
@@ -301,7 +306,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                             />
                             <InputError message={errors.description} />
                         </div>
-                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black'}>
+                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black max-md:w-full'}>
                             Modifier
                         </Button>
                     </form>
