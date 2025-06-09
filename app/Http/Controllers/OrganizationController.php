@@ -4,30 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
-use App\Models\Animals;
+use App\Models\Animal;
 use Illuminate\Http\Request;
-use App\Models\Organizations;
+use App\Models\Organization;
 use Spatie\Permission\Models\Role;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class OrganizationController extends Controller
 {
+    use AuthorizesRequests;
+
     public function show()
     {
+        $this->authorize('viewAny', Organization::class);
+
         return Inertia::render('organization/admin', [
             'roles' => Role::all(['id', 'name']),
             'users' => User::select('id','email')->orderBy('email')->get(),
-            'organizations' => Organizations::select('id','name')->orderBy('name')->get(),
+            'organizations' => Organization::select('id','name')->orderBy('name')->get(),
         ]);
     }
 
     public function create()
     {
+        $this->authorize('create', Organization::class);
+
         return Inertia::render('organization/create');
     }
 
-    public function byOrganization(Organizations $organization)
+    public function byOrganization(Organization $organization)
     {
-        $animals = Animals::with('breed')->where('organization_id', $organization->id)->paginate(10);
+        $animals = Animal::with('breed')->where('organization_id', $organization->id)->paginate(10);
         return Inertia::render('organization/animals', [
            'organization' => $organization,
            'animals' => $animals,
@@ -36,6 +43,8 @@ class OrganizationController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Organization::class);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:organizations,name',
             'address' => 'required|string|max:255',
@@ -45,7 +54,7 @@ class OrganizationController extends Controller
             'website' => 'required|string|max:255|unique:organizations,website|url',
         ]);
 
-        Organizations::create($validated);
+        Organization::create($validated);
 
         return redirect()->route('organization.show')->with('success', 'Organisation ajoutée avec succès !');
     }

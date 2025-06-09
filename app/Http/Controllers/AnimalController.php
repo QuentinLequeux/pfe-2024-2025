@@ -6,20 +6,21 @@ use Storage;
 use Inertia\Inertia;
 use App\Enums\Gender;
 use App\Models\Breeds;
-use App\Models\Animals;
+use App\Models\Animal;
 use App\Enums\AnimalStatus;
 use Illuminate\Http\Request;
 use App\Concerns\HandleImageUpload;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AnimalController extends Controller
 {
-    use HandleImageUpload;
+    use HandleImageUpload, AuthorizesRequests;
 
     public function show()
     {
         return Inertia::render('animals/animals', [
             'success' => session('success'),
-            'animals' => Animals::with('breed')
+            'animals' => Animal::with('breed')
                 ->inRandomOrder()
                 ->paginate(10),
             'userRole' => auth()->user()->getRoleNames(),
@@ -32,6 +33,8 @@ class AnimalController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Animal::class);
+
         $user = auth()->user();
 
         if (!$user->organization) {
@@ -46,8 +49,10 @@ class AnimalController extends Controller
         ]);
     }
 
-    public function edit(Animals $animal)
+    public function edit(Animal $animal)
     {
+        $this->authorize('view', $animal);
+
         $user = auth()->user();
 
         if (!$user->organization) {
@@ -65,6 +70,8 @@ class AnimalController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Animal::class);
+
         $validated = $request->validate([
             'organization_id' => 'required|exists:organizations,id',
             'name' => 'required|string|max:100|min:3',
@@ -82,13 +89,15 @@ class AnimalController extends Controller
             $validated['photo'] = $this->storeAndResizeImage($request->file('photo'));
         }
 
-        Animals::create($validated);
+        Animal::create($validated);
 
         return redirect()->route('animals')->with('success', 'Animal ajouté avec succès !');
     }
 
-    public function destroy(Animals $animal)
+    public function destroy(Animal $animal)
     {
+        $this->authorize('delete', $animal);
+
         $user = auth()->user();
 
         if (!$user->organization) {
@@ -103,8 +112,10 @@ class AnimalController extends Controller
         return redirect()->route('animals')->with('success', 'Animal supprimé avec succès !');
     }
 
-    public function update(Request $request, Animals $animal)
+    public function update(Request $request, Animal $animal)
     {
+        $this->authorize('update', $animal);
+
         $validated = $request->validate([
             'organization_id' => 'required|exists:organizations,id',
             'name' => 'required|string|max:100|min:3',
@@ -119,9 +130,9 @@ class AnimalController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            if ($animal->photo) {
-                Storage::disk('public')->delete($animal->photo);
-            }
+            //if ($animal->photo) {
+            //    Storage::disk('public')->delete($animal->photo);
+            //}
 
             $validated['photo'] = $this->storeAndResizeImage($request->file('photo'));
         }
