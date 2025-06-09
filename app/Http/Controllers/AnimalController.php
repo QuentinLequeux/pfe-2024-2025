@@ -27,16 +27,20 @@ class AnimalController extends Controller
             'userRole' => auth()->user()->getRoleNames(),
             ]);
         */}
+
+        $animals = Animal::with('breed')
+            ->inRandomOrder()
+            ->paginate(10);
+
+        foreach ($animals as $animal) {
+            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+        }
+
         return Inertia::render('animals/animals', [
             'success' => session('success'),
-            'animals' => Animal::with('breed')
-                ->inRandomOrder()
-                ->paginate(10),
+            'animals' => $animals,
             'userRole' => auth()->user()->getRoleNames(),
-        ])->through(function ($animal) {
-            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-            return $animal;
-        });
+        ]);
     }
 
     public function create()
@@ -67,16 +71,15 @@ class AnimalController extends Controller
             return redirect()->route('animals.show', $animal)->with('access', 'Vous devez appartenir à une organisation pour modifier un animal.');
         }
 
+        $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+
         return Inertia::render('animals/edit', [
             'animal' => $animal,
             'organization' => $user->organization,
             'statuses' => AnimalStatus::cases(),
             'breeds' => Breeds::all(),
             'gender' => Gender::cases()
-        ])->through(function ($animal) {
-            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-            return $animal;
-        });
+        ]);
         {/*
         return Inertia::render('animals/edit', [
             'animal' => $animal,
