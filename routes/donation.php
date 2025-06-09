@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\DonationController;
 use Inertia\Inertia;
+use App\Http\Controllers\DonationController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/donation', function () {
