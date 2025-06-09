@@ -65,8 +65,8 @@ const SearchAnimals = () => {
                             <div className="flex min-w-[320px] w-full items-center rounded-2xl bg-[#fff] p-4 shadow-lg hover:bg-gray-100">
                                 <div className={'flex gap-3'}>
                                     <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>
-                                        <img className={'rounded-full h-full'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />
-                                        {/*<img className={'rounded-full h-full'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
+                                        {/*<img className={'rounded-full h-full'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
+                                        <img className={'rounded-full h-full'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
                                     </div>
                                     <div className={'flex flex-col overflow-hidden'}>
                                         <p className="font-bold text-black">{animal.name}</p>

@@ -18,6 +18,7 @@ class AnimalController extends Controller
 
     public function show()
     {
+        {/*
         return Inertia::render('animals/animals', [
             'success' => session('success'),
             'animals' => Animal::with('breed')
@@ -25,10 +26,17 @@ class AnimalController extends Controller
                 ->paginate(10),
             'userRole' => auth()->user()->getRoleNames(),
             ]);
-        {/*->through(function ($animal) {
-                $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-                return $animal;
-            })]);*/}
+        */}
+        return Inertia::render('animals/animals', [
+            'success' => session('success'),
+            'animals' => Animal::with('breed')
+                ->inRandomOrder()
+                ->paginate(10),
+            'userRole' => auth()->user()->getRoleNames(),
+        ])->through(function ($animal) {
+            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+            return $animal;
+        });
     }
 
     public function create()
@@ -65,7 +73,19 @@ class AnimalController extends Controller
             'statuses' => AnimalStatus::cases(),
             'breeds' => Breeds::all(),
             'gender' => Gender::cases()
+        ])->through(function ($animal) {
+            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+            return $animal;
+        });
+        {/*
+        return Inertia::render('animals/edit', [
+            'animal' => $animal,
+            'organization' => $user->organization,
+            'statuses' => AnimalStatus::cases(),
+            'breeds' => Breeds::all(),
+            'gender' => Gender::cases()
         ]);
+        */}
     }
 
     public function store(Request $request)

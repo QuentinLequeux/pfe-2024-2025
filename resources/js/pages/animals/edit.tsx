@@ -271,8 +271,13 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                             {animal.photo && (
                                 <div className="mt-2">
                                     <p>Photo actuelle&nbsp;:</p>
-                                    <img
+                                    {/*<img
                                         src={`/storage/${animal.photo}`}
+                                        alt="Photo actuelle"
+                                        className="max-w-[300px] h-auto rounded-lg"
+                                    />*/}
+                                     <img
+                                        src={animal.photo_url}
                                         alt="Photo actuelle"
                                         className="max-w-[300px] h-auto rounded-lg"
                                     />

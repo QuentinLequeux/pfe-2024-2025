@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Models\Animal;
 use Illuminate\Http\Request;
@@ -35,6 +36,9 @@ class OrganizationController extends Controller
     public function byOrganization(Organization $organization)
     {
         $animals = Animal::with('breed')->where('organization_id', $organization->id)->paginate(10);
+        foreach ($animals as $animal) {
+            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+        }
         return Inertia::render('organization/animals', [
            'organization' => $organization,
            'animals' => $animals,

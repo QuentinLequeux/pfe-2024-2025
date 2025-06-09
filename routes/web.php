@@ -6,11 +6,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
-    {/*->through(function ($animal) {
-                $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-                return $animal;
-            })]);*/}
+    $animals = Animal::with('breed')->inRandomOrder()->limit(5)->get();
+
+    foreach ($animals as $animal) {
+        $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+    }
+
+    return Inertia::render('welcome', [
+        'animals' => $animals,
+    ]);
 })->name('home');
 
 Route::middleware(['auth'])->group(function () {
@@ -28,24 +32,20 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/animals/{id}', function ($id) {
         $animal = Animal::with('organization', 'breed')->findOrFail($id);
+        $animal->photo_url = Storage::disk('s3')->url($animal->photo);
         $animals = Animal::with('breed')->where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
         return Inertia::render('animals/show', ['animal' => $animal, 'userRole' => auth()->user()->getRoleNames(), 'animals' => ['data' => $animals, 'links' => []]]);
-        {/*->through(function ($animal) {
-                $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-                return $animal;
-            })]);*/}
     })->name('animals.show');
 
     Route::get('/sponsorship', function () {
         $user = auth()->user();
         $animals = $user->sponsoredAnimals()->with('breed')->paginate(10);
+        foreach ($animals as $animal) {
+            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+        }
         return Inertia::render('sponsorship/sponsorship', [
             'animals' => $animals
         ]);
-        {/*->through(function ($animal) {
-                $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-                return $animal;
-            })]);*/}
     })->name('sponsorship');
 });
 
