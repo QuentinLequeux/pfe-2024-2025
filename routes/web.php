@@ -6,15 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 
 Route::get('/', function () {
-    $animals = Animal::with('breed')->inRandomOrder()->limit(5)->get();
-
-    foreach ($animals as $animal) {
-        $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-    }
-
-    return Inertia::render('welcome', [
-        'animals' => $animals,
-    ]);
+    return Inertia::render('welcome');
 })->name('home');
 
 Route::middleware(['auth'])->group(function () {
@@ -34,6 +26,9 @@ Route::middleware(['auth'])->group(function () {
         $animal = Animal::with('organization', 'breed')->findOrFail($id);
         $animal->photo_url = Storage::disk('s3')->url($animal->photo);
         $animals = Animal::with('breed')->where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
+        foreach ($animals as $a) {
+            $a->photo_url = Storage::disk('s3')->url($a->photo);
+        }
         return Inertia::render('animals/show', ['animal' => $animal, 'userRole' => auth()->user()->getRoleNames(), 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
 

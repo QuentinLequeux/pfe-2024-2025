@@ -1,7 +1,7 @@
 import { Ban } from 'lucide-react';
 import { IAnimal } from '@/types/IAnimal';
-import { Link, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
+import { Link, usePage } from '@inertiajs/react';
 
 interface IPaginateResults<T> {
     data: T;
