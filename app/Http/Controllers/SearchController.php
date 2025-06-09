@@ -13,6 +13,7 @@ class SearchController extends Controller
 
         if ($query) {
             $animals = Animals::search($query)->take(3)->get(); // Récupère jusqu'à trois résultats de recherche.
+            $animals->load('breed');
         } else {
             $animals = Animals::with('breed')->inRandomOrder()->limit(3)->get(); // Récupère trois animaux aléatoires à afficher par défaut.
         }

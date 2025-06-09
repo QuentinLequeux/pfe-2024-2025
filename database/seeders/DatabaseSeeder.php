@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Species;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,5 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
            BreedSeeder::class,
         ]);
+
+        Role::create(['name' => 'Utilisateur']);
+        Role::create(['name' => 'Administrateur']);
     }
 }

@@ -21,7 +21,9 @@ class AnimalController extends Controller
             'success' => session('success'),
             'animals' => Animals::with('breed')
                 ->inRandomOrder()
-                ->paginate(10)]);
+                ->paginate(10),
+            'userRole' => auth()->user()->getRoleNames(),
+            ]);
         {/*->through(function ($animal) {
                 $animal->photo_url = Storage::disk('s3')->url($animal->photo);
                 return $animal;

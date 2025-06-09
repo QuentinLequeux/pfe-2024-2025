@@ -7,12 +7,14 @@ use Inertia\Inertia;
 use App\Models\Animals;
 use Illuminate\Http\Request;
 use App\Models\Organizations;
+use Spatie\Permission\Models\Role;
 
 class OrganizationController extends Controller
 {
     public function show()
     {
         return Inertia::render('organization/admin', [
+            'roles' => Role::all(['id', 'name']),
             'users' => User::select('id','email')->orderBy('email')->get(),
             'organizations' => Organizations::select('id','name')->orderBy('name')->get(),
         ]);
@@ -53,11 +55,14 @@ class OrganizationController extends Controller
         $data = $request->validate([
             'user_id' => 'required|exists:users,id',
             'organization_id' => 'nullable|exists:organizations,id',
+            'role' => 'required|exists:roles,name',
         ]);
 
         $user = User::findOrFail($data['user_id']);
         $user->organization_id = $data['organization_id'];
         $user->save();
+
+        $user->syncRoles([$data['role']]);
 
         return redirect()->route('organization.show')->with('success', 'Utilisateur associé à l\'organisation avec succès');
     }
