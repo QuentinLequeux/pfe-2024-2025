@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Animals;
+use App\Models\Animal;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -12,10 +12,10 @@ class SearchController extends Controller
         $query = $request->get('query');
 
         if ($query) {
-            $animals = Animals::search($query)->take(3)->get(); // Récupère jusqu'à trois résultats de recherche.
+            $animals = Animal::search($query)->take(3)->get(); // Récupère jusqu'à trois résultats de recherche.
             $animals->load('breed');
         } else {
-            $animals = Animals::with('breed')->inRandomOrder()->limit(3)->get(); // Récupère trois animaux aléatoires à afficher par défaut.
+            $animals = Animal::with('breed')->inRandomOrder()->limit(3)->get(); // Récupère trois animaux aléatoires à afficher par défaut.
         }
 
         return response()->json($animals);

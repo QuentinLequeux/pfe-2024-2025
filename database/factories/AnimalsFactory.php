@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Breeds;
-use App\Models\Animals;
+use App\Models\Animal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AnimalsFactory extends Factory
 {
-    protected $model = Animals::class;
+    protected $model = Animal::class;
 
     public function definition(): array
     {

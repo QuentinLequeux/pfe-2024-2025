@@ -14,10 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        Role::create(['name' => 'Utilisateur']);
+        Role::create(['name' => 'Administrateur']);
+
+        $user = User::factory()->create([
             'name' => 'Quentin',
             'email' => 'quentin.lequeux@student.hepl.be',
         ]);
+
+        $user->assignRole('Administrateur');
 
         $species = ['Chien', 'Chat'];
 
@@ -28,8 +33,5 @@ class DatabaseSeeder extends Seeder
         $this->call([
            BreedSeeder::class,
         ]);
-
-        Role::create(['name' => 'Utilisateur']);
-        Role::create(['name' => 'Administrateur']);
     }
 }

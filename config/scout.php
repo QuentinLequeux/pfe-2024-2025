@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Animals;
+use App\Models\Animal;
 
 return [
 
@@ -183,7 +183,7 @@ return [
         ],
         // 'max_total_results' => env('TYPESENSE_MAX_TOTAL_RESULTS', 1000),
         'model-settings' => [
-             Animals::class => [
+             Animal::class => [
                  'collection-schema' => [
                      'fields' => [
                          [

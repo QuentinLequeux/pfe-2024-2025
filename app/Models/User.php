@@ -50,11 +50,11 @@ class User extends Authenticatable
 
     public function organization()
     {
-        return $this->belongsTo(Organizations::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function sponsoredAnimals()
     {
-        return $this->belongsToMany(Animals::class, 'sponsorships', 'user_id', 'animal_id');
+        return $this->belongsToMany(Animal::class, 'sponsorships', 'user_id', 'animal_id');
     }
 }
