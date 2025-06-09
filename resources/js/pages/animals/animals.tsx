@@ -17,6 +17,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface PageProps extends InertiaPageProps {
     success?: string;
     access?: string;
+    userRole: string;
 }
 
 const Animals = () => {
@@ -36,11 +37,13 @@ const Animals = () => {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Animaux'} />
             <div className={'p-6 h-full flex flex-col'}>
-                <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold mb-4'}>
-                    <Link href={'/animals/create'} title={'Ajouter un animal'}>
-                        Ajouter un animal
-                    </Link>
-                </Button>
+                {props.userRole.includes('Administrateur') && (
+                    <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold mb-4'}>
+                        <Link href={route('animals.create')} title={'Ajouter un animal'}>
+                            Ajouter un animal
+                        </Link>
+                    </Button>
+                )}
                 <Card />
             </div>
         </AppLayout>

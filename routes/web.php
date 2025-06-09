@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/animals/{id}', function ($id) {
         $animal = Animals::with('organization', 'breed')->findOrFail($id);
         $animals = Animals::with('breed')->where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
-        return Inertia::render('animals/show', ['animal' => $animal, 'animals' => ['data' => $animals, 'links' => []]]);
+        return Inertia::render('animals/show', ['animal' => $animal, 'userRole' => auth()->user()->getRoleNames(), 'animals' => ['data' => $animals, 'links' => []]]);
         {/*->through(function ($animal) {
                 $animal->photo_url = Storage::disk('s3')->url($animal->photo);
                 return $animal;

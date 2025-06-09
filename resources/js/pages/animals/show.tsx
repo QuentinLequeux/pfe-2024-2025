@@ -19,6 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface PageProps extends InertiaPageProps {
     access?: string;
+    userRole: string;
 }
 
 const Show: React.FC = () => {
@@ -144,24 +145,28 @@ const Show: React.FC = () => {
                         Parrainer
                     </Button>
                 </div>
-                <div
-                    className={'bg-main hover:scale-115 fixed right-5 bottom-40 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full'}
-                    title={'Modifier l\'animal'}
-                    onClick={() => router.get(route('animals.edit', animal.id))}
-                >
-                    <Pencil color={'#fff'} size={'24px'} />
-                </div>
-                <div
-                    className={
-                        'fixed right-5 bottom-25 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-[#B74553] hover:scale-115'
-                    }
-                    onClick={() => {
-                        if (confirm('Voulez-vous vraiment supprimer cet animal ?')) router.delete(route('animals.destroy', animal.id));
-                    }}
-                    title={'Supprimer l\'animal'}
-                >
-                    <Trash2 color={'#fff'} size={'24px'} />
-                </div>
+                {props.userRole.includes('Administrateur') && (
+                    <div
+                        className={'bg-main hover:scale-115 fixed right-5 bottom-40 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full'}
+                        title={'Modifier l\'animal'}
+                        onClick={() => router.get(route('animals.edit', animal.id))}
+                    >
+                        <Pencil color={'#fff'} size={'24px'} />
+                    </div>
+                )}
+                {props.userRole.includes('Administrateur') && (
+                    <div
+                        className={
+                            'fixed right-5 bottom-25 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-[#B74553] hover:scale-115'
+                        }
+                        onClick={() => {
+                            if (confirm('Voulez-vous vraiment supprimer cet animal ?')) router.delete(route('animals.destroy', animal.id));
+                        }}
+                        title={'Supprimer l\'animal'}
+                    >
+                        <Trash2 color={'#fff'} size={'24px'} />
+                    </div>
+                )}
                 <div className={'shadow-fixed sticky bottom-0 flex h-[70px] items-center justify-around rounded-b-2xl bg-[#fff] dark:bg-[#1c1e21]'}>
                     <div className={'flex items-center gap-4'}>
                         <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>

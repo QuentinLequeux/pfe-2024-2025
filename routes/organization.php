@@ -10,6 +10,7 @@ Route::middleware(['auth'])->group(function () {
         return Inertia::render('organization/show', [
             'success' => session('success'),
             'organizations' => $organizations,
+            'userRole' => auth()->user()->getRoleNames(),
         ]);
     })->name('organization.show');
 

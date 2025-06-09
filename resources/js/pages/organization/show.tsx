@@ -18,6 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface PageProps extends InertiaPageProps {
     success?: string;
     organizations: IOrganization[];
+    userRole: string;
 }
 
 export default function Organizations() {
@@ -33,16 +34,20 @@ export default function Organizations() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Refuges'} />
             <div className={'pt-6 pr-4 pb-6 w-full flex flex-wrap justify-end gap-2'}>
-                <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
-                    <Link href={route('organization.admin')} >
-                        Associer un utilisateur
-                    </Link>
-                </Button>
-                <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
-                    <Link href={route('organization.create')} >
-                        Cr&eacute;er une organisation
-                    </Link>
-                </Button>
+                {props.userRole.includes('Administrateur') && (
+                    <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
+                        <Link href={route('organization.admin')} >
+                            Associer un utilisateur
+                        </Link>
+                    </Button>
+                )}
+                {props.userRole.includes('Administrateur') && (
+                    <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
+                        <Link href={route('organization.create')} >
+                            Cr&eacute;er une organisation
+                        </Link>
+                    </Button>
+                )}
             </div>
             <div className={'w-full flex flex-wrap gap-4 justify-center my-4'}>
                 {props.organizations.length === 0 && <div><p><Ban className={'mx-auto mb-2'}/>Aucune organisation.</p></div>}
