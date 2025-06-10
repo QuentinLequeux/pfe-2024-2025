@@ -16,10 +16,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/organizations/{organization}/animals', [OrganizationController::class, 'byOrganization'])
         ->name('organization.animals');
-    {/*->through(function ($animal) {
-                $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-                return $animal;
-            })]);*/}
 
     Route::get('/organization/create', [OrganizationController::class, 'create'])
         ->name('organization.create');
