@@ -11,12 +11,15 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('query');
+        $limit = $request->get('limit');
 
         if ($query) {
-            $animals = Animal::search($query)->take(3)->get(); // Récupère jusqu'à trois résultats de recherche.
+            $animalsQuery = Animal::search($query);
+            $animals = $limit ? $animalsQuery->take((int) $limit)->get() : $animalsQuery->get();
             $animals->load('breed');
         } else {
-            $animals = Animal::with('breed')->inRandomOrder()->limit(3)->get(); // Récupère trois animaux aléatoires à afficher par défaut.
+            $animals = Animal::with('breed')->inRandomOrder();
+            $animals = $limit ? $animals->limit((int) $limit)->get() : $animals->get();
         }
 
         $animals->each(function ($animal) {

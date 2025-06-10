@@ -58,7 +58,7 @@ const Show: React.FC = () => {
                                                 : 'bg-[#fff]'
                                     }`}
                                 >
-                                    <p className={'text-center'}>{animal.adoption_status}</p>
+                                    <p className={'text-center text-black'}>{animal.adoption_status}</p>
                                 </div>
                             </div>
                             <div className={'m-auto max-w-[200px]'}>

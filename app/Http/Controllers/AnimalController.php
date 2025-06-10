@@ -18,19 +18,9 @@ class AnimalController extends Controller
 
     public function show()
     {
-        {/*
-        return Inertia::render('animals/animals', [
-            'success' => session('success'),
-            'animals' => Animal::with('breed')
-                ->inRandomOrder()
-                ->paginate(10),
-            'userRole' => auth()->user()->getRoleNames(),
-            ]);
-        */}
-
         $animals = Animal::with('breed')
             ->inRandomOrder()
-            ->paginate(10);
+            ->get();
 
         foreach ($animals as $animal) {
             $animal->photo_url = Storage::disk('s3')->url($animal->photo);
@@ -80,15 +70,6 @@ class AnimalController extends Controller
             'breeds' => Breeds::all(),
             'gender' => Gender::cases()
         ]);
-        {/*
-        return Inertia::render('animals/edit', [
-            'animal' => $animal,
-            'organization' => $user->organization,
-            'statuses' => AnimalStatus::cases(),
-            'breeds' => Breeds::all(),
-            'gender' => Gender::cases()
-        ]);
-        */}
     }
 
     public function store(Request $request)
@@ -104,7 +85,7 @@ class AnimalController extends Controller
             'breed_id' => 'required|exists:breeds,id',
             'gender' => 'required|in:Mâle,Femelle',
             'adoption_status' => 'required|in:Disponible,En attente,Adopté',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,svg,webp|max:1024',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
             'description' => 'nullable|string|max:2000'
         ]);
 
@@ -148,7 +129,7 @@ class AnimalController extends Controller
             'breed_id' => 'required|exists:breeds,id',
             'gender' => 'required|in:Mâle,Femelle',
             'adoption_status' => 'required|in:Disponible,En attente,Adopté',
-            //'photo' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:1024',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
             'description' => 'nullable|string|max:2000'
         ]);
 
@@ -158,6 +139,8 @@ class AnimalController extends Controller
             //}
 
             $validated['photo'] = $this->storeAndResizeImage($request->file('photo'));
+        } else {
+            unset($validated['photo']);
         }
 
         $animal->update($validated);
