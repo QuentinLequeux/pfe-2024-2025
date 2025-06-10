@@ -139,5 +139,3 @@ export default function Create() {
         </AppLayout>
     );
 }
-
-// TODO : Typer les données envoyées.
