@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class OrganizationController extends Controller
@@ -72,6 +72,11 @@ class OrganizationController extends Controller
         ]);
 
         $user = User::findOrFail($data['user_id']);
+
+        if ($user->hasRole('Administrateur') && $data['role'] === 'Utilisateur') {
+            return redirect()->back()->with('access', 'Un administrateur ne peut pas être assigné au rôle "Utilisateur"')->withInput();
+        }
+
         $user->organization_id = $data['organization_id'];
         $user->save();
 

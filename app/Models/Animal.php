@@ -44,6 +44,8 @@ class Animal extends Model
 
             'name' => (string)$this->name,
 
+            'breed' => (string)$this->breed->breed,
+
             'created_at' => $this->created_at->timestamp,
 
         ]);

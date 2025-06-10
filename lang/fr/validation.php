@@ -156,7 +156,7 @@ return [
     'starts_with' => 'The :attribute field must start with one of the following: :values.',
     'string' => 'Le champ :attribute doit être une chaîne de caractères.',
     'timezone' => 'The :attribute field must be a valid timezone.',
-    'unique' => 'L\':attribute a déjà été pris.',
+    'unique' => ':attribute a déjà été pris.',
     'uploaded' => 'The :attribute failed to upload.',
     'uppercase' => 'The :attribute field must be uppercase.',
     'url' => 'Le champ :attribute doit être une URL valide.',

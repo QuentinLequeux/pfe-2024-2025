@@ -6,7 +6,7 @@ use App\Models\Breeds;
 use App\Models\Animal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class AnimalsFactory extends Factory
+class AnimalFactory extends Factory
 {
     protected $model = Animal::class;
 

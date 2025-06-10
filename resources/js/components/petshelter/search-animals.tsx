@@ -70,7 +70,7 @@ const SearchAnimals = () => {
                                     </div>
                                     <div className={'flex flex-col overflow-hidden'}>
                                         <p className="font-bold text-black">{animal.name}</p>
-                                        <p className="text-black max-w-[150px]">{animal.breed.breed}</p>
+                                        <p className="text-black max-w-[135px]">{animal.breed.breed}</p>
                                     </div>
                                 </div>
                                 <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'}>

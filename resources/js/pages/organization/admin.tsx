@@ -1,12 +1,14 @@
-import React from 'react';
+import { toast } from 'sonner';
 import { IUser } from '@/types/IUser';
+import React, { useEffect } from 'react';
 import { BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/app-layout';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Head, useForm } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import { IOrganization } from '@/types/IOrganization';
+import { Head, useForm, usePage } from '@inertiajs/react';
+import { PageProps as InertiaPageProps } from '@inertiajs/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -22,12 +24,24 @@ type Props = {
     roles: { id: number; name: string; }[];
 };
 
+interface PageProps extends InertiaPageProps {
+    access?: string;
+}
+
 export default function Admin({ users, organizations, roles }: Props) {
     const { data, setData, post, errors } = useForm<{ user_id: string; organization_id: string | null, role: string; }>({
         user_id: '',
         organization_id: null,
         role: '',
     });
+
+    const { props } = usePage<PageProps>();
+
+    useEffect(() => {
+        if (props.access) {
+            toast.warning(props.access);
+        }
+    }, [props.access]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

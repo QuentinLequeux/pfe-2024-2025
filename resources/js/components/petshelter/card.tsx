@@ -81,7 +81,7 @@ const Card = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                        <span className={'mt-1'}>{animal.age}</span>
+                        <span className={'mt-0.5'}>{animal.age}</span>
                     </div>
                     {/*
                     <div className={'bg-opacity m-auto mb-4 flex w-[80%] justify-center rounded-md p-1'}>
