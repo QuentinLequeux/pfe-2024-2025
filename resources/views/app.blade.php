@@ -17,6 +17,37 @@
         <meta property="og:locale" content="fr_BE">
         <meta property="og:title" content="PetShelter">
 
+        <!-- SEO -->
+
+        <script type="application/ld+json">
+            {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "PetShelter",
+            "url": "https://petshelter.be",
+            "foundingDate": "2025",
+            "description": "PetShelter - Une application de parrainage pour les animaux en refuge.",
+            "sameAs": [
+                "https://github.com/QuentinLequeux",
+                "https://www.linkedin.com/in/quentin-lequeux-8a11a3192/"
+            ],
+            "alumni": [
+                {
+                    "@type": "Person",
+                    "name": "Lequeux Quentin"
+                }
+            ],
+            "makesOffer": {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Parrainage d'animaux",
+                    "description": "Soutenez un animal parmi nos animaux prêts au parrainage."
+                }
+            }
+            }
+        </script>
+
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {
