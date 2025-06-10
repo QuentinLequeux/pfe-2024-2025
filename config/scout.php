@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Animal;
+use App\Models\Breeds;
 
 return [
 
@@ -195,6 +196,10 @@ return [
                              'type' => 'string',
                          ],
                          [
+                             'name' => 'breed',
+                             'type' => 'string',
+                         ],
+                         [
                              'name' => 'created_at',
                              'type' => 'int64',
                          ],
@@ -202,9 +207,31 @@ return [
                      'default_sorting_field' => 'created_at',
                  ],
                  'search-parameters' => [
-                     'query_by' => 'name'
+                     'query_by' => 'name, breed',
                  ],
              ],
+            Breeds::class => [
+                'collection-schema' => [
+                    'fields' => [
+                        [
+                            'name' => 'id',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'breed',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'created_at',
+                            'type' => 'int64',
+                        ],
+                    ],
+                    'default_sorting_field' => 'created_at',
+                ],
+                'search-parameters' => [
+                    'query_by' => 'breed'
+                ],
+            ]
         ],
     ],
 
