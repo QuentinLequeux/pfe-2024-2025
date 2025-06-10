@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'Quentin',
             'email' => 'quentin.lequeux@student.hepl.be',
-            'password' => bcrypt('eb4-Q9PT^/5n')
         ]);
 
         $user->assignRole('Administrateur');
