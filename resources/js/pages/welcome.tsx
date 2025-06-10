@@ -55,8 +55,7 @@ export default function Welcome() {
                                 </Link>
                             </Button>
                             <div className={'w-[100%]'}>
-                                <img src={dashboard} alt={''} className={'rounded-2xl shadow-2xl'} loading={'lazy'} />
-                                {/* TODO : Changer image */}
+                                <img src={dashboard} alt={'Image d\'une fiche animale'} className={'rounded-2xl shadow-2xl'} loading={'lazy'} />
                             </div>
                         </section>
                     </div>
@@ -92,7 +91,7 @@ export default function Welcome() {
                             </div>
                             <div className={'m-auto max-w-[40%] min-w-[300px] max-xl:max-w-[100%]'}>
                                 <h2 className={'mb-8 text-2xl font-bold text-black'}>Donnez-leur une seconde chance grâce au parrainage&nbsp;!</h2>
-                                <p className={'text-black text-justify'}>
+                                <p className={'text-black'}>
                                     Chaque jour, de nombreux animaux attendent une famille ou un soutien pour subvenir à leurs besoins. Notre
                                     plateforme vous permet de les aider en devenant parrain. Grâce à votre contribution, vous participez à leur
                                     bien-être en aidant aux frais de nourriture, de soins et d’hébergement. Parrainer un animal, c’est lui offrir une
@@ -107,7 +106,7 @@ export default function Welcome() {
                         <section className={'m-auto flex w-[80%] flex-wrap gap-8 py-20'}>
                             <div className={'m-auto max-w-[40%] min-w-[300px] max-lg:max-w-[100%]'}>
                                 <h2 className={'mb-8 text-2xl font-bold text-black'}>Trouvez votre protégé et changez sa vie ❤️</h2>
-                                <p className={'text-black text-justify'}>
+                                <p className={'text-black'}>
                                     Parcourez notre sélection d’animaux en attente de parrainage et trouvez celui qui vous touche le plus. Grâce à
                                     notre moteur de recherche, filtrez par espèce, race, âge ou situation pour découvrir ceux qui ont besoin de vous.
                                     En un clic, vous pouvez offrir un soutien précieux à un animal en difficulté. Apprenez-en plus sur son histoire,
