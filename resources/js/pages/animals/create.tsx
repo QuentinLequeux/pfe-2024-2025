@@ -13,7 +13,6 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { IBreed } from '@/types/IBreed';
 import { BreadcrumbItem } from '@/types';
-import { CalendarIcon } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -24,6 +23,7 @@ import InputError from '@/components/input-error';
 import { Calendar } from '@/components/ui/calendar';
 import { Textarea } from '@/components/ui/textarea';
 import { IOrganization } from '@/types/IOrganization';
+import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 type Props = {
@@ -165,12 +165,14 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                         >
                                             <CalendarIcon className={'mr-2 h-4 w-4'} />
                                             {date ? format(date, 'PPP', { locale: fr }) : <span>Choisir une date</span>}
+                                            <ChevronDownIcon className={'ml-auto'}/>
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto overflow-hidden p-0">
                                         <Calendar
                                             mode={'single'}
                                             selected={date}
+                                            captionLayout={'dropdown'}
                                             onSelect={(selectedDate) => {
                                                 setDate(selectedDate);
                                                 if (selectedDate) {

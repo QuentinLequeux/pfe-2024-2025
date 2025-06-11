@@ -132,7 +132,7 @@ const Show: React.FC = () => {
                     </div>
                 </div>
                 <div className={'flex flex-col items-center'}>
-                    <h3 aria-level={3} role={'heading'} className={'my-20 text-center text-3xl font-bold'}>
+                    <h3 aria-level={3} role={'heading'} className={'my-20 text-center text-3xl font-bold max-w-[90%]'}>
                         Eux aussi ont besoin d'aide
                     </h3>
                     <Card />
@@ -169,7 +169,7 @@ const Show: React.FC = () => {
                         <Trash2 color={'#fff'} size={'24px'} />
                     </div>
                 )}
-                <div className={'shadow-fixed sticky bottom-0 flex h-[70px] items-center justify-around rounded-b-2xl bg-[#fff] dark:bg-[#1c1e21]'}>
+                <div className={'p-2 shadow-fixed sticky bottom-0 flex h-[auto] items-center justify-around rounded-b-2xl max-md:rounded-none bg-[#fff] dark:bg-[#1c1e21]'}>
                     <div className={'flex items-center gap-4'}>
                         <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>
                             {/*<img
@@ -185,7 +185,7 @@ const Show: React.FC = () => {
                                 loading={'lazy'}
                             />
                         </div>
-                        <div>
+                        <div className={'max-w-[225px]'}>
                             <p className={'font-bold'}>{animal.name}</p>
                             <p>{animal.breed.breed}</p>
                         </div>

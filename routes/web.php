@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use App\Models\Animal;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -34,12 +35,32 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/sponsorship', function () {
         $user = auth()->user();
-        $animals = $user->sponsoredAnimals()->with('breed')->paginate(10);
-        foreach ($animals as $animal) {
+
+        $sponsored = $user->sponsoredAnimals()->with('breed')->get();
+
+        $unique = $sponsored->unique('id')->values();
+
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $unique->slice(($currentPage - 1) * $perPage, $perPage);
+
+        foreach ($currentItems as $animal) {
             $animal->photo_url = Storage::disk('s3')->url($animal->photo);
         }
+
+        $paginated = new LengthAwarePaginator(
+            $currentItems,
+            $unique->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
+
         return Inertia::render('sponsorship/sponsorship', [
-            'animals' => $animals
+            'animals' => $paginated,
         ]);
     })->name('sponsorship');
 });

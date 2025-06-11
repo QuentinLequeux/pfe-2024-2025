@@ -61,7 +61,7 @@ const Checkout = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={'Donation'} />
-            <div className={'p-6'}>
+            <div className={'w-full max-md:flex max-md:flex-col max-md:items-center max-md:my-6 md:p-6'}>
                 <h2 aria-level={2} role={'heading'} className={'text-2xl font-bold'}>
                     Donation
                 </h2>
