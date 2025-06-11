@@ -1,10 +1,17 @@
-import { NavFooter } from '@/components/nav-footer';
-import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BuildingIcon, HeartHandshakeIcon, HouseIcon, PawPrintIcon } from 'lucide-react';
+import { NavMain } from '@/components/nav-main';
+import { NavUser } from '@/components/nav-user';
+import { NavFooter } from '@/components/nav-footer';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import {
+    BuildingIcon,
+    Figma,
+    Github,
+    HeartHandshakeIcon,
+    HouseIcon,
+    PawPrintIcon
+} from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -30,7 +37,18 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [];
+const footerNavItems: NavItem[] = [
+    {
+        title: 'Repository GitHub',
+        url: 'https://github.com/QuentinLequeux/pfe-2024-2025',
+        icon: Github,
+    },
+    {
+        title: 'Figma',
+        url: 'https://www.figma.com/design/k4GQdQRxoMI2b99lBXuLzy/PFE?node-id=0-1&p=f&t=4U7ZkIwnRgJcLSkT-0',
+        icon: Figma,
+    }
+];
 
 export function AppSidebar() {
     return (
