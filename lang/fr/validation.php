@@ -35,7 +35,7 @@ return [
     'can' => 'The :attribute field contains an unauthorized value.',
     'confirmed' => 'La confirmation du champ :attribute ne correspond pas.',
     'contains' => 'The :attribute field is missing a required value.',
-    'current_password' => 'The password is incorrect.',
+    'current_password' => 'Le mot de passe actuel est incorrect.',
     'date' => 'The :attribute field must be a valid date.',
     'date_equals' => 'The :attribute field must be a date equal to :date.',
     'date_format' => 'The :attribute field must match the format :format.',

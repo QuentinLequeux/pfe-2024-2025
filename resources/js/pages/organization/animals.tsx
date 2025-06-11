@@ -16,7 +16,7 @@ export default function byOrganization({ organization }: { organization: { name:
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={`Animaux - ${organization.name}`} />
             <div className={'p-6'}>
-                <h2 aria-level={2} role={'heading'} className={'font-bold text-2xl mb-4'}>
+                <h2 aria-level={2} role={'heading'} className={'font-bold text-2xl mb-8'}>
                     Animaux - {organization.name}
                 </h2>
                 <Card/>
