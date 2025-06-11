@@ -1,4 +1,5 @@
 import { toast } from 'sonner';
+import { IUser } from '@/types/IUser';
 import React, { useEffect } from 'react';
 import { BreadcrumbItem } from '@/types';
 import { IAnimal } from '@/types/IAnimal';
@@ -20,6 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface PageProps extends InertiaPageProps {
     access?: string;
     userRole: string;
+    user: IUser;
 }
 
 const Show: React.FC = () => {
@@ -118,7 +120,7 @@ const Show: React.FC = () => {
                             >
                                 {animal.organization.email}
                             </a>
-                            <a href={animal.organization.website} title={'Vers le site web de l\'organisation'} className={'mb-2 underline'}>
+                            <a href={animal.organization.website} title={'Vers le site web de l\'organisation'} className={'mb-2 underline'} role={'link'} target={'_blank'}>
                                 {animal.organization.website}
                             </a>
                             <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
@@ -145,7 +147,7 @@ const Show: React.FC = () => {
                         Parrainer
                     </Button>
                 </div>
-                {props.userRole.includes('Administrateur') && (
+                {props.userRole.includes('Administrateur') && props.user.organization_id === animal.organization.id && (
                     <div
                         className={'bg-main hover:scale-115 fixed right-5 bottom-40 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full'}
                         title={'Modifier l\'animal'}
@@ -154,7 +156,7 @@ const Show: React.FC = () => {
                         <Pencil color={'#fff'} size={'24px'} />
                     </div>
                 )}
-                {props.userRole.includes('Administrateur') && (
+                {props.userRole.includes('Administrateur') && props.user.organization_id === animal.organization.id && (
                     <div
                         className={
                             'fixed right-5 bottom-25 z-10 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-[#B74553] hover:scale-115'

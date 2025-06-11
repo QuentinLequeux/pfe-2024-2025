@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
         foreach ($animals as $a) {
             $a->photo_url = Storage::disk('s3')->url($a->photo);
         }
-        return Inertia::render('animals/show', ['animal' => $animal, 'userRole' => auth()->user()->getRoleNames(), 'animals' => ['data' => $animals, 'links' => []]]);
+        return Inertia::render('animals/show', ['animal' => $animal, 'userRole' => auth()->user()->getRoleNames(), 'user' => auth()->user(), 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
 
     Route::get('/sponsorship', function () {

@@ -102,7 +102,7 @@ const Animals = () => {
                             {results.map((animal) => (
                                 <Link href={route('animals.show', { id: animal.id})} key={animal.id} className="w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg">
                                     {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
-                                    <img className={'rounded-full h-full'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                                    <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
                                     <p className="font-bold text-center text-2xl p-6">{animal.name}</p>
                                     <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded p-1'}>
                                         <svg
