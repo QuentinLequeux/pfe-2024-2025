@@ -153,12 +153,13 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 <InputError message={errors.weight} />
                             </div>
                             <div className={'w-full'}>
-                                <Label htmlFor={''}>
+                                <Label htmlFor={'date'}>
                                     Date d'arriv&eacute;e&nbsp;<span className={'text-orange-500'}>*</span>
                                 </Label>
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <Button
+                                            id={'date'}
                                             variant={'outline'}
                                             className={cn('w-full min-w-[200px] justify-start font-normal', !date && 'text-muted-foreground')}
                                         >
@@ -166,7 +167,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                             {date ? format(date, 'PPP', { locale: fr }) : <span>Choisir une date</span>}
                                         </Button>
                                     </PopoverTrigger>
-                                    <PopoverContent>
+                                    <PopoverContent className="w-auto overflow-hidden p-0">
                                         <Calendar
                                             mode={'single'}
                                             selected={date}

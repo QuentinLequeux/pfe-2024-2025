@@ -57,6 +57,10 @@ class AnimalController extends Controller
 
         $user = auth()->user();
 
+        if ($user->organization->id !== $animal->organization->id) {
+            abort(403, 'Vous n\'avez pas le droit de modifier cet animal.');
+        }
+
         if (!$user->organization) {
             return redirect()->route('animals.show', $animal)->with('access', 'Vous devez appartenir à une organisation pour modifier un animal.');
         }
@@ -107,9 +111,14 @@ class AnimalController extends Controller
         if (!$user->organization) {
             return redirect()->route('animals.show', $animal)->with('access', 'Vous devez appartenir à une organisation pour supprimer un animal.');
         }
-        if ($animal->photo) {
-            Storage::disk('public')->delete($animal->photo);
+
+        if ($user->organization->id !== $animal->organization->id) {
+            abort(403, 'Vous n\'avez pas le droit de supprimer cet animal.');
         }
+
+        //if ($animal->photo) {
+        //    Storage::disk('public')->delete($animal->photo);
+        //}
 
         $animal->delete();
 
@@ -119,6 +128,10 @@ class AnimalController extends Controller
     public function update(Request $request, Animal $animal)
     {
         $this->authorize('update', $animal);
+
+        if (auth()->user()->organization->id !== $animal->organization->id) {
+            abort(403, 'Vous n\'avez pas le droit de modifier cet animal.');
+        }
 
         $validated = $request->validate([
             'organization_id' => 'required|exists:organizations,id',

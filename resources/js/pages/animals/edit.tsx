@@ -276,7 +276,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                         alt="Photo actuelle"
                                         className="max-w-[300px] h-auto rounded-lg"
                                     />*/}
-                                     <img
+                                    <img
                                         src={animal.photo_url}
                                         alt="Photo actuelle"
                                         className="max-w-[300px] h-auto rounded-lg"

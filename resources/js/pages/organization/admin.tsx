@@ -105,7 +105,7 @@ export default function Admin({ users, organizations, roles }: Props) {
                     </div>
                     <div>
                         <Label>
-                            Rôles&nbsp;<span className={'text-orange-500'}>*</span>
+                            Rôle&nbsp;<span className={'text-orange-500'}>*</span>
                         </Label>
                         <Select required
                                 onValueChange={(value) => setData('role', value)}
