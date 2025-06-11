@@ -12,9 +12,9 @@ export default function Welcome() {
             <Head title="Accueil"></Head>
             <div className={'bg-[#eee]'}>
                 <header className={'fixed w-screen bg-[#fff] shadow-sm z-10'}>
-                    <h1 className={'sr-only'}>PetShelter</h1>
+                    <h1 aria-level={1} role={'heading'} className={'sr-only'}>PetShelter</h1>
                     <nav className={'m-auto flex w-[80%] items-center justify-between'} aria-label={'main-navigation'}>
-                        <h2 className={'sr-only'}>Navigation principale</h2>
+                        <h2 aria-level={2} role={'heading'} className={'sr-only'}>Navigation principale</h2>
                         <div className={'flex gap-2 items-center'}>
                             <PawPrint color={'#E8A87C'} />
                             <Link href={'#'} title={"Vers la page d'accueil"} className={'h-[20px] font-bold text-black'} aria-label={'home'}>
@@ -63,22 +63,22 @@ export default function Welcome() {
                         <section className={'m-auto w-[80%]'}>
                             <h2 className={'py-8 text-center text-3xl font-bold text-black'}>Nos partenaires</h2>
                             <div className={'flex items-center gap-20 overflow-x-auto whitespace-nowrap max-md:gap-10 md:justify-center'}>
-                                <a href={'https://www.sanscollier.be/'} title={'Vers www.sanscollier.be'} target={'_blank'}>
+                                <a href={'https://www.sanscollier.be/'} title={'Vers www.sanscollier.be'} target={'_blank'} role={'link'}>
                                     <img src={sanscollier} alt={'logo sanscollier'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </a>
-                                <a href={'https://www.spalalouviere.be/'} title={'Vers www.spalalouviere.be'} target={'_blank'}>
+                                <a href={'https://www.spalalouviere.be/'} title={'Vers www.spalalouviere.be'} target={'_blank' } role={'link'}>
                                     <img src={lalouviere} alt={'logo spa la louvière'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </a>
-                                <a href={'https://www.spa-charleroi.be/'} title={'Vers www.spa-charleroi.be'} target={'_blank'}>
+                                <a href={'https://www.spa-charleroi.be/'} title={'Vers www.spa-charleroi.be'} target={'_blank' } role={'link'}>
                                     <img src={charleroi} alt={'logo spa charleroi'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </a>
-                                <a href={'https://www.croixbleue.be/'} title={'Vers www.croixbleue.be'} target={'_blank'}>
+                                <a href={'https://www.croixbleue.be/'} title={'Vers www.croixbleue.be'} target={'_blank'} role={'link'}>
                                     <img src={croixbleue} alt={'logo croix bleue'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </a>
-                                <a href={'https://www.spa-mouscron.be/'} title={'Vers www.spa-mouscron.be'} target={'_blank'}>
+                                <a href={'https://www.spa-mouscron.be/'} title={'Vers www.spa-mouscron.be'} target={'_blank'} role={'link'}>
                                     <img src={mouscron} alt={'logo spa mouscron'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </a>
-                                <a href={'https://www.veeweyde.be/'} title={'Vers www.veeweyde.be'} target={'_blank'}>
+                                <a href={'https://www.veeweyde.be/'} title={'Vers www.veeweyde.be'} target={'_blank'} role={'link'}>
                                     <img src={veeweyde} alt={'logo veeweyde'} className={'max-h-[100px] max-w-[100px]'} loading={'lazy'} />
                                 </a>
                             </div>
@@ -153,6 +153,7 @@ export default function Welcome() {
                                 target={'_blank'}
                                 title={'Vers le GitHub de Quentin Lequeux'}
                                 className={'mr-2'}
+                                role={'link'}
                             >
                                 <Github color={'#000'} />
                             </a>
@@ -160,6 +161,7 @@ export default function Welcome() {
                                 href={'https://www.linkedin.com/in/quentin-lequeux-8a11a3192/'}
                                 target={'_blank'}
                                 title={'Vers le Linkedin de Quentin Lequeux'}
+                                role={'link'}
                             >
                                 <Linkedin color={'#000'} />
                             </a>

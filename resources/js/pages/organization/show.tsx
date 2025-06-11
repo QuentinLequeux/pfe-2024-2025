@@ -57,7 +57,7 @@ export default function Organizations() {
                         <p><Building className={'inline mr-2'}/>{organization.address}</p>
                         <a className={'underline'} href={`tel:${organization.phone}`} title={'Appeler ce numéro'}><Phone className={'inline mr-2'}/>{organization.phone}</a>
                         <a className={'underline'} href={`mailto:${organization.email}`} title={'Envoyer un email'}><Mail className={'inline mr-2'}/>{organization.email}</a>
-                        <a className={'underline'} href={organization.website} title={`Vers ${organization.website}`} target={'_blank'}><AtSign className={'inline mr-2'}/>{organization.website}</a>
+                        <a className={'underline'} href={organization.website} title={`Vers ${organization.website}`} target={'_blank'} role={'link'}><AtSign className={'inline mr-2'}/>{organization.website}</a>
                         <p><Landmark className={'inline mr-2'}/>{organization.iban}</p>
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit m-auto'}>
                             <Link href={route('organization.animals', organization.id)}>

@@ -1,10 +1,10 @@
-import InputError from '@/components/input-error';
 import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
 import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef } from 'react';
+import InputError from '@/components/input-error';
+import SettingsLayout from '@/layouts/settings/layout';
 
 import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
@@ -117,7 +117,7 @@ export default function Password() {
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-neutral-600">Saved</p>
+                                <p className="text-sm text-neutral-600">Sauvegard&eacute;</p>
                             </Transition>
                         </div>
                     </form>
