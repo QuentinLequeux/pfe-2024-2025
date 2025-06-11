@@ -12,7 +12,7 @@ test('password can be updated', function () {
         ->actingAs($user)
         ->from('/settings/password')
         ->put('/settings/password', [
-            'current_password' => 'password',
+            'current_password' => 'eb4-Q9PT^/5n',
             'password' => 'new-password',
             'password_confirmation' => 'new-password',
         ]);
