@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'Administrateur']);
 
         $user = User::factory()->create([
-            'name' => 'Quentin',
-            'email' => 'quentin.lequeux@student.hepl.be',
+            'name' => 'Administrateur',
+            'email' => 'administrateur@petshelter.be',
         ]);
 
         $user->assignRole('Administrateur');
