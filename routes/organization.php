@@ -4,7 +4,7 @@ use Inertia\Inertia;
 use App\Models\Organization;
 use App\Http\Controllers\OrganizationController;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/organizations', function () {
         $organizations = Organization::all();
         return Inertia::render('organization/show', [

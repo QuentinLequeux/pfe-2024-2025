@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AnimalController;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/animals', [AnimalController::class, 'show'])
         ->name('animals');
 

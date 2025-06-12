@@ -3,7 +3,7 @@
 use Inertia\Inertia;
 use App\Http\Controllers\DonationController;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/donation', function () {
         return Inertia::render('donation/checkout', ['stripeKey' => config('services.stripe.key')]);
     })->name('donation');
