@@ -45,6 +45,9 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        if (auth()->user()->hasRole('Administrateur')) {
+            abort(403, 'Action non autorisée.');
+        }
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);

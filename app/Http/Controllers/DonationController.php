@@ -25,7 +25,7 @@ class DonationController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = Session::create([
-            'payment_method_types' => ['card', 'bancontact'],
+            'payment_method_types' => ['card'],
             'line_items' => [
                 [
                     'price_data' => [
