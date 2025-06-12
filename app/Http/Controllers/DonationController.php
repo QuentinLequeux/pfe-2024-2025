@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Stripe\Stripe;
 use Inertia\Inertia;
+use App\Models\Animal;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
@@ -22,6 +23,8 @@ class DonationController extends Controller
             'animal_id' => 'required|numeric|exists:animals,id',
         ]);
 
+        $animal = Animal::findOrFail($request->animal_id);
+
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = Session::create([
@@ -31,7 +34,7 @@ class DonationController extends Controller
                     'price_data' => [
                         'currency' => 'eur',
                         'product_data' => [
-                            'name' => 'Don',
+                            'name' => 'Don pour ' . $animal->name,
                         ],
                         'unit_amount' => $request->amount * 100,
                     ],
