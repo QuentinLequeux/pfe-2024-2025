@@ -144,7 +144,7 @@ const Show: React.FC = () => {
                         className={'bg-main hover:bg-hover absolute font-bold text-black'}
                         onClick={() => router.visit(`/donation?animal=${animal.id}`)}
                     >
-                        Parrainer
+                        Parrainer&nbsp;{animal.name}
                     </Button>
                 </div>
                 {props.userRole.includes('Administrateur') && props.user.organization_id === animal.organization.id && (
