@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/424ee0a6-6805-4ee3-a431-87a1b67be847/project/10321597-26c8-43fe-9eb6-1db059eca1bf.svg)](https://wakatime.com/badge/user/424ee0a6-6805-4ee3-a431-87a1b67be847/project/10321597-26c8-43fe-9eb6-1db059eca1bf)
+
 # PFE 2024-2025
 
 ## Plateforme de parrainage d'animaux dans des refuges
