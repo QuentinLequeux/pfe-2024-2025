@@ -48,7 +48,7 @@ const Show: React.FC = () => {
                         <div className={'flex flex-wrap gap-8'}>
                             <div className={'relative max-h-[300px] w-full min-w-[300px] overflow-hidden rounded-2xl bg-[#eee] lg:w-[60%]'}>
                                 {/*<img src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} loading={'lazy'} />*/}
-                                <img src={animal.photo_url} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} loading={'lazy'} />
+                                <img src={animal.photo_url} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} width={'400'} height={'300'} />
                                 <div
                                     className={`absolute bottom-0 mt-auto w-full rounded-b-2xl ${
                                         animal.adoption_status === 'En attente'

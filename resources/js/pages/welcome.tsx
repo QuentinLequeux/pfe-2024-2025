@@ -59,7 +59,7 @@ export default function Welcome() {
                                 </Link>
                             </Button>
                             <div className={'w-[100%]'}>
-                                <img src={dashboard} alt={"Image d'une fiche animale"} className={'rounded-2xl shadow-2xl'} loading={'lazy'} />
+                                <img src={dashboard} alt={"Image d'une fiche animale"} className={'rounded-2xl shadow-2xl'} width={'1920'} height={'997'} />
                             </div>
                         </section>
                     </div>
@@ -91,7 +91,7 @@ export default function Welcome() {
                     <div className={'bg-main'}>
                         <section className={'m-auto flex w-[80%] flex-wrap gap-8 py-20'}>
                             <div className={'m-auto'}>
-                                <img src={animals} alt={''} className={'rounded-2xl shadow-2xl'} loading={'lazy'} />
+                                <img src={animals} alt={''} className={'rounded-2xl shadow-2xl'} loading={'lazy'} width={'640'} height={'377'} />
                             </div>
                             <div className={'m-auto max-w-[40%] min-w-[300px] max-xl:max-w-[100%]'}>
                                 <h2 className={'mb-8 text-2xl font-bold text-black'}>Donnez-leur une seconde chance grâce au parrainage&nbsp;!</h2>
@@ -136,7 +136,7 @@ export default function Welcome() {
                                     </Link>
                                 </Button>
                             </div>
-                            <img src={catanddog} alt={'Image de chien et chat'} loading={'lazy'} className={'aspect-square h-fit'} />
+                            <img src={catanddog} alt={'Image de chien et chat'} loading={'lazy'} className={'aspect-square h-fit'} width={'400'} height={'400'} />
                         </section>
                     </div>
                 </main>
