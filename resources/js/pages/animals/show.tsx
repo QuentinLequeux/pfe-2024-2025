@@ -182,7 +182,6 @@ const Show: React.FC = () => {
                                 className={'h-full rounded-full'}
                                 src={animal.photo_url}
                                 alt={`Photo de ${animal.name}`}
-                                loading={'lazy'}
                             />
                         </div>
                         <div className={'max-w-[225px]'}>
