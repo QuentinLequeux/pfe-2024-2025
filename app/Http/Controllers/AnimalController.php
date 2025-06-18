@@ -89,7 +89,7 @@ class AnimalController extends Controller
             'breed_id' => 'required|exists:breeds,id',
             'gender' => 'required|in:Mâle,Femelle',
             'adoption_status' => 'required|in:Disponible,En attente,Adopté',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,svg,webp|max:5120',
             'description' => 'nullable|string|max:2000'
         ]);
 
@@ -142,7 +142,7 @@ class AnimalController extends Controller
             'breed_id' => 'required|exists:breeds,id',
             'gender' => 'required|in:Mâle,Femelle',
             'adoption_status' => 'required|in:Disponible,En attente,Adopté',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:5120',
             'description' => 'nullable|string|max:2000'
         ]);
 
