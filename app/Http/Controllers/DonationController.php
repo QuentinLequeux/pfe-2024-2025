@@ -13,6 +13,17 @@ use Stripe\Exception\ApiErrorException;
 
 class DonationController extends Controller
 {
+    public function show()
+    {
+        $animal = Animal::findOrFail(request('animal'));
+
+        if ($animal->adoption_status === 'Adopté') {
+            abort(403, 'Cet animal a déjà été adopté.');
+        }
+
+        return Inertia::render('donation/checkout', ['stripeKey'=> config('services.stripe.key')]);
+    }
+
     /**
      * @throws ApiErrorException
      */
