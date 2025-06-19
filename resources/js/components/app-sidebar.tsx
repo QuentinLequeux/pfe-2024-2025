@@ -6,7 +6,7 @@ import { NavFooter } from '@/components/nav-footer';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import {
     BuildingIcon,
-    Figma,
+    Figma, FilesIcon,
     Github,
     HeartHandshakeIcon,
     HouseIcon,
@@ -35,6 +35,12 @@ const mainNavItems: NavItem[] = [
         url: '/organizations',
         icon: BuildingIcon,
     },
+    {
+        title: 'Documents',
+        url: '',
+        icon: FilesIcon,
+        soon: true
+    }
 ];
 
 const footerNavItems: NavItem[] = [
