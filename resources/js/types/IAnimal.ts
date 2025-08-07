@@ -13,6 +13,7 @@ export interface IAnimal {
     description: string;
     adoption_status: string;
     arrival_date: string;
-    organization: IOrganization
-    breed: IBreed
+    organization: IOrganization;
+    breed: IBreed;
+    slug: string;
 }

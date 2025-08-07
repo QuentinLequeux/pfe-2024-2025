@@ -18,7 +18,7 @@ const Card = () => {
     return (
         <div className={'flex flex-wrap gap-8 m-2 justify-center h-fit'}>
             {animals.data.map((animal:IAnimal) => (
-                <Link href={route('animals.show', { id: animal.id })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21]'}>
+                <Link href={route('animals.show', { animal: animal.slug })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21]'}>
                     <img className={'rounded-t-lg'} src={animal.photo_url} alt={`Photo de ${animal.name}`} />
                     {/*<img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />*/}
                     <p className={'p-6 text-center text-2xl font-bold'}>{animal.name}</p>

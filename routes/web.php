@@ -23,14 +23,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/animals/create', [AnimalController::class, 'create'])
         ->name('animals.create');
 
-    Route::get('/animals/{id}', function ($id) {
-        $animal = Animal::with('organization', 'breed')->findOrFail($id);
+    Route::get('/animals/{animal:slug}', function (Animal $animal) {
+        //$animal = Animal::with('organization', 'breed')->findOrFail($animal->id);
         $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-        $animals = Animal::with('breed')->where('id', '!=', $id)->inRandomOrder()->limit(4)->get();
+        $animals = Animal::with('breed')->where('id', '!=', $animal->id)->inRandomOrder()->limit(4)->get();
         foreach ($animals as $a) {
             $a->photo_url = Storage::disk('s3')->url($a->photo);
         }
-        return Inertia::render('animals/show', ['animal' => $animal, 'userRole' => auth()->user()->getRoleNames(), 'user' => auth()->user(), 'animals' => ['data' => $animals, 'links' => []]]);
+        return Inertia::render('animals/show', ['animal' => $animal->load('organization', 'breed'), 'userRole' => auth()->user()->getRoleNames(), 'user' => auth()->user(), 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
 
     Route::get('/sponsorship', function () {

@@ -100,7 +100,7 @@ const Animals = () => {
                     {results.length > 0 ? (
                         <div className={'mt-8 flex flex-wrap justify-center gap-8'}>
                             {results.map((animal) => (
-                                <Link href={route('animals.show', { id: animal.id})} key={animal.id} className="w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg">
+                                <Link href={route('animals.show', { animal: animal.slug})} key={animal.id} className="w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg">
                                     {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
                                     <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
                                     <p className="font-bold text-center text-2xl p-6">{animal.name}</p>
