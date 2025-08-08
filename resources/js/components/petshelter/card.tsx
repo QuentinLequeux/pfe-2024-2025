@@ -1,3 +1,4 @@
+import React from 'react';
 import { Ban } from 'lucide-react';
 import { IAnimal } from '@/types/IAnimal';
 import { Button } from '@/components/ui/button';
@@ -19,8 +20,23 @@ const Card = () => {
         <div className={'flex flex-wrap gap-8 m-2 justify-center h-fit'}>
             {animals.data.map((animal:IAnimal) => (
                 <Link href={route('animals.show', { animal: animal.slug })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21]'}>
-                    <img className={'rounded-t-lg'} src={animal.photo_url} alt={`Photo de ${animal.name}`} />
-                    {/*<img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />*/}
+                    <div className={'relative'}>
+                        <img className={'rounded-t-lg'} src={animal.photo_url} alt={`Photo de ${animal.name}`} />
+                        {/*<img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />*/}
+                        <div
+                            className={`absolute bottom-0 w-full ${
+                                animal.adoption_status === 'En attente'
+                                    ? 'bg-main'
+                                    : animal.adoption_status === 'Disponible'
+                                        ? 'bg-[#A7DE98]'
+                                        : animal.adoption_status === 'Adopté'
+                                            ? 'bg-[#B74553] text-[#fff]'
+                                            : 'bg-[#fff]'
+                            }`}
+                        >
+                            <p className={'text-center text-black'}>{animal.adoption_status}</p>
+                        </div>
+                    </div>
                     <p className={'p-6 text-center text-2xl font-bold'}>{animal.name}</p>
                     <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded-md p-1 text-black dark:text-white'}>
                         <svg

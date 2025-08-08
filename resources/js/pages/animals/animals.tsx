@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { ENDPOINTS } from '@/config/endpoints';
 import { Button } from '@/components/ui/button';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -49,7 +49,7 @@ const Animals = () => {
             }
         };
 
-        fetchDefaultAnimals();
+        fetchDefaultAnimals().then();
     }, []);
 
     const handleSearch = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -101,8 +101,23 @@ const Animals = () => {
                         <div className={'mt-8 flex flex-wrap justify-center gap-8'}>
                             {results.map((animal) => (
                                 <Link href={route('animals.show', { animal: animal.slug})} key={animal.id} className="w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg">
-                                    {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
-                                    <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                                    <div className={'relative'}>
+                                        {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
+                                        <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                                        <div
+                                            className={`absolute bottom-0 w-full ${
+                                                animal.adoption_status === 'En attente'
+                                                    ? 'bg-main'
+                                                    : animal.adoption_status === 'Disponible'
+                                                        ? 'bg-[#A7DE98]'
+                                                        : animal.adoption_status === 'Adopté'
+                                                            ? 'bg-[#B74553] text-[#fff]'
+                                                            : 'bg-[#fff]'
+                                            }`}
+                                        >
+                                            <p className={'text-center text-black'}>{animal.adoption_status}</p>
+                                        </div>
+                                    </div>
                                     <p className="font-bold text-center text-2xl p-6">{animal.name}</p>
                                     <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded p-1'}>
                                         <svg
