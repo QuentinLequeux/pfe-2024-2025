@@ -123,6 +123,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                 />
+                                <p className={'mt-1 text-xs'}>Minimum 3 caract&egrave;res.</p>
                                 <InputError message={errors.name} />
                             </div>
                             <div className={'w-full min-w-[200px]'}>
@@ -137,6 +138,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     value={data.age}
                                     onChange={(e) => setData('age', e.target.value)}
                                 />
+                                <p className={'mt-1 text-xs'}>Age maximum : 20 ans.</p>
                                 <InputError message={errors.age} />
                             </div>
                         </div>
@@ -150,6 +152,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     value={data.weight}
                                     onChange={(e) => setData('weight', e.target.value)}
                                 />
+                                <p className={'mt-1 text-xs'}>Poids maximum : 100kg.</p>
                                 <InputError message={errors.weight} />
                             </div>
                             <div className={'w-full'}>
@@ -285,6 +288,8 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 onChange={handleFileChange}
                                 accept={'.png, .jpg, .jpeg, .svg, .webp'}
                             />
+                            <p className={'mt-1 text-xs'}>Format : jpg, jpeg, png, webp, svg.</p>
+                            <p className={'mt-1 text-xs'}>Poids maximum : 5MB.</p>
                             <InputError message={errors.photo} />
                             {previewUrl && (
                                 <div className="mt-2">
@@ -307,6 +312,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 value={data.description}
                                 onChange={(e) => setData('description', e.target.value)}
                             />
+                            <p className={'mt-1 text-xs'}>Maximum 2000 caract&egrave;res.</p>
                             <InputError message={errors.description} />
                         </div>
                         <Button type={'submit'} className={'bg-main hover:bg-hover font-bold text-black w-[40%] max-md:w-full'}>
