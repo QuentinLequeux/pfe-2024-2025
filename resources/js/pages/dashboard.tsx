@@ -49,7 +49,7 @@ export default function Dashboard() {
                             Merci pour votre soutien&nbsp;!
                         </p>
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit'}>
-                            <Link title={'Parrainer'} href={'/sponsorship'}>
+                            <Link title={'Parrainage'} href={'/sponsorship'}>
                                 Parrainage
                             </Link>
                         </Button>
@@ -62,8 +62,8 @@ export default function Dashboard() {
                             Parcourez les refuges partenaires&nbsp;!
                         </p>
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit'}>
-                            <Link href={route('organization.show')}>
-                                D&eacute;couvrir
+                            <Link title={'Découvrir les refuges'} href={route('organization.show')}>
+                                D&eacute;couvrir les refuges
                             </Link>
                         </Button>
                     </div>

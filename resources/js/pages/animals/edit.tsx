@@ -306,7 +306,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                             />
                             <InputError message={errors.description} />
                         </div>
-                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black max-md:w-full'}>
+                        <Button title={'Modifier'} type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black max-md:w-full'}>
                             Modifier
                         </Button>
                     </form>

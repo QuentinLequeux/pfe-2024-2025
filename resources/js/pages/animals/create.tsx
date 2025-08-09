@@ -315,7 +315,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                             <p className={'mt-1 text-xs'}>Maximum 2000 caract&egrave;res.</p>
                             <InputError message={errors.description} />
                         </div>
-                        <Button type={'submit'} className={'bg-main hover:bg-hover font-bold text-black w-[40%] max-md:w-full'}>
+                        <Button title={'Ajouter'} type={'submit'} className={'bg-main hover:bg-hover font-bold text-black w-[40%] max-md:w-full'}>
                             Ajouter
                         </Button>
                     </form>

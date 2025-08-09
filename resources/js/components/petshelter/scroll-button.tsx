@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import React, { useEffect, useState } from 'react';
 
 const ScrollButton: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -24,7 +24,7 @@ const ScrollButton: React.FC = () => {
 
     return (
         <div>
-            <Button onClick={scrollToTop} className={`bg-main hover:bg-hover !p-2.5 fixed right-5 bottom-5 rounded-full shadow-xl transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+            <Button onClick={scrollToTop} title={'Remonter en haut'} className={`bg-main hover:bg-hover !p-2.5 fixed right-5 bottom-5 rounded-full shadow-xl transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M1 8L8 1M8 1L15 8M8 1V15" stroke="#09090B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

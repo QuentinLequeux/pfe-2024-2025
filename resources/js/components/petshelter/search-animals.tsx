@@ -73,7 +73,7 @@ const SearchAnimals = () => {
                                         <p className="text-black max-w-[135px]">{animal.breed.breed}</p>
                                     </div>
                                 </div>
-                                <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'}>
+                                <Button asChild className={'bg-main hover:bg-hover text-black ml-auto font-bold'} title={'Parrainer'}>
                                     <Link href={route('register')}>Parrainer</Link>
                                 </Button>
                             </div>

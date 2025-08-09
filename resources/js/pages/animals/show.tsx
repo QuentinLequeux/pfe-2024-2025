@@ -96,6 +96,7 @@ const Show: React.FC = () => {
                         >
                             <p className={'font-bold'}>Lui venir en aide&nbsp;?</p>
                             <Button
+                                title={'Parrainer'}
                                 disabled={animal.adoption_status === 'Adopté'}
                                 className={'bg-main hover:bg-hover font-bold text-black'}
                                 onClick={() => router.visit(`/donation?animal=${animal.id}`)}
@@ -140,6 +141,7 @@ const Show: React.FC = () => {
                 <div className={'m-auto my-20 flex w-[80%] items-center justify-center'}>
                     <img src={animals} alt={'Image de chien et chat'} loading={'lazy'} className={'h-[300px] w-full rounded-2xl object-cover'} />
                     <Button
+                        title={`Parrainer ${animal.name}`}
                         disabled={animal.adoption_status === 'Adopté'}
                         className={'bg-main hover:bg-hover absolute font-bold text-black'}
                         onClick={() => router.visit(`/donation?animal=${animal.id}`)}
@@ -191,6 +193,7 @@ const Show: React.FC = () => {
                     </div>
                     <div>
                         <Button
+                            title={'Parrainer'}
                             disabled={animal.adoption_status === 'Adopté'}
                             className={'bg-main hover:bg-hover font-bold text-black'}
                             onClick={() => router.visit(`/donation?animal=${animal.id}`)}

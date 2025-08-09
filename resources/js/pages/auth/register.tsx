@@ -97,14 +97,14 @@ export default function Register() {
                         />
                         <InputError message={errors.password_confirmation} />
                     </div>
-                    <Button type="submit" className="mt-2 w-full bg-main hover:bg-hover text-black" tabIndex={5} disabled={processing}>
+                    <Button title={'Créer un compte'} type="submit" className="mt-2 w-full bg-main hover:bg-hover text-black" tabIndex={5} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Cr&eacute;er un compte
                     </Button>
                 </div>
                 <div className="text-muted-foreground text-center text-sm">
                     D&eacute;j&agrave; un compte&nbsp;?{' '}
-                    <TextLink href={route('login')} tabIndex={6}>
+                    <TextLink title={'Connexion'} href={route('login')} tabIndex={6}>
                         Connexion
                     </TextLink>
                 </div>
