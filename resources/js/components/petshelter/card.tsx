@@ -119,6 +119,7 @@ const Card = () => {
                 {animals.data.length > 0 ? (
                 animals.links.map((link, index: number) => (
                     <Link
+                        title={link.label}
                         key={index}
                         href={link.url || '#'}
                         className={`rounded border px-4 py-2 ${link.active ? 'bg-gray-200 text-black' : 'text-gray-400'}`}
