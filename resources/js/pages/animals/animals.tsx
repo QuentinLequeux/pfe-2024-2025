@@ -1,13 +1,16 @@
 import { toast } from 'sonner';
+import { IBreed } from '@/types/IBreed';
+import { ISpecie } from '@/types/ISpecie';
 import { IAnimal } from '@/types/IAnimal';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Input } from '@/components/ui/input';
-import { ENDPOINTS } from '@/config/endpoints';
 import { Button } from '@/components/ui/button';
+import { IOrganization } from '@/types/IOrganization';
 import { Head, Link, usePage } from '@inertiajs/react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,9 +23,12 @@ interface PageProps extends InertiaPageProps {
     success?: string;
     access?: string;
     userRole: string;
+    breeds: IBreed[];
+    species: ISpecie[];
+    organizations: IOrganization[];
 }
 
-const Animals = () => {
+const Animals = ({breeds, species, organizations}: PageProps) => {
     const { props } = usePage<PageProps>();
 
     useEffect(() => {
@@ -35,36 +41,38 @@ const Animals = () => {
         }
     }, [props.success, props.access]);
 
-    const [query, setQuery] = useState('');
-    const [results, setResults] = useState<IAnimal[]>([]);
+    const [animals, setAnimals] = useState<IAnimal[]>([]);
+    const [breed, setBreed] = useState<string>('');
+    const [query, setQuery] = useState<string>('');
+    const [gender, setGender] = useState<string>('');
+    const [status, setStatus] = useState<string>('');
+    const [specie, setSpecie] = useState<string>('');
+    const [organization, setOrganization] = useState<string>('');
 
     useEffect(() => {
-        const fetchDefaultAnimals = async (): Promise<void> => {
+        const fetchAnimals = async (): Promise<void> => {
             try {
-                const res: Response = await fetch(ENDPOINTS.SEARCH_URL2);
-                const data: IAnimal[] = await res.json();
-                setResults(data);
+                const params = new URLSearchParams();
+                if (query) params.append("query", query);
+                if (gender) params.append("filter[gender]", gender);
+                if (breed) params.append("filter[breed_id]", breed);
+                if (status) params.append("filter[adoption_status]", status);
+                if (specie) params.append("filter[breed.specie_id]", specie);
+                if (organization) params.append("filter[organization_id]", organization);
+
+                const response = await fetch(`/search?${params.toString()}`);
+                const data: IAnimal[] = await response.json();
+                setAnimals(data);
             } catch (error) {
-                console.log('Erreur lors du chargement par défaut :', error);
+                console.error(`Erreur : ${error}`);
             }
-        };
-
-        fetchDefaultAnimals().then();
-    }, []);
-
-    const handleSearch = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
-        const value = e.currentTarget.value;
-        setQuery(value);
-
-        //let url = `http://pfe.test/search?query=${value}`;
-        let url = `https://petshelter.be/search?query=${value}`;
-        if (value.length === 0) {
-            url = ENDPOINTS.SEARCH_URL2;
         }
 
-        const res: Response = await fetch(url);
-        const data: IAnimal[] = await res.json();
-        setResults(data);
+        fetchAnimals().then();
+    }, [query, gender, status, breed, organization, specie]);
+
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+        setQuery(e.currentTarget.value);
     };
 
     return (
@@ -79,27 +87,107 @@ const Animals = () => {
                     </Button>
                 )}
                 <div className="w-full">
-                    <div className={'relative flex items-center w-[400px] max-md:w-full my-2'}>
-                        <svg className={'absolute left-3 size-5'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path
-                                d="M21.0002 21L16.7002 16.7M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
-                                stroke="#999"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                    <div className={'flex items-center gap-2 flex-wrap my-2'}>
+                        <div className={'relative'}>
+                            <svg className={'absolute left-3 top-2.5 size-5'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M21.0002 21L16.7002 16.7M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
+                                    stroke="#999"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                            <Input
+                                type="text"
+                                value={query}
+                                onChange={handleSearch}
+                                placeholder="Rechercher un animal..."
+                                className="caret-main border-gray-200 py-5 pl-10 text-black bg-[#fff] dark:bg-[#1c1e21] dark:text-white w-[300px]"
                             />
-                        </svg>
-                        <Input
-                            type="text"
-                            value={query}
-                            onChange={handleSearch}
-                            placeholder="Rechercher un animal..."
-                            className="caret-main border-gray-500 py-5 pl-10 text-black bg-[#fff] dark:bg-[#1c1e21] dark:text-white"
-                        />
+                        </div>
+                        <div>
+                            <Select value={gender} onValueChange={(e) => setGender(e)}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder={'Sexe'} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value={'male'}>
+                                        Mâle
+                                    </SelectItem>
+                                    <SelectItem value={'femelle'}>
+                                        Femelle
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div>
+                            <Select value={status} onValueChange={(e) => setStatus(e)}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder={'Statut'} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value={'disponible'}>
+                                        Disponible
+                                    </SelectItem>
+                                    <SelectItem value={'en attente'}>
+                                        En attente
+                                    </SelectItem>
+                                    <SelectItem value={'adopté'}>
+                                        Adopt&eacute;
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div>
+                            <Select value={breed} onValueChange={(e) => setBreed(e)}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder={'Race'} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {breeds.map((breed) => (
+                                        <SelectItem key={breed.id} value={breed.id.toString()}>
+                                            {breed.breed}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div>
+                            <Select value={specie} onValueChange={(e) => setSpecie(e)}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder={'Espèce'} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {species.map((specie) => (
+                                        <SelectItem key={specie.id} value={specie.id.toString()}>
+                                            {specie.specie}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div>
+                            <Select value={organization} onValueChange={(e) => setOrganization(e)}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder={'Organisation'} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {organizations.map((organization) => (
+                                        <SelectItem key={organization.id} value={organization.id.toString()}>
+                                            {organization.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <Button className={'bg-main hover:bg-hover text-black font-bold'} onClick={() => {setGender(''); setStatus(''); setBreed(''); setSpecie(''); setOrganization('')}}>
+                            R&eacute;initialiser
+                        </Button>
                     </div>
-                    {results.length > 0 ? (
+                    {animals.length > 0 ? (
                         <div className={'mt-8 flex flex-wrap justify-center gap-8'}>
-                            {results.map((animal) => (
+                            {animals.map((animal) => (
                                 <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug})} key={animal.id} className="w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg">
                                     <div className={'relative'}>
                                         {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
