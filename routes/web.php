@@ -26,7 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/animals/{animal:slug}', function (Animal $animal) {
         //$animal = Animal::with('organization', 'breed')->findOrFail($animal->id);
         $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-        $animals = Animal::with('breed')->where('id', '!=', $animal->id)->inRandomOrder()->limit(4)->get();
+        $animals = Animal::with('breed')->withCount('sponsors')->where('id', '!=', $animal->id)->inRandomOrder()->limit(4)->get();
         foreach ($animals as $a) {
             $a->photo_url = Storage::disk('s3')->url($a->photo);
         }
@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sponsorship', function () {
         $user = auth()->user();
 
-        $sponsored = $user->sponsoredAnimals()->with('breed')->get();
+        $sponsored = $user->sponsoredAnimals()->with('breed')->withCount('sponsors')->get();
 
         $unique = $sponsored->unique('id')->values();
 

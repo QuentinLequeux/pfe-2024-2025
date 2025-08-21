@@ -16,4 +16,5 @@ export interface IAnimal {
     organization: IOrganization;
     breed: IBreed;
     slug: string;
+    sponsors_count: number;
 }

@@ -21,6 +21,7 @@ class AnimalController extends Controller
     public function show()
     {
         $animals = Animal::with('breed')
+            ->withCount('sponsors')
             ->inRandomOrder()
             ->get();
         $breeds = Breeds::all();

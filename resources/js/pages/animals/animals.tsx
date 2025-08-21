@@ -26,9 +26,10 @@ interface PageProps extends InertiaPageProps {
     breeds: IBreed[];
     species: ISpecie[];
     organizations: IOrganization[];
+    animals: IAnimal[];
 }
 
-const Animals = ({breeds, species, organizations}: PageProps) => {
+const Animals = ({breeds, species, organizations, animals}: PageProps) => {
     const { props } = usePage<PageProps>();
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
         }
     }, [props.success, props.access]);
 
-    const [animals, setAnimals] = useState<IAnimal[]>([]);
+    const [animal, setAnimals] = useState<IAnimal[]>([]);
     const [breed, setBreed] = useState<string>('');
     const [query, setQuery] = useState<string>('');
     const [gender, setGender] = useState<string>('');
@@ -188,7 +189,7 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                     {animals.length > 0 ? (
                         <div className={'mt-8 flex flex-wrap justify-center gap-8'}>
                             {animals.map((animal) => (
-                                <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug})} key={animal.id} className="w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg">
+                                <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug})} key={animal.id} className={`w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg ${animal.adoption_status === `Adopté` ? "pointer-events-none" : ""}`}>
                                     <div className={'relative'}>
                                         {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
                                         <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
@@ -257,7 +258,7 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                                         </svg>
                                         {animal.breed.breed}
                                     </div>
-                                    <div className={'bg-main/25 m-auto mb-4 flex w-[80%] justify-center rounded p-1 stroke-[#09090B] dark:stroke-white'}>
+                                    <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded p-1 stroke-[#09090B] dark:stroke-white'}>
                                         <svg className={'mr-2'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path
                                                 d="M20 21V13C20 12.4696 19.7893 11.9609 19.4142 11.5858C19.0391 11.2107 18.5304 11 18 11H6C5.46957 11 4.96086 11.2107 4.58579 11.5858C4.21071 11.9609 4 12.4696 4 13V21M4 16C4 16 4.5 15 6 15C7.5 15 8.5 17 10 17C11.5 17 12.5 15 14 15C15.5 15 16.5 17 18 17C19.5 17 20 16 20 16M2 21H22M7 8V11M12 8V11M17 8V11M7 4H7.01M12 4H12.01M17 4H17.01"
@@ -267,6 +268,9 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                                             />
                                         </svg>
                                         <span className={'mt-0.5'}>{animal.age}</span>
+                                    </div>
+                                    <div className={'bg-main/25 m-auto mb-4 flex w-[80%] justify-center rounded p-1 stroke-[#09090B] dark:stroke-white'}>
+                                        Parrainages&nbsp;: {animal.sponsors_count ?? 0}
                                     </div>
                                 </Link>
                             ))}

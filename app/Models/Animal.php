@@ -65,7 +65,7 @@ class Animal extends Model
 
     public function sponsors()
     {
-        return $this->belongsToMany(User::class, 'sponsorships', 'animal_id', 'user_id');
+        return $this->hasMany(Sponsorship::class);
     }
 
     protected static function boot()
