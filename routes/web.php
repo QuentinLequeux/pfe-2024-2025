@@ -26,7 +26,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/animals/{animal:slug}', function (Animal $animal) {
         //$animal = Animal::with('organization', 'breed')->findOrFail($animal->id);
         $animal->photo_url = Storage::disk('s3')->url($animal->photo);
-        $animals = Animal::with('breed')->withCount('sponsors')->where('id', '!=', $animal->id)->inRandomOrder()->limit(4)->get();
+        $animals = Animal::with('breed')
+            ->withCount('sponsors')
+            ->where('id', '!=', $animal->id)
+            ->orderByRaw("
+            CASE adoption_status
+                WHEN 'Disponible' THEN 1
+                WHEN 'En attente' THEN 2
+                WHEN 'Adopté' THEN 3
+            END
+            ")
+            ->orderBy('sponsors_count', 'asc')
+            ->orderByRaw('RAND()')
+            ->limit(4)
+            ->get();
         foreach ($animals as $a) {
             $a->photo_url = Storage::disk('s3')->url($a->photo);
         }

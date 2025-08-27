@@ -35,7 +35,19 @@ class OrganizationController extends Controller
 
     public function byOrganization(Organization $organization)
     {
-        $animals = Animal::with('breed')->withCount('sponsors')->where('organization_id', $organization->id)->paginate(10);
+        $animals = Animal::with('breed')
+            ->withCount('sponsors')
+            ->where('organization_id', $organization->id)
+            ->orderByRaw("
+            CASE adoption_status
+                WHEN 'Disponible' THEN 1
+                WHEN 'En attente' THEN 2
+                WHEN 'Adopté' THEN 3
+            END
+            ")
+            ->orderBy('sponsors_count', 'asc')
+            ->orderByRaw('RAND()')
+            ->paginate(10);
         foreach ($animals as $animal) {
             $animal->photo_url = Storage::disk('s3')->url($animal->photo);
         }

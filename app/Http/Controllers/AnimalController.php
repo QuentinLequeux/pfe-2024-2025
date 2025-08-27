@@ -22,7 +22,15 @@ class AnimalController extends Controller
     {
         $animals = Animal::with('breed')
             ->withCount('sponsors')
-            ->inRandomOrder()
+            ->orderByRaw("
+            CASE adoption_status
+                WHEN 'Disponible' THEN 1
+                WHEN 'En attente' THEN 2
+                WHEN 'Adopté' THEN 3
+            END
+            ")
+            ->orderBy('sponsors_count', 'asc')
+            ->orderByRaw('RAND()')
             ->get();
         $breeds = Breeds::all();
         $species = Species::all();
