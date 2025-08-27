@@ -42,7 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const Create = ({ organization, statuses, breeds, gender }: Props) => {
     const { data, setData, post, errors } = useForm({
-        organization_id: '',
+        organization_id: organization.id,
         name: '',
         age: '',
         weight: '',
@@ -97,6 +97,7 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                 <div className={'m-8'}>
                     <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
                         <div className={'w-[40%] max-md:w-[100%]'}>
+                            {/*
                             <Label>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
@@ -108,6 +109,12 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
                                 </SelectContent>
                             </Select>
+                            */}
+                            <Label htmlFor={'organization'}>
+                                Organisation&nbsp;<span className={'text-orange-500'}>*</span>
+                            </Label>
+                            <Input id={'organization'} value={organization.name} disabled />
+                            <Input value={organization.id.toString()} type={'hidden'} name={'organization_id'} />
                             <InputError message={errors.organization_id} />
                         </div>
                         <div className={'flex w-[40%] max-md:w-[100%] flex-col gap-8 max-md:gap-4 lg:flex-row'}>

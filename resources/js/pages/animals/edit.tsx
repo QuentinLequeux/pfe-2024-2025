@@ -93,9 +93,12 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                 <div className={'m-8'}>
                     <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
                         <div className={'w-[40%] min-w-[300px] max-md:w-full'}>
-                            <Label>
+                            <Label htmlFor={'organization'}>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
+                            <Input id={'organization'} value={organization.name} disabled />
+                            <Input value={organization.id.toString()} type={'hidden'} name={'organization_id'} />
+                            {/*
                             <Select required value={organization.id.toString()} onValueChange={(value) => setData('organization_id', value)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder={'Choisir une organisation'} />
@@ -104,6 +107,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
                                 </SelectContent>
                             </Select>
+                            */}
                             <InputError message={errors.organization_id} />
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 max-md:gap-4 lg:flex-row max-md:w-full'}>
