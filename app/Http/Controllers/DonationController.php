@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use Stripe\Stripe;
 use Inertia\Inertia;
 use App\Models\Animal;
@@ -54,9 +53,10 @@ class DonationController extends Controller
             ],
             'mode' => 'payment',
             'metadata' => [
-                'user_id' => Auth::id(),
+                'user_id' => auth()->id(),
                 'animal_id' => $request->animal_id,
                 'amount' => $request->amount,
+                'organization_id' => $animal->organization_id,
             ],
             'success_url' => route('donation.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('animals'),
