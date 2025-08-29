@@ -2,6 +2,7 @@
 
 use Inertia\Inertia;
 use App\Models\Animal;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -76,6 +77,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'animals' => $paginated,
         ]);
     })->name('sponsorship');
+
+    Route::get('/history', function () {
+        return Inertia::render('sponsorship/history', [
+            'transactions' => Transaction::latest()->get()
+        ]);
+    })->name('history');
 });
 
 require __DIR__ . '/api.php';
