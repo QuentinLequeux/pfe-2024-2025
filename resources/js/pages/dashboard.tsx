@@ -45,7 +45,7 @@ export default function Dashboard() {
                         <div className={'text-2xl font-bold text-main flex gap-2'}>
                             {sponsoredAnimals}<PartyPopper className={'inline'}/>
                         </div>
-                        <p>
+                        <p className={'text-sm'}>
                             Merci pour votre soutien&nbsp;!
                         </p>
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit'}>
@@ -58,7 +58,7 @@ export default function Dashboard() {
                         <h2 aria-level={2} role={'heading'} className={'font-bold text-xl'}>
                             D&eacute;couvrez les refuges
                         </h2>
-                        <p>
+                        <p className={'text-sm'}>
                             Parcourez les refuges partenaires&nbsp;!
                         </p>
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit'}>

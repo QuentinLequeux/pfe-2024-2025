@@ -17,15 +17,25 @@ class SearchController extends Controller
 
         if ($query) {
             $id = Animal::search($query)->get()->pluck('id');
-            $animals = QueryBuilder::for(Animal::with('breed')->whereIn('id', $id))
+            $animals = QueryBuilder::for(Animal::with('breed')->withCount('sponsors')->whereIn('id', $id))
                 ->allowedFilters([
                     AllowedFilter::exact('gender')
                 ])
                 ->allowedSorts(['name'])
+                ->orderByRaw("
+        CASE adoption_status
+            WHEN 'Disponible' THEN 1
+            WHEN 'En attente' THEN 2
+            WHEN 'Adopté' THEN 3
+            ELSE 99
+        END
+    ")
+                ->orderBy('sponsors_count', 'asc')
+                ->orderByRaw('RAND()')
                 ->when($limit, fn ($q) => $q->limit($limit))
                 ->get();
         } else {
-            $animals = QueryBuilder::for(Animal::with('breed'))
+            $animals = QueryBuilder::for(Animal::with('breed'))->withCount('sponsors')
                 ->allowedFilters([
                     AllowedFilter::exact('gender'),
                     AllowedFilter::exact('adoption_status'),
@@ -34,6 +44,16 @@ class SearchController extends Controller
                     AllowedFilter::exact('breed.specie_id'),
                 ])
                 ->allowedSorts(['name'])
+                ->orderByRaw("
+        CASE adoption_status
+            WHEN 'Disponible' THEN 1
+            WHEN 'En attente' THEN 2
+            WHEN 'Adopté' THEN 3
+            ELSE 99
+        END
+    ")
+                ->orderBy('sponsors_count', 'asc')
+                ->orderByRaw('RAND()')
                 ->when($limit, fn($q) => $q->limit((int) $limit))->get();
         }
 
