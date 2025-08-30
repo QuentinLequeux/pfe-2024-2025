@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Str;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -64,6 +65,17 @@ class Animal extends Model
 
     public function sponsors()
     {
-        return $this->belongsToMany(User::class, 'sponsorships', 'animal_id', 'user_id');
+        return $this->hasMany(Sponsorship::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($animal) {
+           $animal->slug = Str::slug($animal->name . '-' . Str::random(5));
+        });
     }
 }
+
+// TODO : Changer le slug ?

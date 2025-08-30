@@ -1,3 +1,4 @@
+import React from 'react';
 import { Ban } from 'lucide-react';
 import { IAnimal } from '@/types/IAnimal';
 import { Button } from '@/components/ui/button';
@@ -18,9 +19,24 @@ const Card = () => {
     return (
         <div className={'flex flex-wrap gap-8 m-2 justify-center h-fit'}>
             {animals.data.map((animal:IAnimal) => (
-                <Link href={route('animals.show', { id: animal.id })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21]'}>
-                    <img className={'rounded-t-lg'} src={animal.photo_url} alt={`Photo de ${animal.name}`} />
-                    {/*<img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />*/}
+                <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21]'}>
+                    <div className={'relative'}>
+                        <img className={'rounded-t-lg'} src={animal.photo_url} alt={`Photo de ${animal.name}`} />
+                        {/*<img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />*/}
+                        <div
+                            className={`absolute bottom-0 w-full ${
+                                animal.adoption_status === 'En attente'
+                                    ? 'bg-main'
+                                    : animal.adoption_status === 'Disponible'
+                                        ? 'bg-[#A7DE98]'
+                                        : animal.adoption_status === 'Adopté'
+                                            ? 'bg-[#B74553] text-[#fff]'
+                                            : 'bg-[#fff]'
+                            }`}
+                        >
+                            <p className={'text-center text-black'}>{animal.adoption_status}</p>
+                        </div>
+                    </div>
                     <p className={'p-6 text-center text-2xl font-bold'}>{animal.name}</p>
                     <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded-md p-1 text-black dark:text-white'}>
                         <svg
@@ -72,7 +88,7 @@ const Card = () => {
                         </svg>
                         {animal.breed?.breed}
                     </div>
-                    <div className={'bg-main/25 m-auto mb-4 flex w-[80%] justify-center rounded-md p-1 text-black dark:text-white'}>
+                    <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded-md p-1 text-black dark:text-white'}>
                         <svg className={'mr-2 stroke-[#09090B] dark:stroke-white'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M20 21V13C20 12.4696 19.7893 11.9609 19.4142 11.5858C19.0391 11.2107 18.5304 11 18 11H6C5.46957 11 4.96086 11.2107 4.58579 11.5858C4.21071 11.9609 4 12.4696 4 13V21M4 16C4 16 4.5 15 6 15C7.5 15 8.5 17 10 17C11.5 17 12.5 15 14 15C15.5 15 16.5 17 18 17C19.5 17 20 16 20 16M2 21H22M7 8V11M12 8V11M17 8V11M7 4H7.01M12 4H12.01M17 4H17.01"
@@ -82,6 +98,9 @@ const Card = () => {
                             />
                         </svg>
                         <span className={'mt-0.5'}>{animal.age}</span>
+                    </div>
+                    <div className={'bg-main/25 m-auto mb-4 flex w-[80%] justify-center rounded p-1 stroke-[#09090B] dark:stroke-white'}>
+                        Parrainages&nbsp;: {animal.sponsors_count ?? 0}
                     </div>
                     {/*
                     <div className={'bg-opacity m-auto mb-4 flex w-[80%] justify-center rounded-md p-1'}>
@@ -103,6 +122,7 @@ const Card = () => {
                 {animals.data.length > 0 ? (
                 animals.links.map((link, index: number) => (
                     <Link
+                        title={link.label}
                         key={index}
                         href={link.url || '#'}
                         className={`rounded border px-4 py-2 ${link.active ? 'bg-gray-200 text-black' : 'text-gray-400'}`}

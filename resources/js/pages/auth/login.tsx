@@ -59,7 +59,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <div className="flex items-center">
                             <Label htmlFor="password">Mot de passe</Label>
                             {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
+                                <TextLink title={'Réinitialiser le mot de passe'} href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
                                     Mot de passe oublié&nbsp;?
                                 </TextLink>
                             )}
@@ -86,14 +86,14 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         />
                         <Label htmlFor="remember">Se souvenir de moi</Label>
                     </div>
-                    <Button type="submit" className="mt-4 w-full bg-main text-black hover:bg-hover" tabIndex={4} disabled={processing}>
+                    <Button type="submit" title={'Connexion'} className="mt-4 w-full bg-main text-black hover:bg-hover" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Connexion
                     </Button>
                 </div>
                 <div className="text-muted-foreground text-center text-sm">
                     Vous n'avez pas de compte&nbsp;?{' '}
-                    <TextLink href={route('register')} tabIndex={5}>
+                    <TextLink title={'Inscrivez-vous'} href={route('register')} tabIndex={5}>
                         Inscrivez-vous
                     </TextLink>
                 </div>

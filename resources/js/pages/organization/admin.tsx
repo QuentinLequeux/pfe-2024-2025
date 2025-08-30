@@ -123,7 +123,7 @@ export default function Admin({ users, organizations, roles }: Props) {
                         </Select>
                         <InputError message={errors.role} />
                     </div>
-                    <Button type={'submit'} className={'bg-main hover:bg-hover font-bold text-black'}>
+                    <Button title={'Associer'} type={'submit'} className={'bg-main hover:bg-hover font-bold text-black'}>
                         Associer
                     </Button>
                 </form>

@@ -93,9 +93,12 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                 <div className={'m-8'}>
                     <form className={'flex flex-col gap-4'} onSubmit={submit} encType={'multipart/form-data'}>
                         <div className={'w-[40%] min-w-[300px] max-md:w-full'}>
-                            <Label>
+                            <Label htmlFor={'organization'}>
                                 Organisation&nbsp;<span className={'text-orange-500'}>*</span>
                             </Label>
+                            <Input id={'organization'} value={organization.name} disabled />
+                            <Input value={organization.id.toString()} type={'hidden'} name={'organization_id'} />
+                            {/*
                             <Select required value={organization.id.toString()} onValueChange={(value) => setData('organization_id', value)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder={'Choisir une organisation'} />
@@ -104,6 +107,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     <SelectItem value={organization.id.toString()}>{organization.name}</SelectItem>
                                 </SelectContent>
                             </Select>
+                            */}
                             <InputError message={errors.organization_id} />
                         </div>
                         <div className={'flex w-[40%] flex-col gap-8 max-md:gap-4 lg:flex-row max-md:w-full'}>
@@ -119,6 +123,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                 />
+                                <p className={'mt-1 text-xs'}>Minimum 3 caract&egrave;res.</p>
                                 <InputError message={errors.name} />
                             </div>
                             <div className={'w-full min-w-[200px]'}>
@@ -133,6 +138,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     value={data.age}
                                     onChange={(e) => setData('age', e.target.value)}
                                 />
+                                <p className={'mt-1 text-xs'}>Age maximum : 20 ans.</p>
                                 <InputError message={errors.age} />
                             </div>
                         </div>
@@ -146,6 +152,7 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                     value={data.weight}
                                     onChange={(e) => setData('weight', e.target.value)}
                                 />
+                                <p className={'mt-1 text-xs'}>Poids maximum : 100kg.</p>
                                 <InputError message={errors.weight} />
                             </div>
                             <div className={'w-full'}>
@@ -267,6 +274,8 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 onChange={handleFileChange}
                                 accept={'.png, .jpg, .jpeg, .svg, .webp'}
                             />
+                            <p className={'mt-1 text-xs'}>Format : jpg, jpeg, png, webp, svg.</p>
+                            <p className={'mt-1 text-xs'}>Poids maximum : 5MB.</p>
                             <InputError message={errors.photo} />
                             {animal.photo && (
                                 <div className="mt-2">
@@ -304,9 +313,10 @@ const Create = ({ organization, statuses, breeds, gender, animal }: Props) => {
                                 value={data.description}
                                 onChange={(e) => setData('description', e.target.value)}
                             />
+                            <p className={'mt-1 text-xs'}>Maximum 2000 caract&egrave;res.</p>
                             <InputError message={errors.description} />
                         </div>
-                        <Button type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black max-md:w-full'}>
+                        <Button title={'Modifier'} type={'submit'} className={'bg-main hover:bg-hover w-[40%] font-bold text-black max-md:w-full'}>
                             Modifier
                         </Button>
                     </form>

@@ -27,12 +27,12 @@ export default function VerifyEmail({ status }: { status?: string }) {
             )}
 
             <form onSubmit={submit} className="space-y-6 text-center">
-                <Button className={'bg-main hover:bg-hover text-black'} disabled={processing} variant="secondary">
+                <Button title={'Renvoyer l\'email de vérification'} className={'bg-main hover:bg-hover text-black'} disabled={processing} variant="secondary">
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Renvoyer l'email de v&eacute;rification
                 </Button>
 
-                <TextLink href={route('logout')} method="post" className="mx-auto block text-sm">
+                <TextLink title={'Déconnexion'} href={route('logout')} method="post" className="mx-auto block text-sm">
                     D&eacute;connexion
                 </TextLink>
             </form>

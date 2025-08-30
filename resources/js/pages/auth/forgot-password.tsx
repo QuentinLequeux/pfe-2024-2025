@@ -41,7 +41,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                         <InputError message={errors.email} />
                     </div>
                     <div className="my-6 flex items-center justify-start">
-                        <Button className="w-full bg-main hover:bg-hover text-black" disabled={processing}>
+                        <Button title={'Réinitialiser le mot de passe'} className="w-full bg-main hover:bg-hover text-black" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Réinitialiser le mot de passe
                         </Button>
@@ -49,7 +49,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                 </form>
                 <div className="text-muted-foreground space-x-1 text-center text-sm">
                     <span>Ou, retourner à la page de</span>
-                    <TextLink href={route('login')}>connexion</TextLink>
+                    <TextLink title={'Connexion'} href={route('login')}>connexion</TextLink>
                 </div>
             </div>
         </AuthLayout>

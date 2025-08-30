@@ -7,8 +7,10 @@ use Inertia\Inertia;
 use App\Enums\Gender;
 use App\Models\Breeds;
 use App\Models\Animal;
+use App\Models\Species;
 use App\Enums\AnimalStatus;
 use Illuminate\Http\Request;
+use App\Models\Organization;
 use App\Concerns\HandleImageUpload;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -19,8 +21,20 @@ class AnimalController extends Controller
     public function show()
     {
         $animals = Animal::with('breed')
-            ->inRandomOrder()
+            ->withCount('sponsors')
+            ->orderByRaw("
+            CASE adoption_status
+                WHEN 'Disponible' THEN 1
+                WHEN 'En attente' THEN 2
+                WHEN 'Adopté' THEN 3
+            END
+            ")
+            ->orderBy('sponsors_count', 'asc')
+            ->orderByRaw('RAND()')
             ->get();
+        $breeds = Breeds::all();
+        $species = Species::all();
+        $organizations = Organization::all();
 
         foreach ($animals as $animal) {
             $animal->photo_url = Storage::disk('s3')->url($animal->photo);
@@ -30,6 +44,9 @@ class AnimalController extends Controller
             'success' => session('success'),
             'animals' => $animals,
             'userRole' => auth()->user()->getRoleNames(),
+            'breeds' => $breeds,
+            'species' => $species,
+            'organizations' => $organizations,
         ]);
     }
 

@@ -35,14 +35,14 @@ export default function Organizations() {
             <Head title={'Refuges'} />
             <div className={'pt-6 pr-4 pb-6 w-full flex flex-wrap justify-end gap-2'}>
                 {props.userRole.includes('Administrateur') && (
-                    <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
+                    <Button title={'Associer un utilisateur'} asChild className={'bg-main hover:bg-hover font-bold text-black'}>
                         <Link href={route('organization.admin')} >
                             Associer un utilisateur
                         </Link>
                     </Button>
                 )}
                 {props.userRole.includes('Administrateur') && (
-                    <Button asChild className={'bg-main hover:bg-hover font-bold text-black'}>
+                    <Button title={'Créer une organisation'} asChild className={'bg-main hover:bg-hover font-bold text-black'}>
                         <Link href={route('organization.create')} >
                             Cr&eacute;er une organisation
                         </Link>
@@ -60,7 +60,7 @@ export default function Organizations() {
                         <a className={'underline'} href={organization.website} title={`Vers ${organization.website}`} target={'_blank'} role={'link'}><AtSign className={'inline mr-2'}/>{organization.website}</a>
                         <p><Landmark className={'inline mr-2'}/>{organization.iban}</p>
                         <Button asChild className={'bg-main hover:bg-hover font-bold text-black w-fit m-auto'}>
-                            <Link href={route('organization.animals', organization.id)}>
+                            <Link title={'Voir les animaux'} href={route('organization.animals', organization.id)}>
                                 Voir les animaux
                             </Link>
                         </Button>

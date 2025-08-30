@@ -108,7 +108,7 @@ export default function Password() {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <Button className={'bg-main hover:bg-hover text-black'} disabled={processing}>Enregistrer le mot de passe</Button>
+                            <Button title={'Enregistrer le mot de passe'} className={'bg-main hover:bg-hover text-black'} disabled={processing}>Enregistrer le mot de passe</Button>
 
                             <Transition
                                 show={recentlySuccessful}

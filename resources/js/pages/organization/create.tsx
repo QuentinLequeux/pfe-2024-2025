@@ -131,7 +131,7 @@ export default function Create() {
                         />
                         <InputError message={errors.website} />
                     </div>
-                    <Button type={'submit'} className={'bg-main hover:bg-hover font-bold text-black mt-4 w-full'}>
+                    <Button title={'Créer'} type={'submit'} className={'bg-main hover:bg-hover font-bold text-black mt-4 w-full'}>
                         Cr&eacute;er
                     </Button>
                 </form>
