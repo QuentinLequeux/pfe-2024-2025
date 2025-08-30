@@ -26,10 +26,9 @@ interface PageProps extends InertiaPageProps {
     breeds: IBreed[];
     species: ISpecie[];
     organizations: IOrganization[];
-    animals: IAnimal[];
 }
 
-const Animals = ({breeds, species, organizations, animals}: PageProps) => {
+const Animals = ({breeds, species, organizations}: PageProps) => {
     const { props } = usePage<PageProps>();
 
     useEffect(() => {
@@ -42,8 +41,7 @@ const Animals = ({breeds, species, organizations, animals}: PageProps) => {
         }
     }, [props.success, props.access]);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [animal, setAnimals] = useState<IAnimal[]>([]);
+    const [animals, setAnimals] = useState<IAnimal[]>([]);
     const [breed, setBreed] = useState<string>('');
     const [query, setQuery] = useState<string>('');
     const [gender, setGender] = useState<string>('');
@@ -183,7 +181,7 @@ const Animals = ({breeds, species, organizations, animals}: PageProps) => {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <Button className={'bg-main hover:bg-hover text-black font-bold'} onClick={() => {setGender(''); setStatus(''); setBreed(''); setSpecie(''); setOrganization('')}}>
+                        <Button className={'bg-main hover:bg-hover text-black font-bold'} onClick={() => {setGender(''); setStatus(''); setBreed(''); setSpecie(''); setOrganization('');}}>
                             R&eacute;initialiser
                         </Button>
                     </div>
