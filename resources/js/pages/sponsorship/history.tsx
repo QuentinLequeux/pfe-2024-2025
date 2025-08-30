@@ -1,9 +1,9 @@
 import { Ban } from 'lucide-react';
-import { Head, router } from '@inertiajs/react';
 import { BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/app-layout';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Head, router } from '@inertiajs/react';
 import { ITransaction } from '@/types/ITransaction';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -115,5 +115,4 @@ export default function History({ transactions, total, sort }: props) {
     )
 }
 
-// TODO : filtres ASC<->DESC
 // TODO : Pagination

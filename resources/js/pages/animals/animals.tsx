@@ -42,6 +42,7 @@ const Animals = ({breeds, species, organizations, animals}: PageProps) => {
         }
     }, [props.success, props.access]);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [animal, setAnimals] = useState<IAnimal[]>([]);
     const [breed, setBreed] = useState<string>('');
     const [query, setQuery] = useState<string>('');
@@ -296,3 +297,7 @@ const Animals = ({breeds, species, organizations, animals}: PageProps) => {
 };
 
 export default Animals;
+
+// TODO : Filtres (plus récents, sans adoption)
+// TODO : Adopté = bg-color ?
+// TODO : RAND() ou RANDOM() PostgresSQL <-> MySQL
