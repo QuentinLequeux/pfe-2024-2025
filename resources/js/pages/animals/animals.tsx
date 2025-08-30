@@ -188,9 +188,16 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                     {animals.length > 0 ? (
                         <div className={'mt-8 flex flex-wrap justify-center gap-8'}>
                             {animals.map((animal) => (
-                                <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug})} key={animal.id} className={`w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg ${animal.adoption_status === `Adopté` ? "pointer-events-none" : ""}`}>
+                                <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug})} key={animal.id} className={`hover:scale-105 hover:border-2 hover:border-main w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg ${animal.adoption_status === `Adopté` ? "pointer-events-none" : ""}`}>
                                     <div className={'relative'}>
                                         {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
+                                        <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                                        <div className={`absolute top-2 right-2 rounded-xl px-2 ${animal.adoption_status === 'En attente' ? 'bg-main' : animal.adoption_status === 'Disponible' ? 'bg-[#A7DE98]' : animal.adoption_status === 'Adopté' ? 'bg-[#B74553] text-[#fff]' : 'bg-[#fff]'}`}>
+                                            <p className={'text-center text-black'}>{animal.adoption_status}</p>
+                                        </div>
+                                    </div>
+                                    {/*<div className={'relative'}>
+                                        <img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />
                                         <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
                                         <div
                                             className={`absolute bottom-0 w-full ${
@@ -205,7 +212,7 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                                         >
                                             <p className={'text-center text-black'}>{animal.adoption_status}</p>
                                         </div>
-                                    </div>
+                                    </div>*/}
                                     <p className="font-bold text-center text-2xl p-6">{animal.name}</p>
                                     <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded p-1'}>
                                         <svg
