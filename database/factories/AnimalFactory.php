@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Breeds;
 use App\Models\Animal;
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AnimalFactory extends Factory
@@ -21,7 +22,8 @@ class AnimalFactory extends Factory
             'arrival_date' => $this->faker->dateTimeThisDecade(), // Génère une date dans la dernière décennie.
             'adoption_status' => $this->faker->randomElement(['Disponible', 'En attente', 'Adopté']), // Génère un statut aléatoire.
             'breed_id' => Breeds::inRandomOrder()->first()?->id ?? 1, // Récupère un identifiant aléatoire valide ou 1 par défaut
-            'organization_id' => $this->faker->numberBetween(1, 5), // Génère un identifiant aléatoire entre 1 et 5.
+            'organization_id' => Organization::inRandomOrder()->first()->id ?? 1, // Génère un identifiant aléatoire entre 1 et 5.
+            'photo' => 'eeaR4JFDvc4Qh9Mt3uGulmiOftJk6lLN4Vqu4mJs.jpg',
         ];
     }
 }
