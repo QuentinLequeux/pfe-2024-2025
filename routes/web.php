@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use App\Models\Animal;
 use App\Models\Transaction;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -80,7 +81,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/history', function () {
         return Inertia::render('sponsorship/history', [
-            'transactions' => Transaction::latest()->get()
+            'transactions' => QueryBuilder::for(Transaction::where('user_id', auth()->id()))
+                ->allowedSorts(['created_at'])
+                ->defaultSort('-created_at')
+                ->get(),
+            'total' => Transaction::where('user_id', auth()->id())->sum('amount'),
+            'sort' => request('sort', '-created_at'),
         ]);
     })->name('history');
 });
@@ -91,3 +97,5 @@ require __DIR__ . '/animals.php';
 require __DIR__ . '/donation.php';
 require __DIR__ . '/settings.php';
 require __DIR__ . '/organization.php';
+
+// TODO : Renommer 'history' en 'transactions'.
