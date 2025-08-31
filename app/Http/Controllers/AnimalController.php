@@ -37,10 +37,15 @@ class AnimalController extends Controller
         $organizations = Organization::all();
 
         foreach ($animals as $animal) {
-            if (str_starts_with($animal->photo, 'animals/')) {
-                $animal->photo_url = asset($animal->photo);
+            if (is_array($animal->photo)) {
+                $animal->photo_url = (object) $animal->photo;
             } else {
-                $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+                $url = Storage::disk('s3')->url($animal->photo);
+                $animal->photo_url = (object) [
+                    'small' => $url,
+                    'medium' => $url,
+                    'large' => $url,
+                ];
             }
         }
 
