@@ -89,11 +89,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('sponsorship');
 
     Route::get('/history', function () {
+        $perPage = 15;
         return Inertia::render('sponsorship/history', [
             'transactions' => QueryBuilder::for(Transaction::where('user_id', auth()->id()))
                 ->allowedSorts(['created_at'])
                 ->defaultSort('-created_at')
-                ->get(),
+                ->paginate($perPage)
+                ->withQueryString(),
             'total' => Transaction::where('user_id', auth()->id())->sum('amount'),
             'sort' => request('sort', '-created_at'),
         ]);

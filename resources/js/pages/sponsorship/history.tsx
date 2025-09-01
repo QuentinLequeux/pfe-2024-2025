@@ -1,8 +1,8 @@
 import { Ban } from 'lucide-react';
 import { BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
 import { ITransaction } from '@/types/ITransaction';
+import { Head, Link, router } from '@inertiajs/react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
@@ -13,8 +13,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+type LinkType = {
+    url: string | null;
+    label: string;
+    active: boolean;
+};
+
+type PaginatedTransactions = {
+    data: ITransaction[];
+    links: LinkType[];
+    current_page: number;
+    last_page: number;
+};
+
 type props = {
-    transactions: ITransaction[];
+    transactions: PaginatedTransactions;
     total: number;
     sort: string;
 }
@@ -63,7 +76,7 @@ export default function History({ transactions, total, sort }: props) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {transactions.length === 0 ? (
+                        {transactions.data.length === 0 ? (
                             <TableRow>
                                 <TableCell colSpan={5}>
                                     <div className={'flex justify-center items-center p-2'}>
@@ -72,7 +85,7 @@ export default function History({ transactions, total, sort }: props) {
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            transactions.map((transaction) => (
+                            transactions.data.map((transaction) => (
                                 <TableRow key={transaction.id}>
                                     <TableCell>
                                         {new Date(transaction.created_at).toLocaleDateString('fr-BE', {
@@ -110,9 +123,21 @@ export default function History({ transactions, total, sort }: props) {
                         </TableRow>
                     </TableFooter>
                 </Table>
+                <div className="mt-4 flex gap-2 w-full justify-center h-fit">
+                    {transactions.links.map((link, index: number) => (
+                            <Link
+                                title={link.label}
+                                key={index}
+                                href={link.url || '#'}
+                                className={`rounded border px-4 py-2 ${link.active ? 'bg-gray-200 text-black' : 'text-gray-400'}`}
+                            >
+                                {link.label}
+                            </Link>
+                    ))}
+                </div>
             </div>
         </AppLayout>
     )
 }
 
-// TODO : Pagination / style Table
+// TODO : style Table
