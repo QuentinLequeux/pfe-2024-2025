@@ -35,6 +35,10 @@ class Animal extends Model
         'description'
     ];
 
+    protected $casts = [
+        'photo' => 'array',
+    ];
+
     public function toSearchableArray(): array
 
     {
