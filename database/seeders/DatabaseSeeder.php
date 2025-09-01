@@ -55,8 +55,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            User::factory()->create($user);
-            $user->assignRole('Administrateur');
+            User::factory()->create($user)->assignRole('Administrateur');
         }
 
         $species = ['Chien', 'Chat'];
