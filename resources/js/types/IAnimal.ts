@@ -25,4 +25,5 @@ export interface IAnimal {
     breed: IBreed;
     slug: string;
     sponsors_count: number;
+    sponsors_sum_amount: number;
 }

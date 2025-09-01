@@ -79,6 +79,12 @@ const Show: React.FC = () => {
                                 <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
                                     Poids&nbsp;: <span className={'font-light'}>{animal.weight}&nbsp;kg</span>
                                 </p>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
+                                    Parrainages&nbsp;: <span className={'font-light'}>{animal.sponsors_count ?? 0}</span>
+                                </p>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
+                                    Dons&nbsp;: <span className={'font-light'}>{animal.sponsors_sum_amount ?? 0}&nbsp;€</span>
+                                </p>
                             </div>
                         </div>
                         <div className={'w-full sm:w-md md:w-md lg:w-2xl'}>
