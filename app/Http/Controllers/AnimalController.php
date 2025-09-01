@@ -119,8 +119,7 @@ class AnimalController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $imagePaths = $this->storeAndResizeImage($request->file('photo'));
-            $validated['photo'] = json_encode($imagePaths);
+            $validated['photo'] = $this->storeAndResizeImage($request->file('photo'));
         }
 
         Animal::create($validated);
