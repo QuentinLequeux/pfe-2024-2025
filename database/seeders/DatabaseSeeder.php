@@ -121,7 +121,9 @@ class DatabaseSeeder extends Seeder
 
         foreach ($organizations as $organization) {
             $organization = Organization::factory()->create($organization);
-            Animal::factory()->count(10)->create(['organization_id' => $organization->id]);
+            Animal::factory()->count(20)->create(['organization_id' => $organization->id]);
         }
     }
 }
+
+// Factory utilisateurs

@@ -57,7 +57,7 @@ export default function Organizations() {
                 {props.userRole.includes('Administrateur') && (
                     <Button title={'Créer une organisation'} asChild className={'bg-main hover:bg-hover font-bold text-black'}>
                         <Link href={route('organization.create')} >
-                            Cr&eacute;er une organisation
+                            Cr&eacute;er un refuge
                         </Link>
                     </Button>
                 )}
