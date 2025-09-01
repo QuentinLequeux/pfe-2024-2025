@@ -5,6 +5,7 @@ use App\Models\Animal;
 use App\Models\Transaction;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AnimalController;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -27,7 +28,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/animals/{animal:slug}', function (Animal $animal) {
         //$animal = Animal::with('organization', 'breed')->findOrFail($animal->id);
-        $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+        $animal->photo_url = $animal->photo
+        ? Storage::disk('s3')->url($animal->photo)
+            : null;
         $animals = Animal::with('breed')
             ->withCount('sponsors')
             ->where('id', '!=', $animal->id)
@@ -42,9 +45,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->orderByRaw('RAND()')
             ->limit(4)
             ->get();
+
         foreach ($animals as $a) {
-            $a->photo_url = Storage::disk('s3')->url($a->photo);
+            $a->photo_url = $a->photo
+                ? Storage::disk('s3')->url($a->photo)
+                : null;
         }
+
         return Inertia::render('animals/show', ['animal' => $animal->load('organization', 'breed'), 'userRole' => auth()->user()->getRoleNames(), 'user' => auth()->user(), 'animals' => ['data' => $animals, 'links' => []]]);
     })->name('animals.show');
 
@@ -60,7 +67,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $currentItems = $unique->slice(($currentPage - 1) * $perPage, $perPage);
 
         foreach ($currentItems as $animal) {
-            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+            $animal->photo_url = $animal->photo
+                ? Storage::disk('s3')->url($animal->photo)
+                : null;
         }
 
         $paginated = new LengthAwarePaginator(

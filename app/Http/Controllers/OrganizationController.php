@@ -48,9 +48,13 @@ class OrganizationController extends Controller
             ->orderBy('sponsors_count', 'asc')
             ->orderByRaw('RAND()')
             ->paginate(10);
+
         foreach ($animals as $animal) {
-            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+            $animal->photo_url = $animal->photo
+                ? Storage::disk('s3')->url($animal->photo)
+                : null;
         }
+
         return Inertia::render('organization/animals', [
            'organization' => $organization,
            'animals' => $animals,
