@@ -37,7 +37,9 @@ class AnimalController extends Controller
         $organizations = Organization::all();
 
         foreach ($animals as $animal) {
-            $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+            $animal->photo_url = $animal->photo
+                ? Storage::disk('s3')->url($animal->photo)
+                : null;
         }
 
         return Inertia::render('animals/animals', [

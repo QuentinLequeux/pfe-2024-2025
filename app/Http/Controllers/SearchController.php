@@ -57,9 +57,11 @@ class SearchController extends Controller
                 ->when($limit, fn($q) => $q->limit((int) $limit))->get();
         }
 
-        $animals->each(function ($animal) {
-            $animal->photo_url = $animal->photo ? Storage::disk('s3')->url($animal->photo) : null;
-        });
+        foreach ($animals as $animal) {
+            $animal->photo_url = $animal->photo
+                ? Storage::disk('s3')->url($animal->photo)
+                : null;
+        }
 
         return response()->json($animals);
     }
