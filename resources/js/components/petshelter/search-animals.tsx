@@ -65,8 +65,8 @@ const SearchAnimals = () => {
                             <div className="flex min-w-[320px] w-full items-center rounded-2xl bg-[#fff] p-4 shadow-lg hover:bg-gray-100">
                                 <div className={'flex gap-3'}>
                                     <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>
-                                        {/*<img className={'rounded-full h-full'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
-                                        <img className={'rounded-full h-full'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                                        {/*<img className={'rounded-full h-full'} src={animal.photo === null ? 'https://fastly.picsum.photos/id/237/50/50.jpg?hmac=9cCVRLgc5HmY_XbEZ4SSgnaR5CqTMUtHPZ04MCvtH-k' : `/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} width={50} height={50} />*/}
+                                        <img className={'rounded-full h-full'} src={animal.photo_url === null ? 'https://fastly.picsum.photos/id/237/50/50.jpg?hmac=9cCVRLgc5HmY_XbEZ4SSgnaR5CqTMUtHPZ04MCvtH-k' : `${animal.photo_url}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />
                                     </div>
                                     <div className={'flex flex-col overflow-hidden'}>
                                         <p className="font-bold text-black">{animal.name}</p>

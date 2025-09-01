@@ -70,3 +70,5 @@ export default function Organizations() {
         </AppLayout>
     );
 }
+
+// TODO : Onglet dédié aux organisations + Vocabulaire + Barre de recherche ? + Widget dédié aux organisations

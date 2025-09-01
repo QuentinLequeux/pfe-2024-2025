@@ -115,4 +115,4 @@ export default function History({ transactions, total, sort }: props) {
     )
 }
 
-// TODO : Pagination
+// TODO : Pagination / style Table

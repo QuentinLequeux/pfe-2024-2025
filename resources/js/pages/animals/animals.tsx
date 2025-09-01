@@ -190,8 +190,8 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                             {animals.map((animal) => (
                                 <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug})} key={animal.id} className={`w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg ${animal.adoption_status === `Adopté` ? "pointer-events-none opacity-50" : ""}`}>
                                     <div className={'relative'}>
-                                        {/*<img className={'h-auto rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} loading={'lazy'} />*/}
-                                        <img className={'rounded-t-lg h-auto'} src={animal.photo_url} alt={`Photo de ${animal.name}`} loading={'lazy'} />
+                                        {/*<img className={'h-auto rounded-t-lg'} src={animal.photo === null ? 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' : `/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} width={250} height={190} />*/}
+                                        <img className={'h-auto rounded-t-lg'} src={animal.photo_url === null ? 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' : `${animal.photo_url}`} alt={`Photo de ${animal.name}`} />
                                         <div className={`absolute top-2 right-2 rounded-xl px-2 ${animal.adoption_status === 'En attente' ? 'bg-main' : animal.adoption_status === 'Disponible' ? 'bg-[#A7DE98]' : animal.adoption_status === 'Adopté' ? 'bg-[#B74553] text-[#fff]' : 'bg-[#fff]'}`}>
                                             <p className={'text-center text-black'}>{animal.adoption_status}</p>
                                         </div>
