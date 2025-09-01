@@ -15,9 +15,22 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
+type LinkType = {
+    url: string | null;
+    label: string;
+    active: boolean;
+};
+
+type PaginatedOrganizations = {
+    data: IOrganization[];
+    links: LinkType[];
+    current_page: number;
+    last_page: number;
+};
+
 interface PageProps extends InertiaPageProps {
     success?: string;
-    organizations: IOrganization[];
+    organizations: PaginatedOrganizations;
     userRole: string;
 }
 
@@ -44,14 +57,14 @@ export default function Organizations() {
                 {props.userRole.includes('Administrateur') && (
                     <Button title={'Créer une organisation'} asChild className={'bg-main hover:bg-hover font-bold text-black'}>
                         <Link href={route('organization.create')} >
-                            Cr&eacute;er une organisation
+                            Cr&eacute;er un refuge
                         </Link>
                     </Button>
                 )}
             </div>
             <div className={'w-full flex flex-wrap gap-4 justify-center my-4'}>
-                {props.organizations.length === 0 && <div><p><Ban className={'mx-auto mb-2'}/>Aucune organisation.</p></div>}
-                {props.organizations.map(organization => (
+                {props.organizations.data.length === 0 && <div><p><Ban className={'mx-auto mb-2'}/>Aucune organisation.</p></div>}
+                {props.organizations.data.map(organization => (
                     <div key={organization.id} className={'border rounded-2xl p-6 flex flex-col gap-4 w-[30%] max-md:min-w-[90%] min-w-[400px] shadow-md'}>
                         <p className={'font-bold'}>{organization.name}</p>
                         <p><Building className={'inline mr-2'}/>{organization.address}</p>
@@ -67,8 +80,20 @@ export default function Organizations() {
                     </div>
                 ))}
             </div>
+            <div className="my-8 flex gap-2 w-full justify-center h-fit">
+                {props.organizations.links.map((link, index: number) => (
+                    <Link
+                        key={index}
+                        title={link.label}
+                        href={link.url || '#'}
+                        className={`rounded border px-4 py-2 ${link.active ? 'bg-gray-200 text-black' : 'text-gray-400'}`}
+                    >
+                        {link.label}
+                    </Link>
+                ))}
+            </div>
         </AppLayout>
     );
 }
 
-// TODO : Onglet dédié aux organisations + Vocabulaire + Barre de recherche ? + Widget dédié aux organisations
+// TODO : Vocabulaire + Barre de recherche ? + Widget dédié aux organisations

@@ -8,8 +8,16 @@ export interface IAnimal {
     gender: string;
     age: number;
     weight: number;
-    photo: string;
-    photo_url: string;
+    photo: {
+        large: string;
+        medium: string;
+        small: string;
+    } | null;
+    photo_url: {
+        large: string;
+        medium: string;
+        small: string;
+    } | null;
     description: string;
     adoption_status: string;
     arrival_date: string;

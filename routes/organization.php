@@ -6,7 +6,7 @@ use App\Http\Controllers\OrganizationController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/organizations', function () {
-        $organizations = Organization::all();
+        $organizations = Organization::paginate(6)->withQueryString();
         return Inertia::render('organization/show', [
             'success' => session('success'),
             'organizations' => $organizations,

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('arrival_date'); // Date d'arrivée de l'animal
             $table->string('gender'); // Sexe de l'animal
             $table->string('adoption_status'); // Statut de l'animal
-            $table->string('photo')->nullable(); // Photo de l'animal
+            $table->text('photo')->nullable(); // Photo de l'animal
             $table->string('slug')->unique();
 
             // Clés étrangères
