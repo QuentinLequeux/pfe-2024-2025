@@ -3,6 +3,7 @@ import { IBreed } from '@/types/IBreed';
 import { ISpecie } from '@/types/ISpecie';
 import { IAnimal } from '@/types/IAnimal';
 import AppLayout from '@/layouts/app-layout';
+import { Badge } from '@/components/ui/badge';
 import { type BreadcrumbItem } from '@/types';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,6 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,6 +19,17 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/animals',
     },
 ];
+
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+interface PaginatedAnimals {
+    data: IAnimal[];
+    links: PaginationLink[];
+}
 
 interface PageProps extends InertiaPageProps {
     success?: string;
@@ -42,7 +53,8 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
         }
     }, [props.success, props.access]);
 
-    const [animals, setAnimals] = useState<IAnimal[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [animals, setAnimals] = useState<PaginatedAnimals>({ data: [], links: []});
     const [breed, setBreed] = useState<string>('');
     const [query, setQuery] = useState<string>('');
     const [gender, setGender] = useState<string>('');
@@ -60,9 +72,10 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                 if (status) params.append("filter[adoption_status]", status);
                 if (specie) params.append("filter[breed.specie_id]", specie);
                 if (organization) params.append("filter[organization_id]", organization);
+                params.append("page", currentPage.toString());
 
                 const response = await fetch(`/search?${params.toString()}`);
-                const data: IAnimal[] = await response.json();
+                const data: PaginatedAnimals = await response.json();
                 setAnimals(data);
             } catch (error) {
                 console.error(`Erreur : ${error}`);
@@ -70,7 +83,7 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
         }
 
         fetchAnimals().then();
-    }, [query, gender, status, breed, organization, specie]);
+    }, [query, gender, status, breed, organization, specie, currentPage]);
 
     const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
         setQuery(e.currentTarget.value);
@@ -186,9 +199,9 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                             R&eacute;initialiser
                         </Button>
                     </div>
-                    {animals.length > 0 ? (
+                    {animals.data.length > 0 ? (
                         <div className={'mt-8 flex flex-wrap justify-center gap-8'}>
-                            {animals.map((animal) => (
+                            {animals.data.map((animal) => (
                                 <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug})} key={animal.id} className={`w-[250px] rounded-lg bg-[#fff] dark:bg-[#1c1e21] shadow-lg ${animal.adoption_status === `Adopté` ? "pointer-events-none opacity-50" : ""}`}>
                                     <div className={'relative'}>
                                         {/*<img className={'h-auto rounded-t-lg'} src={animal.photo?.medium ? `/storage${animal.photo.medium}` : 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' } alt={`Photo de ${animal.name}`} width={250} height={190} />*/}
@@ -297,11 +310,29 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                         </p>
                     )}
                 </div>
+                <div className="my-8 flex gap-2 w-full justify-center h-fit">
+                    {animals.links.map((link: PaginationLink, index: number) => (
+                            <Link
+                                title={link.label}
+                                key={index}
+                                href={link.url || '#'}
+                                className={`rounded border px-4 py-2 ${link.active ? 'bg-gray-200 text-black' : 'text-gray-400'}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (link.url) {
+                                        const url = new URL(link.url);
+                                        const page = url.searchParams.get('page');
+                                        if (page) setCurrentPage(Number(page));
+                                    }
+                                }}
+                            >
+                                <span dangerouslySetInnerHTML={{ __html: link.label }} />
+                            </Link>
+                        ))}
+                </div>
             </div>
         </AppLayout>
     );
 };
 
 export default Animals;
-
-// TODO : Filtres (plus récents, sans adoption) + Pagination
