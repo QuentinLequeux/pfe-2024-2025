@@ -1,6 +1,7 @@
 import React from 'react';
 import { Ban } from 'lucide-react';
 import { IAnimal } from '@/types/IAnimal';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link, usePage } from '@inertiajs/react';
 
@@ -23,7 +24,10 @@ const Card = () => {
                     <div className={'relative'}>
                         {/*<img className={'rounded-t-lg'} src={animal.photo?.medium ? `/storage${animal.photo.medium}` : 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' } alt={`Photo de ${animal.name}`} width={250} height={190} />*/}
                         <img className={'rounded-t-lg'} src={animal.photo_url?.medium ?? 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' } alt={`Photo de ${animal.name}`} width={250} height={190} />
-                        <div
+                        <Badge className={`absolute top-2 right-2 text-black ${animal.adoption_status === 'En attente' ? 'bg-main' : animal.adoption_status === 'Disponible' ? 'bg-[#A7DE98]' : animal.adoption_status === 'Adopté' ? 'bg-[#B74553] text-[#fff]' : 'bg-[#fff]'}`}>
+                            {animal.adoption_status}
+                        </Badge>
+                        {/*<div
                             className={`absolute bottom-0 w-full ${
                                 animal.adoption_status === 'En attente'
                                     ? 'bg-main'
@@ -35,7 +39,7 @@ const Card = () => {
                             }`}
                         >
                             <p className={'text-center text-black'}>{animal.adoption_status}</p>
-                        </div>
+                        </div>*/}
                     </div>
                     <p className={'p-6 text-center text-2xl font-bold'}>{animal.name}</p>
                     <div className={'bg-main/25 m-auto mb-2 flex w-[80%] justify-center rounded-md p-1 text-black dark:text-white'}>
