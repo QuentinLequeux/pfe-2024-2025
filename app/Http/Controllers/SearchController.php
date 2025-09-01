@@ -58,9 +58,15 @@ class SearchController extends Controller
         }
 
         foreach ($animals as $animal) {
-            $animal->photo_url = $animal->photo
-                ? Storage::disk('s3')->url($animal->photo)
-                : null;
+            if ($animal->photo) {
+                $animal->photo = [
+                    'large' => Storage::disk('s3')->url($animal->photo['large']),
+                    'medium' => Storage::disk('s3')->url($animal->photo['medium']),
+                    'small' => Storage::disk('s3')->url($animal->photo['small']),
+                ];
+            } else {
+             $animal->photo = null;
+            }
         }
 
         return response()->json($animals);
