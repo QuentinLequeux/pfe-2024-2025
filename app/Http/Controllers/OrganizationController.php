@@ -50,9 +50,15 @@ class OrganizationController extends Controller
             ->paginate(10);
 
         foreach ($animals as $animal) {
-            $animal->photo_url = $animal->photo
-                ? Storage::disk('s3')->url($animal->photo)
-                : null;
+            if ($animal->photo) {
+                $animal->photo_url = [
+                    'large' => Storage::disk('s3')->url($animal->photo['large']),
+                    'medium' => Storage::disk('s3')->url($animal->photo['medium']),
+                    'small' => Storage::disk('s3')->url($animal->photo['small']),
+                ];
+            } else {
+                $animal->photo_url = null;
+            }
         }
 
         return Inertia::render('organization/animals', [

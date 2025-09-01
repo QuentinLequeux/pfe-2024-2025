@@ -37,9 +37,15 @@ class AnimalController extends Controller
         $organizations = Organization::all();
 
         foreach ($animals as $animal) {
-            $animal->photo_url = $animal->photo
-                ? Storage::disk('s3')->url($animal->photo)
-                : null;
+            if ($animal->photo) {
+                $animal->photo_url = [
+                    'large' => Storage::disk('s3')->url($animal->photo['large']),
+                    'medium' => Storage::disk('s3')->url($animal->photo['medium']),
+                    'small' => Storage::disk('s3')->url($animal->photo['small']),
+                ];
+            } else {
+                $animal->photo_url = null;
+            }
         }
 
         return Inertia::render('animals/animals', [
@@ -84,7 +90,7 @@ class AnimalController extends Controller
             return redirect()->route('animals.show', $animal)->with('access', 'Vous devez appartenir à une organisation pour modifier un animal.');
         }
 
-        $animal->photo_url = Storage::disk('s3')->url($animal->photo);
+        $animal->photo_url = Storage::disk('s3')->url($animal->photo['large']);
 
         return Inertia::render('animals/edit', [
             'animal' => $animal,
@@ -113,7 +119,8 @@ class AnimalController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $validated['photo'] = $this->storeAndResizeImage($request->file('photo'));
+            $imagePaths = $this->storeAndResizeImage($request->file('photo'));
+            $validated['photo'] = json_encode($imagePaths);
         }
 
         Animal::create($validated);

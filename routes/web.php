@@ -28,9 +28,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/animals/{animal:slug}', function (Animal $animal) {
         //$animal = Animal::with('organization', 'breed')->findOrFail($animal->id);
-        $animal->photo_url = $animal->photo
-        ? Storage::disk('s3')->url($animal->photo)
-            : null;
+        if ($animal->photo) {
+            $animal->photo_url = [
+                'large' => Storage::disk('s3')->url($animal->photo['large']),
+                'medium' => Storage::disk('s3')->url($animal->photo['medium']),
+                'small' => Storage::disk('s3')->url($animal->photo['small']),
+            ];
+        } else {
+            $animal->photo_url = null;
+        }
+
         $animals = Animal::with('breed')
             ->withCount('sponsors')
             ->where('id', '!=', $animal->id)
@@ -47,9 +54,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->get();
 
         foreach ($animals as $a) {
-            $a->photo_url = $a->photo
-                ? Storage::disk('s3')->url($a->photo)
-                : null;
+            if ($a->photo) {
+                $a->photo_url = [
+                    'large' => Storage::disk('s3')->url($a->photo['large']),
+                    'medium' => Storage::disk('s3')->url($a->photo['medium']),
+                    'small' => Storage::disk('s3')->url($a->photo['small']),
+                ];
+            } else {
+                $a->photo_url = null;
+            }
         }
 
         return Inertia::render('animals/show', ['animal' => $animal->load('organization', 'breed'), 'userRole' => auth()->user()->getRoleNames(), 'user' => auth()->user(), 'animals' => ['data' => $animals, 'links' => []]]);
@@ -67,9 +80,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $currentItems = $unique->slice(($currentPage - 1) * $perPage, $perPage);
 
         foreach ($currentItems as $animal) {
-            $animal->photo_url = $animal->photo
-                ? Storage::disk('s3')->url($animal->photo)
-                : null;
+            if ($animal->photo) {
+                $animal->photo_url = [
+                    'large' => Storage::disk('s3')->url($animal->photo['large']),
+                    'medium' => Storage::disk('s3')->url($animal->photo['medium']),
+                    'small' => Storage::disk('s3')->url($animal->photo['small']),
+                ];
+            } else {
+                $animal->photo_url = null;
+            }
         }
 
         $paginated = new LengthAwarePaginator(
