@@ -32,8 +32,7 @@ class SearchController extends Controller
     ")
                 ->orderBy('sponsors_count', 'asc')
                 ->orderByRaw('RAND()')
-                ->when($limit, fn ($q) => $q->limit($limit))
-                ->get();
+                ->paginate(10);
         } else {
             $animals = QueryBuilder::for(Animal::with('breed'))->withCount('sponsors')
                 ->allowedFilters([
@@ -54,7 +53,7 @@ class SearchController extends Controller
     ")
                 ->orderBy('sponsors_count', 'asc')
                 ->orderByRaw('RAND()')
-                ->when($limit, fn($q) => $q->limit((int) $limit))->get();
+                ->paginate(10);
         }
 
         foreach ($animals as $animal) {

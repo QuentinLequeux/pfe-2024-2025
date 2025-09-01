@@ -65,7 +65,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             }
         }
 
-        return Inertia::render('animals/show', ['animal' => $animal->load('organization', 'breed'), 'userRole' => auth()->user()->getRoleNames(), 'user' => auth()->user(), 'animals' => ['data' => $animals, 'links' => []]]);
+        return Inertia::render('animals/show', [
+            'animal' => $animal->load('organization', 'breed')->loadCount('sponsors')->loadSum('sponsors', 'amount'),
+            'userRole' => auth()->user()->getRoleNames(),
+            'user' => auth()->user(),
+            'animals' => ['data' => $animals, 'links' => []]
+        ]);
     })->name('animals.show');
 
     Route::get('/sponsorship', function () {

@@ -30,7 +30,6 @@ trait HandleImageUpload
             //Storage::disk('public')->put($path, (string) $image->encode());
             Storage::disk('s3')->put($path, (string) $image->encode(), 'public');
             $storedPaths[$key] = $path;
-            //$storedPaths[$key] = Storage::disk('s3')->url($path);
         }
 
         return $storedPaths;

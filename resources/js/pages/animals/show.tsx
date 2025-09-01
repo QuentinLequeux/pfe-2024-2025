@@ -1,15 +1,15 @@
 import { toast } from 'sonner';
 import { IUser } from '@/types/IUser';
-import React, { useEffect } from 'react';
 import { BreadcrumbItem } from '@/types';
 import { IAnimal } from '@/types/IAnimal';
 import { animals } from '../../assets/img';
 import AppLayout from '@/layouts/app-layout';
-import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Card from '@/components/petshelter/card';
+import React, { useEffect, useState } from 'react';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
+import { FacebookIcon, LinkIcon, MailIcon, Pencil, Trash2 } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -33,6 +33,14 @@ const Show: React.FC = () => {
             toast.warning(props.access);
         }
     }, [props.access]);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+        const url = `${window.location.origin}/animals/${animal.slug}`;
+        navigator.clipboard.writeText(url).then(() => setCopied(true));
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -79,6 +87,12 @@ const Show: React.FC = () => {
                                 <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
                                     Poids&nbsp;: <span className={'font-light'}>{animal.weight}&nbsp;kg</span>
                                 </p>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
+                                    Parrainages&nbsp;: <span className={'font-light'}>{animal.sponsors_count ?? 0}</span>
+                                </p>
+                                <p className={'mb-2 rounded-md border dark:border-white/50 py-2 px-4 text-center font-bold'}>
+                                    Dons&nbsp;: <span className={'font-light'}>{animal.sponsors_sum_amount ?? 0}&nbsp;€</span>
+                                </p>
                             </div>
                         </div>
                         <div className={'w-full sm:w-md md:w-md lg:w-2xl'}>
@@ -103,6 +117,33 @@ const Show: React.FC = () => {
                             >
                                 Parrainer
                             </Button>
+                            <div className={'flex gap-2'}>
+                                <Button
+                                    onClick={handleCopy}
+                                    title={'Copier le lien'}
+                                    className={'bg-main hover:bg-hover rounded-full text-black mt-2'}
+                                >
+                                    <LinkIcon/>
+                                </Button>
+                                <Button
+                                    title={'Partager par email'}
+                                    className={'bg-main hover:bg-hover rounded-full text-black mt-2'}
+                                    asChild
+                                >
+                                    <a href={`mailto:?subject=&body=${window.location.origin}/animal/${animal.slug}`}>
+                                        <MailIcon/>
+                                    </a>
+                                </Button>
+                                <Button
+                                    title={'Partager via Facebook'}
+                                    className={'bg-main hover:bg-hover rounded-full text-black mt-2'}
+                                    asChild
+                                >
+                                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.origin}/animal/${animal.slug}`} role={'link'} target={'_blank'} >
+                                        <FacebookIcon/>
+                                    </a>
+                                </Button>
+                            </div>
                         </div>
                         <div
                             className={

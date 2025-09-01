@@ -19,12 +19,45 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'Utilisateur']);
         Role::create(['name' => 'Administrateur']);
 
-        $user = User::factory()->create([
-            'name' => 'Administrateur',
-            'email' => 'administrateur@petshelter.be',
-        ]);
+        $users = [
+            [
+                'name' => 'Dominique',
+                'email' => 'dominique.vilain@hepl.be',
+            ],
+            [
+                'name' => 'Myriam',
+                'email' => 'myriam.dupont@hepl.be',
+            ],
+            [
+                'name' => 'Maude',
+                'email' => 'maud.wera@hepl.be',
+            ],
+            [
+                'name' => 'François',
+                'email' => 'francois.parmentier@hepl.be',
+            ],
+            [
+                'name' => 'Toon',
+                'email' => 'toon.vandenbos@hepl.be',
+            ],
+            [
+                'name' => 'Cedric',
+                'email' => 'cedric.muller@hepl.be',
+            ],
+            [
+                'name' => 'Daniel',
+                'email' => 'daniel.schreurs@hepl.be',
+            ],
+            [
+                'name' => 'Administrateur',
+                'email' => 'quentin.lequeux@student.hepl.be',
+            ],
+        ];
 
-        $user->assignRole('Administrateur');
+        foreach ($users as $user) {
+            User::factory()->create($user);
+            $user->assignRole('Administrateur');
+        }
 
         $species = ['Chien', 'Chat'];
 
@@ -125,5 +158,3 @@ class DatabaseSeeder extends Seeder
         }
     }
 }
-
-// Factory utilisateurs
