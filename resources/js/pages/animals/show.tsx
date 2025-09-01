@@ -47,8 +47,8 @@ const Show: React.FC = () => {
                     <div className={'h-fit rounded-2xl bg-[#fff] p-6 shadow-md max-sm:w-[100%] dark:bg-[#1c1e21]'}>
                         <div className={'flex flex-wrap gap-8'}>
                             <div className={'relative max-h-[300px] w-full min-w-[300px] overflow-hidden rounded-2xl bg-[#eee] lg:w-[60%]'}>
-                                {/*<img src={animal.photo === null ? 'https://fastly.picsum.photos/id/237/400/300.jpg?hmac=32RuLp2fb9I2fzPP3U-6REXQ6sZAbN8ML7_dt3R7wQ8' : `/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} width={400} height={300} />*/}
-                                <img src={animal.photo_url === null ? 'https://fastly.picsum.photos/id/237/400/300.jpg?hmac=32RuLp2fb9I2fzPP3U-6REXQ6sZAbN8ML7_dt3R7wQ8' : `${animal.photo_url}`} alt={`Photo de ${animal.name}`} className={'h-auto w-full'} width={400} height={300} />
+                                {/*<img src={animal.photo?.large ? `/storage${animal.photo.large}` : 'https://fastly.picsum.photos/id/237/400/300.jpg?hmac=32RuLp2fb9I2fzPP3U-6REXQ6sZAbN8ML7_dt3R7wQ8' } alt={`Photo de ${animal.name}`} className={'h-auto w-full'} width={400} height={300} />*/}
+                                <img src={animal.photo_url?.large  ?? 'https://fastly.picsum.photos/id/237/400/300.jpg?hmac=32RuLp2fb9I2fzPP3U-6REXQ6sZAbN8ML7_dt3R7wQ8' } alt={`Photo de ${animal.name}`} className={'h-auto w-full'} width={400} height={300} />
                                 <div
                                     className={`absolute bottom-0 mt-auto w-full rounded-b-2xl ${
                                         animal.adoption_status === 'En attente'
@@ -176,15 +176,17 @@ const Show: React.FC = () => {
                         <div className={'h-[50px] w-[50px] rounded-full bg-gray-300'}>
                             {/*<img
                                 className={'h-full rounded-full'}
-                                src={animal.photo === null ? 'https://fastly.picsum.photos/id/237/50/50.jpg?hmac=9cCVRLgc5HmY_XbEZ4SSgnaR5CqTMUtHPZ04MCvtH-k' : `/storage/${animal.photo}`}
+                                src={animal.photo?.small ? `/storage${animal.photo.small}` : 'https://fastly.picsum.photos/id/237/50/50.jpg?hmac=9cCVRLgc5HmY_XbEZ4SSgnaR5CqTMUtHPZ04MCvtH-k' }
                                 alt={`Photo de ${animal.name}`}
                                 width={50}
                                 height={50}
                             />*/}
                             <img
                                 className={'h-full rounded-full'}
-                                src={animal.photo_url === null ? 'https://fastly.picsum.photos/id/237/50/50.jpg?hmac=9cCVRLgc5HmY_XbEZ4SSgnaR5CqTMUtHPZ04MCvtH-k' : `${animal.photo_url}`}
+                                src={animal.photo_url?.small ?? 'https://fastly.picsum.photos/id/237/50/50.jpg?hmac=9cCVRLgc5HmY_XbEZ4SSgnaR5CqTMUtHPZ04MCvtH-k' }
                                 alt={`Photo de ${animal.name}`}
+                                width={50}
+                                height={50}
                             />
                         </div>
                         <div className={'max-w-[225px]'}>

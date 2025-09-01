@@ -59,13 +59,13 @@ class SearchController extends Controller
 
         foreach ($animals as $animal) {
             if ($animal->photo) {
-                $animal->photo = [
+                $animal->photo_url = [
                     'large' => Storage::disk('s3')->url($animal->photo['large']),
                     'medium' => Storage::disk('s3')->url($animal->photo['medium']),
                     'small' => Storage::disk('s3')->url($animal->photo['small']),
                 ];
             } else {
-             $animal->photo = null;
+             $animal->photo_url = null;
             }
         }
 
