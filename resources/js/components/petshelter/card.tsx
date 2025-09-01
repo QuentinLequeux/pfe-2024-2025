@@ -21,8 +21,8 @@ const Card = () => {
             {animals.data.map((animal:IAnimal) => (
                 <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug })} key={animal.id} className={'h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21]'}>
                     <div className={'relative'}>
-                        <img className={'rounded-t-lg'} src={animal.photo_url} alt={`Photo de ${animal.name}`} />
-                        {/*<img className={'rounded-t-lg'} src={`/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} />*/}
+                        {/*<img className={'rounded-t-lg'} src={animal.photo === null ? 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' : `/storage/${animal.photo}`} alt={`Photo de ${animal.name}`} width={250} height={190} />*/}
+                        <img className={'rounded-t-lg'} src={animal.photo_url === null ? 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' : `${animal.photo_url}`} alt={`Photo de ${animal.name}`} />
                         <div
                             className={`absolute bottom-0 w-full ${
                                 animal.adoption_status === 'En attente'

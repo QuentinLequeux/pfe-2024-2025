@@ -23,8 +23,6 @@ class AnimalFactory extends Factory
             'adoption_status' => $this->faker->randomElement(['Disponible', 'En attente', 'Adopté']), // Génère un statut aléatoire.
             'breed_id' => Breeds::inRandomOrder()->first()?->id ?? 1, // Récupère un identifiant aléatoire valide ou 1 par défaut
             'organization_id' => Organization::inRandomOrder()->first()->id ?? 1, // Génère un identifiant aléatoire entre 1 et 5.
-            'photo' => 'https://picsum.photos/id/237/400/300',
-            //'photo' => 'eeaR4JFDvc4Qh9Mt3uGulmiOftJk6lLN4Vqu4mJs.jpg',
         ];
     }
 }
