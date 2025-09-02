@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('breed_id')->constrained(); // Clé étrangère vers la table "races"
             $table->foreignId('organization_id')->constrained(); // Clé étrangère vers la table "organization"
             $table->timestamps(); // created_at - updated_at
+            $table->softDeletes();
         });
     }
 
