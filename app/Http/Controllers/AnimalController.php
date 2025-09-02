@@ -90,9 +90,9 @@ class AnimalController extends Controller
             return redirect()->route('animals.show', $animal)->with('access', 'Vous devez appartenir à une organisation pour modifier un animal.');
         }
 
-        $animal->photo_url = [
-            'large' => Storage::disk('s3')->url($animal->photo['large'])
-        ];
+        $animal->photo_url = $animal->photo
+            ? ['large' => Storage::disk('s3')->url($animal->photo['large'])]
+            : null;
 
         return Inertia::render('animals/edit', [
             'animal' => $animal,
