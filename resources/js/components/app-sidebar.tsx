@@ -1,18 +1,11 @@
+import AppLogo from './app-logo';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { NavFooter } from '@/components/nav-footer';
+import { Figma, FilesIcon, Github, HeartHandshakeIcon, HouseIcon, PawPrintIcon, WarehouseIcon } from 'lucide-react';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import {
-    BuildingIcon,
-    Figma, FilesIcon,
-    Github,
-    HeartHandshakeIcon,
-    HouseIcon,
-    PawPrintIcon
-} from 'lucide-react';
-import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
@@ -33,7 +26,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Refuges',
         url: '/organizations',
-        icon: BuildingIcon,
+        icon: WarehouseIcon,
     },
     {
         title: 'Documents',
