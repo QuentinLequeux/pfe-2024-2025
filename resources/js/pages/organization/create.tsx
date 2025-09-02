@@ -58,7 +58,9 @@ export default function Create() {
                             placeholder={'Société protectrice des animaux'}
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
+                            aria-describedby={'name-help'}
                         />
+                        <p id={'name-help'} className={'mt-1 text-xs'}>Maximum 255 caractères.</p>
                         <InputError message={errors.name} />
                     </div>
                     <div>
@@ -72,7 +74,9 @@ export default function Create() {
                             placeholder={'Rue Peetermans 80, 4100 Seraing'}
                             value={data.address}
                             onChange={(e) => setData('address', e.target.value)}
+                            aria-describedby={'address-help'}
                         />
+                        <p id={'address-help'} className={'mt-1 text-xs'}>Rue, num&eacute;ro, code postal et ville.</p>
                         <InputError message={errors.address} />
                     </div>
                     <div>
@@ -86,7 +90,9 @@ export default function Create() {
                             placeholder={'+32456123456'}
                             value={data.phone}
                             onChange={(e) => setData('phone', e.target.value)}
+                            aria-describedby={'phone-help'}
                         />
+                        <p id={'phone-help'} className={'mt-1 text-xs'}>Format&nbsp;: +32 suivi du num&eacute;ro sans espaces.</p>
                         <InputError message={errors.phone} />
                     </div>
                     <div>
@@ -100,7 +106,9 @@ export default function Create() {
                             placeholder={'example@example.com'}
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
+                            aria-describedby={'email-help'}
                         />
+                        <p id={'email-help'} className={'mt-1 text-xs'}>Doit être une adresse email valide.</p>
                         <InputError message={errors.email} />
                     </div>
                     <div>
@@ -114,7 +122,9 @@ export default function Create() {
                             placeholder={'BE012345678910111'}
                             value={data.iban}
                             onChange={(e) => setData('iban', e.target.value)}
+                            aria-describedby={'iban-help'}
                         />
+                        <p id={'iban-help'} className={'mt-1 text-xs'}>Format&nbsp;: BE suivi de 14 chiffres.</p>
                         <InputError message={errors.iban} />
                     </div>
                     <div>
@@ -128,7 +138,9 @@ export default function Create() {
                             placeholder={'https://www.example.be'}
                             value={data.website}
                             onChange={(e) => setData('website', e.target.value)}
+                            aria-describedby={'website-help'}
                         />
+                        <p id={'website-help'} className={'mt-1 text-xs'}>Format&nbsp;: https://example.be</p>
                         <InputError message={errors.website} />
                     </div>
                     <Button title={'Créer'} type={'submit'} className={'bg-main hover:bg-hover font-bold text-black mt-4 w-full'}>

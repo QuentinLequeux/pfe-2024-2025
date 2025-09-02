@@ -129,8 +129,9 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     required
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
+                                    aria-describedby={'animal-help'}
                                 />
-                                <p className={'mt-1 text-xs'}>Minimum 3 caract&egrave;res.</p>
+                                <p id={'animal-help'} className={'mt-1 text-xs'}>Minimum 3 caract&egrave;res.</p>
                                 <InputError message={errors.name} />
                             </div>
                             <div className={'w-full min-w-[200px]'}>
@@ -144,8 +145,9 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     required
                                     value={data.age}
                                     onChange={(e) => setData('age', e.target.value)}
+                                    aria-describedby={'age-help'}
                                 />
-                                <p className={'mt-1 text-xs'}>Age maximum : 20 ans.</p>
+                                <p id={'age-help'} className={'mt-1 text-xs'}>Age maximum : 20 ans.</p>
                                 <InputError message={errors.age} />
                             </div>
                         </div>
@@ -158,8 +160,9 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                     placeholder={'Poids'}
                                     value={data.weight}
                                     onChange={(e) => setData('weight', e.target.value)}
+                                    aria-describedby={'weight-help'}
                                 />
-                                <p className={'mt-1 text-xs'}>Poids maximum : 100kg.</p>
+                                <p id={'weight-help'} className={'mt-1 text-xs'}>Poids maximum : 100kg.</p>
                                 <InputError message={errors.weight} />
                             </div>
                             <div className={'w-full'}>
@@ -318,8 +321,9 @@ const Create = ({ organization, statuses, breeds, gender }: Props) => {
                                 className={'max-h-[300px]'}
                                 value={data.description}
                                 onChange={(e) => setData('description', e.target.value)}
+                                aria-describedby={'description-help'}
                             />
-                            <p className={'mt-1 text-xs'}>Maximum 2000 caract&egrave;res.</p>
+                            <p id={'description-help'} className={'mt-1 text-xs'}>Maximum 2000 caract&egrave;res.</p>
                             <InputError message={errors.description} />
                         </div>
                         <Button title={'Ajouter'} type={'submit'} className={'bg-main hover:bg-hover font-bold text-black w-[40%] max-md:w-full'}>
