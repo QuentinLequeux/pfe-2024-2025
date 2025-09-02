@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/animals/{animal:slug}', function (Animal $animal) {
         //$animal = Animal::with('organization', 'breed')->findOrFail($animal->id);
+
         if ($animal->photo) {
             $animal->photo_url = [
                 'large' => Storage::disk('s3')->url($animal->photo['large']),
@@ -113,12 +114,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('sponsorship');
 
     Route::get('/history', function () {
-        $perPage = 15;
         return Inertia::render('sponsorship/history', [
             'transactions' => QueryBuilder::for(Transaction::where('user_id', auth()->id()))
+                ->with(['animal', 'organization'])
                 ->allowedSorts(['created_at'])
                 ->defaultSort('-created_at')
-                ->paginate($perPage)
+                ->paginate(15)
                 ->withQueryString(),
             'total' => Transaction::where('user_id', auth()->id())->sum('amount'),
             'sort' => request('sort', '-created_at'),

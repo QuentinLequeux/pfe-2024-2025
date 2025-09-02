@@ -1,6 +1,7 @@
 import { Ban } from 'lucide-react';
 import { BreadcrumbItem } from '@/types';
 import AppLayout from '@/layouts/app-layout';
+import { Badge } from '@/components/ui/badge';
 import { ITransaction } from '@/types/ITransaction';
 import { Head, Link, router } from '@inertiajs/react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -70,6 +71,12 @@ export default function History({ transactions, total, sort }: props) {
                             <TableHead className={'font-bold'}>
                                 M&eacute;thode
                             </TableHead>
+                            <TableHead className={'font-bold'}>
+                                Refuge
+                            </TableHead>
+                            <TableHead className={'font-bold'}>
+                                Animal
+                            </TableHead>
                             <TableHead className={'text-right font-bold'}>
                                 Montant
                             </TableHead>
@@ -99,11 +106,19 @@ export default function History({ transactions, total, sort }: props) {
                                     <TableCell>
                                         {transaction.stripe_id}
                                     </TableCell>
-                                    <TableCell>
-                                        {transaction.status === 'complete' ? 'Validée' : transaction.status}
+                                    <TableCell className={'flex items-center gap-2'}>
+                                        <Badge className={'bg-[#51A13D] dark:text-white'}>
+                                            {transaction.status === 'complete' ? 'Validée' : transaction.status}
+                                        </Badge>
                                     </TableCell>
                                     <TableCell>
                                         {transaction.method === 'card' ? 'Carte' : transaction.method}
+                                    </TableCell>
+                                    <TableCell>
+                                        {transaction.organization?.name ?? '-'}
+                                    </TableCell>
+                                    <TableCell>
+                                        {transaction.animal?.name ?? '-'}
                                     </TableCell>
                                     <TableCell className={'text-right'}>
                                         {transaction.amount}&nbsp;€
@@ -114,7 +129,7 @@ export default function History({ transactions, total, sort }: props) {
                     </TableBody>
                     <TableFooter>
                         <TableRow>
-                            <TableCell colSpan={4}>
+                            <TableCell colSpan={6}>
                                 Total
                             </TableCell>
                             <TableCell className={'text-right font-bold'}>
@@ -140,4 +155,4 @@ export default function History({ transactions, total, sort }: props) {
     )
 }
 
-// TODO : style Table
+// TODO : reçu(PDF).

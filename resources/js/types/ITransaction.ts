@@ -1,5 +1,13 @@
 export interface ITransaction {
     id: number;
+    animal: {
+        id: number;
+        name: string;
+    };
+    organization: {
+      id: number;
+      name: string;
+    };
     stripe_id: string;
     amount: number;
     currency: string;
