@@ -85,7 +85,7 @@ export default function History({ transactions, total, sort }: props) {
                     <TableBody>
                         {transactions.data.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={5}>
+                                <TableCell colSpan={7}>
                                     <div className={'flex justify-center items-center p-2'}>
                                         <Ban className={'mr-2'}/>Aucune donn&eacute;es.
                                     </div>

@@ -59,6 +59,11 @@ class Animal extends Model
 
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'sponsorships');
+    }
+
     public function breed()
     {
         return $this->belongsTo(Breeds::class); // Un animal a une race.

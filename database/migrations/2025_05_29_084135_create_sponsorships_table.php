@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sponsorships', function (Blueprint $table) {
             $table->id();
-            $table->string('stripe_session_id')->unique();
+            $table->string('stripe_session_id')->unique()->nullable();
             $table->foreignId('user_id');
             $table->foreignId('animal_id');
             $table->integer('amount');

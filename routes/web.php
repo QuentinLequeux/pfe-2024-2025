@@ -77,15 +77,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sponsorship', function () {
         $user = auth()->user();
 
-        $sponsored = $user->sponsoredAnimals()->with('breed')->withCount('sponsors')->get();
+        $query = $user->sponsoredAnimals()
+            ->with('breed')
+            ->withCount('sponsors')
+            ->orderByRaw("
+            CASE adoption_status
+                WHEN 'Disponible' THEN 1
+                WHEN 'En attente' THEN 2
+                WHEN 'Adopté' THEN 3
+                ELSE 4
+            END
+        ")
+            ->orderBy('sponsors_count', 'asc')
+            ->orderByRaw('RAND()');
 
-        $unique = $sponsored->unique('id')->values();
+        $paginated = $query->paginate(10);
 
-        $perPage = 10;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $unique->slice(($currentPage - 1) * $perPage, $perPage);
-
-        foreach ($currentItems as $animal) {
+        foreach ($paginated->items() as $animal) {
             if ($animal->photo) {
                 $animal->photo_url = [
                     'large' => Storage::disk('s3')->url($animal->photo['large']),
@@ -96,17 +104,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 $animal->photo_url = null;
             }
         }
-
-        $paginated = new LengthAwarePaginator(
-            $currentItems,
-            $unique->count(),
-            $perPage,
-            $currentPage,
-            [
-                'path' => request()->url(),
-                'query' => request()->query(),
-            ]
-        );
 
         return Inertia::render('sponsorship/sponsorship', [
             'animals' => $paginated,
