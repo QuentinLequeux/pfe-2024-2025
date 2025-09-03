@@ -80,7 +80,7 @@ export default function Create({ users, organizations, roles }: Props) {
             <div className={'flex flex-wrap'}>
                 <div className={'flex flex-col gap-4 p-6 w-[500px] max-md:w-full'}>
                     <h2 aria-level={2} role={'heading'} className={'text-xl font-bold'}>
-                        Cr&eacute;er une organisation
+                        Cr&eacute;er un refuge
                     </h2>
                     <p><span className={'text-orange-500'}>*</span>&nbsp;Champs obligatoires</p>
                     <form className={'flex flex-col gap-4'} onSubmit={submit}>
@@ -187,7 +187,7 @@ export default function Create({ users, organizations, roles }: Props) {
                 </div>
                 <div className={'flex flex-col gap-4 p-6 w-[500px] max-md:w-full'}>
                     <h2 aria-level={2} role={'heading'} className={'text-xl font-bold'}>
-                        Associer un utilisateur &agrave; une organisation
+                        Associer un utilisateur &agrave; un refuge
                     </h2>
                     <p>
                         <span className={'text-orange-500'}>*</span>&nbsp;Champs obligatoires

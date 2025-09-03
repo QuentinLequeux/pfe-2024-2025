@@ -310,7 +310,7 @@ const Animals = ({breeds, species, organizations}: PageProps) => {
                         </p>
                     )}
                 </div>
-                <div className="my-8 flex gap-2 w-full justify-center h-fit">
+                <div className="my-8 flex flex-wrap gap-2 w-full justify-center h-fit">
                     {animals.links.map((link: PaginationLink, index: number) => (
                             <Link
                                 title={link.label}
