@@ -59,7 +59,7 @@ export default function Welcome() {
                                 </Link>
                             </Button>
                             <div className={'w-[100%]'}>
-                                <img src={dashboard} alt={"Image d'une fiche animale"} className={'rounded-2xl shadow-2xl'} width={'1920'} height={'997'} />
+                                <img src={dashboard} alt={"Image d'une fiche animale"} className={'rounded-2xl shadow-2xl'} width={'1920'} height={'991'} />
                             </div>
                         </section>
                     </div>

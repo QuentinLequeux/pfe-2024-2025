@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Animal;
 use App\Models\Species;
+use App\Models\Transaction;
 use App\Models\Organization;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -151,9 +152,44 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
+        $allAnimals = collect();
+
         foreach ($organizations as $organization) {
             $organization = Organization::factory()->create($organization);
-            Animal::factory()->count(20)->create(['organization_id' => $organization->id]);
+            $animals = Animal::factory()->count(20)->create(['organization_id' => $organization->id]);
+            $allAnimals = $allAnimals->merge($animals);
+        }
+
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $randomAnimals = $allAnimals->random(rand(1, 5));
+
+            foreach ($randomAnimals as $animal) {
+                $user->animals()->attach($animal->id, [
+                    'amount' => 1,
+                    'sponsored_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+
+        foreach ($users as $user) {
+            $sponsoredAnimals = $user->animals;
+
+            foreach ($sponsoredAnimals as $animal) {
+                Transaction::create([
+                    'stripe_id' => 'pi_' . uniqid(),
+                    'amount' => rand(5, 50),
+                    'currency' => 'EUR',
+                    'status' => 'complete',
+                    'method' => 'card',
+                    'user_id' => $user->id,
+                    'animal_id' => $animal->id,
+                    'organization_id' => $animal->organization_id,
+                ]);
+            }
         }
     }
 }

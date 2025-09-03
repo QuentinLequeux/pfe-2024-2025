@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/animals/{animal:slug}', function (Animal $animal) {
         //$animal = Animal::with('organization', 'breed')->findOrFail($animal->id);
+
         if ($animal->photo) {
             $animal->photo_url = [
                 'large' => Storage::disk('s3')->url($animal->photo['large']),
@@ -76,15 +77,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sponsorship', function () {
         $user = auth()->user();
 
-        $sponsored = $user->sponsoredAnimals()->with('breed')->withCount('sponsors')->get();
+        $query = $user->sponsoredAnimals()
+            ->with('breed')
+            ->withCount('sponsors')
+            ->orderByRaw("
+            CASE adoption_status
+                WHEN 'Disponible' THEN 1
+                WHEN 'En attente' THEN 2
+                WHEN 'Adopté' THEN 3
+                ELSE 4
+            END
+        ")
+            ->orderBy('sponsors_count', 'asc')
+            ->orderByRaw('RAND()');
 
-        $unique = $sponsored->unique('id')->values();
+        $paginated = $query->paginate(10);
 
-        $perPage = 10;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $unique->slice(($currentPage - 1) * $perPage, $perPage);
-
-        foreach ($currentItems as $animal) {
+        foreach ($paginated->items() as $animal) {
             if ($animal->photo) {
                 $animal->photo_url = [
                     'large' => Storage::disk('s3')->url($animal->photo['large']),
@@ -96,29 +105,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
             }
         }
 
-        $paginated = new LengthAwarePaginator(
-            $currentItems,
-            $unique->count(),
-            $perPage,
-            $currentPage,
-            [
-                'path' => request()->url(),
-                'query' => request()->query(),
-            ]
-        );
-
         return Inertia::render('sponsorship/sponsorship', [
             'animals' => $paginated,
         ]);
     })->name('sponsorship');
 
     Route::get('/history', function () {
-        $perPage = 15;
         return Inertia::render('sponsorship/history', [
             'transactions' => QueryBuilder::for(Transaction::where('user_id', auth()->id()))
+                ->with(['animal', 'organization'])
                 ->allowedSorts(['created_at'])
                 ->defaultSort('-created_at')
-                ->paginate($perPage)
+                ->paginate(15)
                 ->withQueryString(),
             'total' => Transaction::where('user_id', auth()->id())->sum('amount'),
             'sort' => request('sort', '-created_at'),

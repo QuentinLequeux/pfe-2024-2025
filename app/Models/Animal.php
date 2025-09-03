@@ -5,6 +5,7 @@ namespace App\Models;
 use Str;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -15,6 +16,7 @@ class Animal extends Model
 {
     use HasFactory;
     use Searchable;
+    use SoftDeletes;
 
     /**
      * Get the indexable data array for the model.
@@ -55,6 +57,11 @@ class Animal extends Model
 
         ]);
 
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'sponsorships');
     }
 
     public function breed()
