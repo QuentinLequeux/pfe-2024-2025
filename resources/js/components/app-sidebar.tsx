@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { NavFooter } from '@/components/nav-footer';
-import { Figma, FilesIcon, Github, HeartHandshakeIcon, HouseIcon, PawPrintIcon, WarehouseIcon } from 'lucide-react';
+import { BuildingIcon, Figma, FilesIcon, Github, HeartHandshakeIcon, HouseIcon, PawPrintIcon, WarehouseIcon } from 'lucide-react';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 
 const mainNavItems: NavItem[] = [
@@ -27,6 +27,12 @@ const mainNavItems: NavItem[] = [
         title: 'Refuges',
         url: '/organizations',
         icon: WarehouseIcon,
+    },
+    {
+        title: 'Administration',
+        url: '#',
+        icon: BuildingIcon,
+        roles: ['Administrateur'],
     },
     {
         title: 'Documents',
