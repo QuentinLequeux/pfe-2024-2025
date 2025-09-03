@@ -20,7 +20,7 @@ const Card = () => {
     return (
         <div className={'flex flex-wrap gap-8 m-2 justify-center h-fit'}>
             {animals.data.map((animal:IAnimal) => (
-                <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug })} key={animal.id} className={`h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21] bg-[#fff] ${animal.adoption_status === `Adopté` ? "pointer-events-none opacity-50" : ""}`}>
+                <Link title={`Vers la fiche de ${animal.name}`} href={route('animals.show', { animal: animal.slug })} key={animal.id} className={`hover:scale-105 h-auto w-[250px] rounded-lg shadow-lg dark:bg-[#1c1e21] bg-[#fff] ${animal.adoption_status === `Adopté` ? "pointer-events-none opacity-50" : ""}`}>
                     <div className={'relative'}>
                         {/*<img className={'rounded-t-lg'} src={animal.photo?.medium ? `/storage${animal.photo.medium}` : 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' } alt={`Photo de ${animal.name}`} width={250} height={190} />*/}
                         <img className={'rounded-t-lg'} src={animal.photo_url?.medium ?? 'https://fastly.picsum.photos/id/237/250/190.jpg?hmac=Ytps3oz1RzMVeuF4dclkzZL2SmeBKE_2-sWjFcjVRRk' } alt={`Photo de ${animal.name}`} width={250} height={190} />

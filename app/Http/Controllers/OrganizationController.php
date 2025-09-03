@@ -15,22 +15,15 @@ class OrganizationController extends Controller
 {
     use AuthorizesRequests;
 
-    public function show()
-    {
-        $this->authorize('viewAny', Organization::class);
-
-        return Inertia::render('organization/admin', [
-            'roles' => Role::all(['id', 'name']),
-            'users' => User::select('id','email')->orderBy('email')->get(),
-            'organizations' => Organization::select('id','name')->orderBy('name')->get(),
-        ]);
-    }
-
     public function create()
     {
         $this->authorize('create', Organization::class);
 
-        return Inertia::render('organization/create');
+        return Inertia::render('organization/create', [
+            'roles' => Role::all(['id', 'name']),
+            'users' => User::select('id','email')->orderBy('email')->get(),
+            'organizations' => Organization::select('id','name')->orderBy('name')->get(),
+        ]);
     }
 
     public function byOrganization(Organization $organization)
@@ -76,7 +69,7 @@ class OrganizationController extends Controller
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:30|unique:organizations,phone',
             'email' => 'required|string|email|max:255|unique:organizations,email',
-            'iban' => 'required|string|max:255|unique:organizations,iban|regex:/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/',
+            'iban' => 'required|string|max:16|unique:organizations,iban|regex:/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/',
             'website' => 'required|string|max:255|unique:organizations,website|url',
         ]);
 
@@ -87,6 +80,8 @@ class OrganizationController extends Controller
 
     public function updateUserOrganization(Request $request)
     {
+        $this->authorize('create', Organization::class);
+
         $data = $request->validate([
             'user_id' => 'required|exists:users,id',
             'organization_id' => 'nullable|exists:organizations,id',
