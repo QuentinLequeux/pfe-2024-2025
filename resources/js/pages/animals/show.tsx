@@ -34,7 +34,6 @@ const Show: React.FC = () => {
         }
     }, [props.access]);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
@@ -123,7 +122,9 @@ const Show: React.FC = () => {
                                     title={'Copier le lien'}
                                     className={'bg-main hover:bg-hover rounded-full text-black mt-2'}
                                 >
-                                    <LinkIcon/>
+                                    <p>
+                                        {copied ? 'Lien copié' : <LinkIcon/>}
+                                    </p>
                                 </Button>
                                 <Button
                                     title={'Partager par email'}
