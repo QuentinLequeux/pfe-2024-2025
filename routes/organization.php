@@ -23,9 +23,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/organization/create', [OrganizationController::class, 'store'])
         ->name('organization.store');
 
-    Route::get('/organization/admin', [OrganizationController::class, 'show'])
-        ->name('organization.admin');
-
     Route::post('/organization/admin', [OrganizationController::class, 'updateUserOrganization'])
         ->name('organization.admin.update');
 });

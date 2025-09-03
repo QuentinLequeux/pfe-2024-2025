@@ -30,7 +30,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Administration',
-        url: '#',
+        url: '/organization/create',
         icon: BuildingIcon,
         roles: ['Administrateur'],
     },
